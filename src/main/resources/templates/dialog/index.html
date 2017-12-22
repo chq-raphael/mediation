@@ -1,0 +1,1474 @@
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <title>法律小崇</title>
+    <script th:src="@{/js/wx/vue.min.js}"></script>
+    <script th:src="@{/js/wx/jquery-2.1.1.js}"></script>
+    <script type="text/javascript" th:src="@{http://res.wx.qq.com/open/js/jweixin-1.2.0.js}"></script>
+    <script th:src="@{/js/wx/chat.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/wx/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/css/wx/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/wx/chat.css}" />
+    <link rel="stylesheet" th:href="@{/css/wx/iosSelect.css}" />
+    <link rel="stylesheet" th:href="@{/css/wx/swiper.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/wx/mediators.css}" />
+</head>
+
+<body onload="onPageLoad()" ontouchstart="">
+<div style="display: none" id="app">
+    <div v-show="chatShow" id="chat" class="app-wrap">
+        <header>
+            <div class="container">
+                <div class="back">
+                    <a href="JavaScript:history.back(-1)"><img src="/images/arrow-back.svg" />返回</a>
+                </div>
+                <div class="tit">智能法律机器人</div>
+                <div class="action"></div>
+            </div>
+        </header>
+
+        <div class="main" id="main">
+            <div class="container" id="container">
+                <div id="message">
+                    <div v-for="msg in message" :class="msg.from=='server' ? 'dialogue dia-left fadeInLeft animated' : 'dialogue dia-right'">
+                        <img class="portrait" :src="msg.from=='server' ? '/images/logo_xc.png' : '/images/portrait-2@3x.svg'" />
+                        <div :class="msg.type=='prediction' || msg.type=='mediators' ? 'text result-box' : 'text' ">
+                            <span v-if="msg.from=='server'" v-show="msg.type =='voice' || msg.type == 'text'" v-html="msg.text"></span>
+                            <span v-if="msg.from=='client'" v-show="msg.type =='voice' || msg.type == 'text'" v-text="msg.text"></span>
+                            <div :class="msg.type=='voice' ? 'voice-box' : 'chat-hidden'" v-on:click="onVoiceClick(msg)">
+                                <span v-text="msg.voiceSecond+'′'"></span>
+                                <i :class="msg.running ? 'icon icon-voice-file-run' : 'icon icon-voice-file'"></i>
+                            </div>
+                            <a v-show="msg.type=='prediction' || msg.type=='mediators'" style="display: none;" v-on:click="msg.click" class="file">
+                                <img src="/images/file.svg" />
+                                <p v-text="msg.linkText"></p>
+                                <p>点击查看</p>
+                            </a>
+                            <div v-show="msg.type=='calculateResult'" class="compensation">
+                                <div class="head">
+                                    <h4>预估<span v-text="msg.title"></span></h4>
+                                    <div class="amount">￥<span v-text="msg.amount"></span></div>
+                                </div>
+                                <div class="content">该公式使用的数据为<span>2017</span>年度统计的<span>2016</span>年数据。<span v-show="rootAlias=='jtjf'"><br />公式未考虑交强险及责任比例。</span><br />计算得出的赔偿金额仅供参考使用，具体赔付多少以实际赔付金额为准。
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div :class="clientLoading ? 'chat-display' : 'chat-hidden' " id="clientLoding">
+                    <div class="dialogue dia-right">
+                        <img class="portrait" src="/images/portrait-2@3x.svg" />
+                        <div class="text">
+                            <div class="loader-inner ball-beat">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div :class="serverLoading ? 'chat-display' : 'chat-hidden' " id="serverLoding">
+                    <div class="dialogue dia-left fadeInLeft animated">
+                        <img class="portrait" src="/images/logo_xc.png" />
+                        <div class="text">
+                            <div class="loader-inner ball-beat">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <div :class="onFirstLevel || onLeafNode ? 'chat-hidden' :'mainclose'" onclick="onClose()">×</div>
+            <div :class="onFirstLevel || onTextInputNode ? 'form-control' : 'chat-hidden'">
+                <div class="container">
+                    <div v-show="!onTextInputNode" class="action">
+                        <a :class="voiceBoxDisplay ? 'list' : 'voice'" id="voice"></a>
+                    </div>
+                    <div :style="onTextInputNode ? 'left : 10px': ''" class="input-control">
+                        <textarea class="textarea" :value="inputText" :disabled="sendFormDisabled" id="input-action" oninput="onInputChange()" onblur="onInputBlur()" onfocus="onInputFocus()"></textarea>
+                    </div>
+                    <div class="btn-control">
+                        <button :disabled="sendFormDisabled || inputText==''" id="send" class="btn btn-primary" onmousedown="onSendClick()">发送
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <transition name="item-fade">
+                <div id="iscroll">
+                    <div v-show="itemDisplay" :class="showDoubleColumn  ? 'link-control-block two-col' : 'link-control-block'">
+                        <a v-for="i in items.nodes" v-on:click="items.clickFn(i)" v-text="i.text"></a>
+                    </div>
+                    <div v-if="itemHasScroll" class="icon-scrolldrop"></div>
+                </div>
+            </transition>
+            <transition name="voice-fade">
+                <div v-show="voiceBoxDisplay" id="voice-box" class="voice-box">
+                    <div :class="microphoneTouched ? 'microphone hold' : 'microphone'" ontouchstart="return false;">
+                        <a ontouchstart="return false;"></a>
+                    </div>
+                    <p v-text="microphoneTouched ? '松开停止' : '按住说话'"></p>
+                </div>
+            </transition>
+            <div class="iosselect-wrapper">
+
+            </div>
+
+        </footer>
+        <div id="record-toast" :class="recordToastShow ? 'show':''">
+            <div :class="'icon ' + recordToastIcon "></div>
+            <p v-show="recordToastIcon=='recording'" class="time" v-text="voiceSecond+' s'"></p>
+            <p class="info" v-text="recordToastInfo"></p>
+        </div>
+        <div id="toast" :class="inputTextEmptyErrorShow ? 'show' : '' ">发送内容不能为空</div>
+    </div>
+    <div v-show="resultShow" style="display: none" id="results" class="app-wrap">
+        <transition name="confirmation-fade">
+            <div class="confirmation-modal" v-show="confirmationModal">
+                <div class="confirmation-box">
+                    <div class="content">
+                        <img src="/images/icon-ok.svg" />
+                        <p>提交成功!</p>
+                    </div>
+                    <div class="operation">
+                        <a href="#">确定</a>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <header>
+            <div class="container">
+                <div class="back">
+                    <a onclick="onResultBackClick()"><img src="/images/arrow-back.svg" />返回</a>
+                </div>
+                <div class="tit">智能法律机器人</div>
+                <div class="action"></div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <ul class="tab">
+                <li><a href="#tab1">风险评估分析及建议</a></li>
+                <li><a href="#">类案推送及分解</a></li>
+                <!--<li><a href="#">诉讼、调解成本评估</a></li>-->
+            </ul>
+            <div class="tab_container content-wrapper swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="tab_content swiper-slide bg-gray swiper-slide-visible swiper-slide-active">
+                        <div class="content-wrapper white-box">
+                            <div class="box fx">
+                                <h3 v-text="predictionResult.riskLevelTitle" class="text-center" style="margin-top: 25px;"></h3>
+                                <div v-if="predictionResult.riskLevel == 'HIGH'" class="risk highest"></div>
+                                <div v-if="predictionResult.riskLevel == 'MIDDLE'" class="risk general"></div>
+                                <div v-if="predictionResult.riskLevel == 'LOW'" class="risk smaller"></div>
+                            </div>
+
+                            <div class="box tj">
+                                <label><img src="/images/icon-mediation-primary.svg" />调解成本</label>
+                                <p><label class="strong">金钱成本：</label><span v-html="costinfo.mediation.cash"></span></p>
+                                <p><label class="strong">时间成本：</label><span v-html="costinfo.mediation.time"></span></p>
+                                <p><label class="strong">风险成本：</label><span v-html="costinfo.mediation.risk"></span></p>
+                            </div>
+
+                            <div class="box ss">
+                                <label><img src="/images/icon-litigation-lightblue.svg" />诉讼成本</label>
+                                <p><label class="strong">金钱成本：</label><span v-html="costinfo.litigation.cash"></span>
+                                </p>
+                                <p><label class="strong">时间成本：</label><span v-html="costinfo.litigation.time"></span>
+                                </p>
+                                <p><label class="strong">风险成本：</label><span v-html="costinfo.litigation.risk"></span>
+                                </p>
+                            </div>
+
+                            <!--<div class="content-wrapper">-->
+                            <!--<div class="no-content">-->
+                            <!--<div class="box ss">-->
+                            <!--<div class="angle angle-t-r"></div>-->
+                            <!--<label><img src="/images/icon-litigation-gray.svg"/>诉讼建议</label>-->
+                            <!--<p>即将上线...</p>-->
+                            <!--</div>-->
+                            <!--<div class="box tj">-->
+                            <!--<div class="angle angle-t-r"></div>-->
+                            <!--<label><img src="/images/icon-mediation-gray.svg"/>调解建议</label>-->
+                            <!--<p>即将上线...</p>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="tab_content swiper-slide">
+                        <div class="content-wrapper">
+                            <div class="case">
+                                <div v-show="legalCases.length>0">
+                                    <div class="tit-wrapper">
+                                        <h1 v-html="currentLegalCase.caseTitle"></h1>
+                                        <div class="court" v-html="currentLegalCase.trialCourt"></div>
+                                        <div class="case-type" v-html="currentLegalCase.caseType"></div>
+                                    </div>
+                                    <div class="content-wrapper">
+                                        <div class="content-box" v-for="p in currentLegalCase.contentInfo.paragraphs">
+                                            <div v-if="!isLegalCaseEndInfo(p)">
+                                                <h4 :class="'icon'+p.type" v-html="p.headerText"></h4>
+                                                <div class="paragraph" v-for="subp in p.subParagraphs">
+                                                    <div v-html="'&nbsp;&nbsp;&nbsp;&nbsp;'+subp.text"></div>
+                                                </div>
+                                            </div>
+                                            <div class="footer-wrapper" v-if="isLegalCaseEndInfo(p)">
+                                                <div class="info" v-for="subp in p.subParagraphs">
+                                                    <span v-html="subp.text"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="paging">
+                                            <button class="pre" onclick="prevLegal()" :disabled="legalIndex == 0">上一篇
+                                            </button>
+                                            <button class="next" onclick="nextLegal()" :disabled="legalIndex == legalCases.length-1">下一篇
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="no-data" v-show="legalCases.length==0">
+                                    <img src="/images/no-data.svg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="tab_content swiper-slide bg-gray">-->
+                    <!--<div class="content-wrapper white-box">-->
+                    <!--<div class="box ss">-->
+                    <!--<label><img src="/images/icon-litigation-lightblue.svg"/>诉讼成本</label>-->
+                    <!--<p><label class="strong">金钱成本：</label><span v-html="costinfo.litigation.cash"></span>-->
+                    <!--</p>-->
+                    <!--<p><label class="strong">时间成本：</label><span v-html="costinfo.litigation.time"></span>-->
+                    <!--</p>-->
+                    <!--<p><label class="strong">风险成本：</label><span v-html="costinfo.litigation.risk"></span>-->
+                    <!--</p>-->
+                    <!--</div>-->
+                    <!--<div class="box tj">-->
+                    <!--<label><img src="/images/icon-mediation-primary.svg"/>调解成本</label>-->
+                    <!--<p><label class="strong">金钱成本：</label><span v-html="costinfo.mediation.cash"></span></p>-->
+                    <!--<p><label class="strong">时间成本：</label><span v-html="costinfo.mediation.time"></span></p>-->
+                    <!--<p><label class="strong">风险成本：</label><span v-html="costinfo.mediation.risk"></span></p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a class="btn-ss" href="#"><img src="/images/icon-report.svg" /><span>智能报告</span></a>
+            <a class="btn-tj" onclick="forwardToMediatorPage(false)" href="#"><img src="/images/icon-mediation.svg" /><span>专家咨询</span></a>
+        </div>
+    </div>
+
+    <div v-show="mediatorsShow" id="mediators" class="app-wrap" style="overflow: auto">
+
+        <header>
+            <div class="container">
+                <div class="back">
+                    <a onclick="onMediatorsBack()" href="#"><img src="/images/arrow-back@2x.png" srcset="/images/arrow-back@3x.png 3x" />返回</a>
+                </div>
+                <div class="tit">智能法律机器人</div>
+                <div class="action"></div>
+            </div>
+        </header>
+        <div style="background-color: #F1F1F1" class="main-content mediators">
+            <div class="page-tit">调解人员推荐</div>
+            <div class="mediators-boxs">
+                <div v-for="m in mediators" :class="m.open ? 'box open' : 'box' ">
+                    <div class="pic">
+                        <img v-bind:src="m.avatarUrl" />
+                    </div>
+                    <div class="info">
+                        <p><strong>姓名：</strong><span v-text="m.name"></span></p>
+                        <p><strong>调解员简介：</strong><span v-html="m.introduction"></span></p>
+
+                        <p><strong>联系方式：</strong><span><a :href="'tel:'+m.phoneNumber" v-text="m.phoneNumber"></a></span></p>
+                        <p><strong>所属组织：</strong><span v-text="m.peopleMediationCommittee"></span>
+                        </p>
+                        <p><strong>擅长领域：</strong><span v-text="m.goodAt"></span>
+                        </p>
+                        <p><strong>调解经历：</strong><span v-html="m.experiences"></span></p>
+                    </div>
+                    <div v-on:click="onMediatorsItemClick(m)" :class="m.open ? 'arrow top' : 'arrow bottom'"><i></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //	<![CDATA[
+    var t1 = null;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            conversationId: null,
+            fromChat: false,
+            resultShow: false,
+            mediators: [],
+            mediatorsShow: false,
+            rootAlias: null,
+            legalIndex: 0,
+            voiceFirstClick: true,
+            voiceRefused: false,
+            socketFirstConnect: true,
+            failuerInterval: 10000,
+            maxFailuerTimes: 5,
+            legalCases: [],
+            failureTimes: 0,
+            param: new Object(),
+            currentNodes: null,
+            predictionResult: {"riskLevelTitle": "", "riskLevel": ""},
+            selectShow: false,
+            chatShow: true,
+            onLeafNode: false,
+            recordToastIcon: 'recording',
+            recordToastInfo: '手指向上滑动取消发送',
+            recordToastShow: false,
+            inputTextEmptyErrorShow: false,
+            microphoneTouched: false,
+            socket: null,
+            inputText: "",
+            onFirstLevel: true,
+            clientLoading: false,
+            serverLoading: false,
+            itemDisplay: true,
+//            sendFormDisplay: true,
+            sendFormDisabled: false,
+            voiceBoxDisplay: false,
+            voiceSecond: 0,
+            voiceInterval: null,
+            distanceY: 0,
+            start: null,
+            end: null,
+            recordTimer: null,
+            maxSecond: 59,
+            localId: null,
+            delayTime: 500,
+            itemHasScroll: false,
+            onTextInputNode: false,  //是否处于输入节点上
+            confirmationModal: false, //是否弹出确认模态
+            items: {
+                'nodes': [], 'cilckFn': function () {
+                }
+            },
+            message: [
+//                    {
+//                        'from':'server',
+//                        'text':'',
+//                          'localId':'',
+//                          'voiceSecond':0,
+//                          'type':'voice','text','prediction'
+//                    }
+            ],
+        },
+        computed: {
+            showDoubleColumn: function () {
+                return this.onFirstLevel && this.items.nodes.length > 1;
+            },
+            costinfo: function () {
+                var obj;
+                var root = 'hyjf';
+                return getCostInfo(root);
+            },
+            currentLegalCase: function () {
+                if (this.legalCases && this.legalCases.length > 0) {
+                    console.log(this.legalCases);
+                    return this.legalCases[this.legalIndex]
+                }
+                return {
+                    caseTitle: "",
+                    caseType: "",
+                    trialCourt: "",
+                    contentInfo: {
+                        paragraphs: []
+                    }
+                };
+            }
+        },
+        watch: {
+            message: function (newValue, oldValue) {
+            },
+            itemDisplay: function (nv, ov) {
+                if (nv && this.voiceBoxDisplay) {
+                    this.voiceBoxDisplay = false;
+                }
+            },
+            voiceBoxDisplay: function (nv, ov) {
+                if (nv && this.itemDisplay) {
+                    this.itemDisplay = false;
+                }
+            },
+            chatShow: function (nv, ov) {
+                app.legalIndex = 0;
+            }
+
+        },
+        updated: function () {
+            var me = this;
+            if (me.chatShow) {
+                setTimeout(function () {
+                    var footerH = me.selectShow ? 245 : $('footer').height();
+                    $('#main .container').css("margin-bottom", footerH + 45 + 'px');
+                    scrollToBottom();
+                    initIscroll(); //底部item滚动
+                    scrollIconShow(); //显示底部item下拉提示图标
+
+                    $(window).resize(function () {
+                        setTimeout(function () {
+                            scrollIconShow(); //异步执行横屏竖屏判断方法，添加下拉图标
+                        }, 0);
+                    });
+                }, 250);
+            } else {
+                $('#results').scrollTop(0);
+            }
+        },
+        methods: {
+            onMediatorsItemClick: function (m) {
+                m.open = !m.open;
+            },
+            isLegalCaseEndInfo: function (p) {
+                return p.type == 9001 || p.type == 9002 || p.type == 9003;
+            },
+            onItemClick: function (item) {
+                if (!isEffective()) {
+                    return;
+                }
+                var me = this;
+                this.onFirstLevel = false;
+                console.log("click item :", item);
+                addClientTextMessage(item.chooseSentence ? item.chooseSentence : item.text);
+
+                var message = {
+                    "messageRequestType": "CLICK",
+                    "parentAlias": item.alias,
+                    "text": item.chooseSentence ? item.chooseSentence : item.text,
+                    "conversationId": app.conversationId,
+                    "board": 'hyjf'
+                };
+//                if (item.leaf) {
+//                    this.onLeafNode = true;
+//                    askOtherShow();
+//                }
+                this.serverLoading = true;
+                socketSendmessage(message);
+                if (item.paramName) {
+                    addParam(item.paramName, item.text);
+                }
+
+            },
+            onVoiceClick: function (msg) {
+                msg.running = !msg.running;
+
+                if (msg.running) {
+                    //播放
+                    var timeOutId = setTimeout(function () {
+                        msg.running = false;
+                    }, msg.voiceSecond * 1000)
+                    msg.timeOutId = timeOutId;
+                    wx.playVoice({
+                        localId: msg.localId // 需要播放的音频的本地ID，由stopRecord接口获得
+                    });
+                } else {
+                    clearTimeout(msg.timeOutId);
+                    wx.stopVoice({
+                        localId: msg.localId // 需要停止的音频的本地ID，由stopRecord接口获得
+                    });
+                }
+
+            }
+        }
+
+    });
+
+
+    //	<![CDATA[
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx00ee320e349ddce1', // 必填，公众号的唯一标识
+        timestamp: '1513756048', // 必填，生成签名的时间戳
+        nonceStr: 'e635c5fb-f346-48c7-86cb-67ec6968b431', // 必填，生成签名的随机串
+        signature: '47cf22dd3be08d9103e0b15d514b1d5c57dba031',// 必填，签名，见附录1
+        jsApiList: ["translateVoice", "startRecord", "stopRecord", "playVoice", 'onVoiceRecordEnd', 'onVoicePlayEnd', 'stopVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+
+    });
+
+    function initIscroll() {
+        var myScroll = new IScroll('#iscroll', {mouseWheel: true, click: true});
+    }
+
+    function addParam(paramName, value) {
+        app.param[paramName] = value;
+        console.log("已选参数:", app.param);
+    }
+
+    function onPageLoad() {
+        app.rootAlias = 'hyjf';
+        sokcetConnect();
+        wsHeartBreakstart();
+        getDataInSession();
+    }
+
+    function getDataInSession() {
+        if (sessionStorage.getItem("data")) {
+            var data = JSON.parse(sessionStorage.getItem("data"), function (k, v) {
+                if (v != null && v.indexOf && v.indexOf('function') > -1) {
+
+                    return eval("(function(){return " + v + " })()")
+
+                }
+                return v;
+
+            });
+
+            for (var name in data) {
+                app[name] = data[name];
+            }
+        }
+
+
+    }
+
+
+    function handleLoopNode(node, text) {
+        text.forEach(function (value, index, array) {
+            addServerTextMessage(value);
+        });
+        setTimeout(function () {
+            sendLoopMessage(node, 1, 0);
+        }, app.delayTime)
+    }
+
+    function isEffective() {
+        if (t1 == null) {
+            t1 = new Date().getTime();
+        } else {
+            var t2 = new Date().getTime();
+            if (t2 - t1 < 500) {
+                t1 = t2;
+                return false;
+            } else {
+                t1 = t2;
+            }
+        }
+        return true;
+    }
+
+    function addHistory(text, fromServer) {
+        socketSendmessage({
+            "messageRequestType": "HISTORY",
+            "conversationId": app.conversationId,
+            "fromServer": fromServer,
+            "text": text
+        });
+    }
+
+    function sendLoopMessage(node, sendTimes, templateIndex) {
+        app.serverLoading = false;
+        if (templateIndex >= node.loopTemplates.length) {
+            ++sendTimes;
+            templateIndex = 0;
+        }
+        var template = node.loopTemplates[templateIndex++];
+        var loopMessage;
+        if (node.loopCondition == 1 && template.singleQuestion) {
+            loopMessage = template.singleQuestion;
+        } else {
+            loopMessage = template.question.replaceAll("%s", sendTimes);
+        }
+        addHistory(loopMessage, true);
+        addServerTextMessage(loopMessage);
+        var data = [];
+        template.options.forEach(function (v, index, array) {
+            data.push({'id': v.key, 'value': v.value});
+        });
+        new IosSelect(1,
+            [data],
+            {
+                container: '.iosselect-wrapper',
+                title: '请选择',
+                itemHeight: 40,
+                itemShowCount: 5,
+                oneLevelId: template.options[0].key,
+                showAnimate: true,
+                callback: function (data) {
+                    if (!isEffective()) {
+                        return;
+                    }
+                    addHistory(data.value, false);
+                    app.serverLoading = true;
+                    console.log("选择", data);
+                    addClientTextMessage(data.value);
+                    if (node.paramName) {
+                        var param = app.param[node.paramName];
+                        if (node.loopTemplates.length == 1) {
+                            if (param) {
+                                param.push(data.id);
+                                console.log("已选参数:", app.param);
+                            } else {
+                                addParam(node.paramName, [data.id]);
+                            }
+                        } else {
+                            if (param) {
+                                var obj = param[sendTimes - 1];
+                                if (obj) {
+                                    obj[template.name] = data.id;
+                                } else {
+                                    var newobj = new Object();
+                                    newobj[template.name] = data.id;
+                                    param.push(newobj)
+                                }
+                                console.log("已选参数:", app.param);
+                            } else {
+                                var obj = new Object();
+                                obj[template.name] = data.id;
+                                addParam(node.paramName, [obj])
+                            }
+                        }
+                    }
+                    if (sendTimes >= node.loopCondition && templateIndex >= node.loopTemplates.length) {
+                        console.log("loop节点循环结束")
+                        socketSendmessage({
+                            "messageRequestType": "CLICK",
+                            "parentAlias": node.alias,
+                            "conversationId": app.conversationId,
+                            "board": 'hyjf'
+                        });
+                    } else {
+                        //继续发问
+                        setTimeout(function () {
+                            sendLoopMessage(node, sendTimes, templateIndex);
+                        }, app.delayTime)
+                    }
+                },
+                fallback: onClose
+            });
+        app.itemDisplay = false;
+        app.selectShow = true;
+    }
+
+    function handleSelectNode(node, text) {
+
+        var data = [];
+        node.options.forEach(function (v, index, array) {
+            data.push({'id': v.key, 'value': v.value});
+        });
+        text.forEach(function (value, index, array) {
+            addServerTextMessage(value);
+        });
+        var bankSelect = new IosSelect(1,
+            [data],
+            {
+                container: '.iosselect-wrapper',
+                title: '请选择',
+                itemHeight: 40,
+                itemShowCount: 5,
+                oneLevelId: node.options[0].key,
+                showAnimate: true,
+                callback: function (data) {
+                    if (!isEffective()) {
+                        return;
+                    }
+                    app.serverLoading = true;
+                    console.log("选择", data);
+                    addClientTextMessage(data.value);
+                    if (node.paramName == "province" && data.value.indexOf("四川") < 0) {
+                        setTimeout(function () {
+                            addServerTextMessage("其他区域正在开发中");
+                            setTimeout(function () {
+                                app.serverLoading = false;
+                                handleSelectNode(node, text);
+                            }, 500);
+                        }, 500);
+                        return;
+                    }
+
+                    if (node.paramName) {
+                        addParam(node.paramName, data.id);
+                    }
+                    socketSendmessage({
+                        "messageRequestType": "CLICK",
+                        "parentAlias": node.alias,
+                        "text": data.value,
+                        "conversationId": app.conversationId,
+                        "board": 'hyjf'
+                    });
+                },
+                fallback: onClose
+            });
+        app.itemDisplay = false;
+        app.selectShow = true;
+//        app.items = {"nodes": nodes, "clickFn": app.onItemClick};
+    }
+
+    function scrollIconShow() {
+        var itemHeight;
+        var iscrollHeight;
+        itemHeight = $('.link-control-block').height();
+        iscrollHeight = $('#iscroll').height();
+        if (app.itemDisplay && itemHeight > iscrollHeight) {
+            app.itemHasScroll = true
+        } else {
+            app.itemHasScroll = false
+        }
+    }
+
+    function handleInputNode(node, text) {
+        text.forEach(function (value, index, array) {
+            addServerTextMessage(value);
+        });
+        app.itemDisplay = false;
+        app.sendFormDisabled = false;
+        app.onTextInputNode = true;
+    }
+
+    function receiveMessage(data) {
+        console.log("receiv data from server");
+        console.log(data);
+        if (data.errorMsg) {
+            addServerTextMessage(data.errorMsg);
+            return;
+        }
+        if (data.conversation) {
+            app.conversationId = data.conversation.id
+        }
+        var nodes = data.nodes;
+        var text = data.text;
+        var leaf = data.leaf;
+        app.currentNodes = nodes;
+
+        if (leaf) {
+            app.mediators = data.mediators;
+            app.onLeafNode = true;
+            askOtherShow();
+            text.forEach(function (value, index, array) {
+                addServerTextMessage(value);
+            });
+            if (data.predictionResult) {
+                //风险预估
+                setTimeout(function () {
+                    addServerPredictionMessage(data.predictionResult, data.legalCases);
+                    app.serverLoading = false;
+                }, app.delayTime);
+
+            } else if (data.calculateResult) {
+                //计算赔偿
+                setTimeout(function () {
+                    addServerCalculateMessage(data.calculateResult);
+                    app.serverLoading = false;
+                }, app.delayTime)
+            } else if (data.needMediators) {
+                //推荐调解员
+                setTimeout(function () {
+                    addServerMediatorsMessage();
+                    app.serverLoading = false;
+                }, app.delayTime)
+            } else {
+                app.serverLoading = false;
+            }
+        } else {
+            if (nodes) {
+                if (nodes.length == 1 && data.nodes[0].nodeType == "SELECT") {
+                    var node = data.nodes[0];
+                    setTimeout(function () {
+                        app.serverLoading = false;
+                        handleSelectNode(node, text);
+                    }, app.delayTime);
+
+                } else if (nodes.length == 1 && data.nodes[0].nodeType == "LOOP") {
+                    var node = data.nodes[0];
+                    setTimeout(function () {
+                        app.serverLoading = false;
+                        handleLoopNode(node, text);
+                    }, app.delayTime);
+                } else if (nodes.length == 1 && data.nodes[0].nodeType == "INPUT") {
+                    setTimeout(function () {
+                        app.serverLoading = false;
+                        handleInputNode(node, text);
+                    }, app.delayTime);
+                } else {
+
+
+                    setTimeout(function () {
+                        app.serverLoading = false;
+                        text.forEach(function (value, index, array) {
+                            addServerTextMessage(value);
+                        });
+                        app.items = {"nodes": nodes, "clickFn": app.onItemClick};
+                        app.itemDisplay = true;
+                        app.voiceBoxDisplay = false;
+                    }, app.delayTime);
+                }
+            } else {
+                text.forEach(function (value, index, array) {
+                    addServerTextMessage(value);
+                });
+            }
+        }
+
+
+    }
+
+    function onInputChange() {
+        app.inputText = $('#input-action').val();
+    }
+
+    var timer;
+
+    function onInputFocus() {
+        if (!app.onTextInputNode) {
+            app.itemDisplay = false;
+        }
+        // IOS设备设置计数器，输入框获取焦点后300毫秒更新一次让滚动条居底，以解决软键盘遮挡输入框问题
+        if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+            timer = setTimeout(scrollBottom, 300);
+        }
+
+    }
+
+    function onInputBlur(e) {
+        if (!app.onTextInputNode) {
+            app.itemDisplay = app.voiceBoxDisplay ? false : true;
+        }
+        // iOS设备上清除滚动条居底计时器
+//    if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+//      clearInterval(timer);//清除计时器
+//    }
+    }
+
+    function sokcetConnect() {
+        console.log("准备开启socket")
+        if (!window.WebSocket) {
+            window.WebSocket = window.MozWebSocket;
+        }
+        console.log(window.WebSocket);
+        console.log('ws://localhost:8080/ws');
+        if (window.WebSocket) {
+            try {
+                app.socket.close();
+            } catch (e) {
+                console.log(e.message);
+            }
+            var socket = new WebSocket('ws://localhost:8080/ws');
+            socket.onerror = function (event) {
+            }
+            socket.onmessage = function (event) {
+                if (event.data == "pong") {
+                    app.failureTimes = 0;
+                } else if (event.data && event.data != "null") {
+                    var data = JSON.parse(event.data)
+                    receiveMessage(data);
+                }
+            };
+            socket.onopen = function (event) {
+                console.log("socket 成功开启")
+//        if (app.socketFirstConnect) {
+                initFirstMessage();
+//          app.socketFirstConnect = false;
+//        }
+            };
+            socket.onclose = function (event) {
+            };
+            app.socket = socket;
+
+        } else {
+            alert("你的浏览器不支持！");
+        }
+    }
+
+    function socketSendmessage(msg) {
+        msg.param = app.param;
+        msg.source = "WECHAT";
+        msg.auth = {
+            authCode: '0119E7PM1wsLH51XltPM17cePM19E7Pf',
+            userId: '5a24e50cb98a544f10147b91'
+        };
+        if (app.socket.readyState == WebSocket.OPEN) {
+            app.items.nodes = [];
+            app.items.clickFn = function () {
+            };
+            console.log(JSON.stringify(msg));
+            app.socket.send(JSON.stringify(msg));
+        } else {
+            app.serverLoading = false;
+            app.clientLoading = false;
+            addServerTextMessage("小崇遇到点麻烦，请稍后再试");
+            sokcetConnect();
+        }
+    }
+
+
+    function wsHeartBreakstart() {
+        timer = setInterval(function () {
+            if (app.socket.readyState == WebSocket.OPEN) {
+                console.log("socket为open状态，发送ping")
+                app.socket.send("ping");
+            } else {
+                app.failureTimes++;
+                if (app.failureTimes > app.maxFailuerTimes) {
+                    app.failureTimes = 0;
+                    clearInterval(timer);
+                    setTimeout(function () {
+                        wsHeartBreakstart();
+                    }, app.failuerInterval)
+                } else {
+                    console.log("socket为close状态，连续失败次数:" + app.failureTimes);
+                    sokcetConnect();
+                }
+            }
+        }, 2000);
+
+    }
+
+
+    function initVueData() {
+        app.param = new Object();
+        app.onTextInputNode = false;
+        app.onFirstLevel = true;
+        app.onLeafNode = false;
+        app.itemDisplay = true;
+        app.selectShow = false;
+        app.sendFormDisabled = false;
+        app.resultShow = false;
+        app.inputText = '';
+        app.items = {
+            'nodes': [], 'cilckFn': function () {
+            }
+        };
+    }
+
+    function askOtherShow() {
+        app.selectShow = false;
+        app.itemDisplay = true;
+        app.items = {
+            'nodes': [{'text': '我还想咨询其它问题'}], clickFn: onClose
+        }
+    }
+
+    function onClose() {
+        initVueData();
+        app.serverLoading = true;
+        socketSendmessage({
+            "messageRequestType": "ONCLOSE",
+            "parentAlias": 'hyjf',
+            "conversationId": app.conversationId,
+            "board": 'hyjf'
+        });
+    }
+
+    function initFirstMessage() {
+        socketSendmessage({
+            "messageRequestType": "INITIALIZE",
+            "board": 'hyjf'
+        });
+    }
+
+    function addServerTextMessage(text) {
+        app.message.push({"from": "server", "text": text, "type": "text"});
+    }
+
+    function addServerCalculateMessage(result) {
+
+        var r = result.split(":");
+        var title = r[0];
+        var amount = r[1];
+        app.message.push({"from": "server", "title": title, "amount": amount, "type": "calculateResult"});
+    }
+
+    function addServerPredictionMessage(result, legalCases) {
+        //法律风险预估
+        app.message.push({
+            "from": "server",
+            "type": "prediction",
+            "linkText": result.linkText,
+            "click": function () {
+                app.chatShow = false;
+                app.resultShow = true;
+                initSwiper();
+                app.predictionResult = result;
+                app.legalCases = legalCases;
+                $("ul.tab li").removeClass("active")
+                $("ul.tab li:first").addClass("active").show(); //Activate first tab
+                resultScrollToTop();
+            }
+        });
+    }
+
+    function addServerMediatorsMessage() {
+        //调解员推荐
+        app.message.push({
+            "from": "server",
+            "type": "mediators",
+            "linkText": "推荐调解员",
+            "click": function () {
+                forwardToMediatorPage(true);
+            }
+        });
+    }
+
+    function forwardToMediatorPage(fromChat) {
+        app.fromChat = fromChat;
+        app.chatShow = false;
+        app.resultShow = false;
+        app.mediatorsShow = true;
+    }
+
+    function storeDataInSession() {
+        var obj = {
+            message: app.message,
+            confirmationModal: app.confirmationModal,
+            itemDisplay: app.itemDisplay,
+            items: app.items,
+            onLeafNode: app.onLeafNode,
+            onTextInputNode: app.onTextInputNode,
+            rootAlias: app.rootAlias,
+            selectShow: app.selectShow,
+            sendFormDisabled: app.sendFormDisabled,
+            voiceBoxDisplay: app.voiceBoxDisplay,
+            voiceFirstClick: app.voiceFirstClick,
+            voiceInterval: app.voiceInterval,
+            voiceRefused: app.voiceRefused,
+            onFirstLevel: app.onFirstLevel
+
+        };
+        sessionStorage.setItem("data", JSON.stringify(obj, function (key, val) {
+            if (typeof val === 'function') {
+                return val + '';
+            }
+            return val;
+        }));
+    }
+
+
+    function scrollToBottom() {
+        var d = $('.main');
+        d.scrollTop(d.prop("scrollHeight"));
+    }
+
+    function resultScrollToTop() {
+        setTimeout(function () {
+            $('#results .main-content .tab_content').scrollTop(0);
+        }, 10);
+    }
+
+    function addClientTextMessage(text) {
+        app.message.push({"from": "client", "text": text, "type": "text"});
+//        setTimeout(scrollToBottom,1000);
+    }
+
+
+    function addClientVoiceMessage(localId, text, voiceSecond) {
+        app.message.push({
+            'from': 'client',
+            'text': text,
+            'localId': localId,
+            'voiceSecond': voiceSecond,
+            'type': 'voice',
+            'running': false
+        });
+    }
+
+    function onResultBackClick() {
+        app.chatShow = true;
+        app.resultShow = false;
+    }
+
+    function onMediatorsBack() {
+        if (app.fromChat) {
+            app.chatShow = true;
+            app.resultShow = false;
+
+        } else {
+            app.chatShow = false;
+            app.resultShow = true;
+        }
+        app.mediatorsShow = false;
+    }
+
+
+    function recordToastNormal() {
+        app.recordToastIcon = 'recording';
+        app.recordToastInfo = '手指向上滑动取消发送';
+    }
+
+    function recordToastCancel() {
+        app.recordToastIcon = 'finger';
+        app.recordToastInfo = '松开手指，取消发送';
+    }
+
+    function recordToastTooShort() {
+        app.recordToastShow = true;
+        app.recordToastIcon = 'mark';
+        app.recordToastInfo = '说话时间太短';
+        setTimeout(function () {
+            app.recordToastShow = false;
+        }, app.delayTime);
+    }
+
+    //切换录音和选项列表
+    $('#voice').bind('touchstart', function () {
+        var b = app.voiceBoxDisplay;
+        if (b) {
+            app.voiceBoxDisplay = false;
+            setTimeout(function () {
+                app.itemDisplay = true;
+                app.sendFormDisabled = false;
+            }, 200)
+        } else {
+            app.itemDisplay = false;
+            app.sendFormDisabled = true;
+            setTimeout(function () {
+                app.voiceBoxDisplay = true;
+            }, 200);
+
+            if (app.voiceFirstClick || app.voiceRefused) {
+                //触发语音授权
+                wx.startRecord({
+                    success: function () {
+                        console.log("语音授权成功");
+                        app.voiceRefused = false;
+                        setTimeout(function () {
+                            wx.stopRecord({
+                                    success: function (res) {
+                                        console.log("成功停止录音")
+                                    }
+                                }
+                            );
+                        }, 300);
+                    },
+                    cancel: function () {
+                        app.voiceRefused = true;
+                        console.log("用户拒绝授权");
+                    }
+                });
+                app.voiceFirstClick = false;
+            }
+
+        }
+
+    });
+
+    function timeBegin() {
+        app.voiceSecond = 0;
+        app.voiceInterval = setInterval(function () {
+            app.voiceSecond += 1;
+            if (app.voiceSecond >= app.maxSecond) {
+                clearInterval(app.voiceInterval);
+                wx.stopRecord({
+                        success: function (res) {
+                            app.localId = res.localId;
+                            console.log("录音时间过长，自动停止，localId：", res.localId);
+                        }
+                    }
+                );
+            }
+        }, 1000);
+    }
+
+    function timeEnd() {
+        clearInterval(app.voiceInterval);
+        var s = app.voiceSecond;
+        app.voiceSecond = 0;
+        return s;
+    }
+
+    //按住录音按钮执行的方法
+    $('.microphone').bind('touchstart', function (e) {
+        console.log("点击录音按钮");
+        e.preventDefault();
+        startX = e.originalEvent.changedTouches[0].pageX;
+        startY = e.originalEvent.changedTouches[0].pageY;
+        if (app.voiceRefused) {
+            //触发语音授权
+            wx.startRecord({
+                success: function () {
+                    console.log("语音授权成功");
+                    app.voiceRefused = false;
+                    setTimeout(function () {
+                        wx.stopRecord({
+                                success: function (res) {
+                                    console.log("成功停止录音")
+                                }
+                            }
+                        );
+                    }, 300);
+                },
+                cancel: function () {
+                    app.voiceRefused = true;
+                    console.log("用户拒绝授权");
+                }
+            });
+        } else {
+            //直接开始录音
+            app.start = new Date().getTime();
+            app.recordTimer = setTimeout(function () {
+                recordToastNormal();
+                timeBegin();
+                app.distanceY = 0;
+                app.microphoneTouched = true;
+                app.recordToastShow = true;
+                wx.startRecord({
+                    success: function () {
+
+                    },
+                    cancel: function () {
+                        console.log("用户拒绝授权");
+                    }
+                });
+            }, 300);
+        }
+
+    });
+
+    //松开录音按钮执行的方法
+    $('.microphone').bind('touchend', function (e) {
+        console.log("松开录音按钮");
+        e.preventDefault();
+        app.end = new Date().getTime();
+        if (!app.end || !app.start) {
+            return;
+        }
+        if ((app.end - app.start) < 300) {
+            console.log("录音间隔小于300，不触发录音")
+            app.start = 0;
+            app.end = 0;
+            recordToastTooShort();
+            //小于300ms，不录音
+            clearTimeout(app.recordTimer);
+        } else {
+            console.log("录音间隔大于300，停止录音")
+            if (app.distanceY > -50) {
+                app.clientLoading = true;
+            }
+            app.microphoneTouched = false;
+            app.recordToastShow = false;
+            var s = timeEnd();
+            if (app.localId) {
+                console.log("localId 已经存在，超时，直接开始翻译");
+                //超时，录音已经停止
+                if (app.distanceY <= -50) { //取消发送
+                    app.clientLoading = false;
+                    return;
+                }
+                translate(app.localId, s);
+            } else {
+                console.log("localid 不存在，未超时，调用stoprecord后翻译")
+                wx.stopRecord({
+                    complete: function (res) {
+                        console.log("stop complete");
+                        if (app.distanceY <= -50) { //取消发送
+                            app.clientLoading = false;
+                            return;
+                        }
+                        console.log(res.localId);
+                        translate(res.localId, s);
+                    },
+                    success: function (res) {
+                        console.log("stop success");
+                    },
+                    fail: function (res) {
+                        console.log(res);
+                        app.clientLoading = false;
+                    }
+                });
+            }
+
+        }
+
+    });
+
+    function translate(localId, voiceSecond) {
+        wx.translateVoice({
+            localId: localId,
+            isShowProgressTips: 1,
+            complete: function (res) {
+                console.log("翻译结果:", res);
+                app.clientLoading = false;
+                if (res.hasOwnProperty('translateResult') && res.translateResult != "" && res.translateResult != null) {
+                    var text = res.translateResult;
+                    addClientVoiceMessage(localId, text.replace(/。/g, ''), voiceSecond);
+                    app.serverLoading = true;
+                    app.voiceBoxDisplay = false;
+                    app.itemDisplay = true;
+                    app.sendFormDisabled = false;
+                    socketSendmessage({
+                        "messageRequestType": "INPUT",
+                        "text": text,
+                        "conversationId": app.conversationId,
+                        "board": 'hyjf'
+                    })
+
+                } else {
+                    addClientVoiceMessage(localId, "额，我说了什么", voiceSecond);
+                    app.serverLoading = true;
+                    setTimeout(function () {
+                        addServerTextMessage("请给我更多信息，或者直接选择相应的问题");
+                        app.serverLoading = false;
+                    }, app.delayTime)
+                }
+                app.localId = null;
+            }
+        });
+    }
+
+    //向上、向下拖动录音按钮执行的方法
+    $('.microphone').bind('touchmove', function (e) {
+        //获取滑动屏幕时的X,Y
+        endX = e.originalEvent.changedTouches[0].pageX,
+            endY = e.originalEvent.changedTouches[0].pageY;
+        //获取滑动距离
+        distanceX = endX - startX;
+        distanceY = endY - startY;
+        console.log(distanceX, distanceY);
+        app.distanceY = distanceY;
+        //      console.log('X坐标:' + distanceX, 'Y坐标:' + distanceY);
+        if (distanceY <= -50) {
+            recordToastCancel();
+        } else if (distanceY > -50) {
+            recordToastNormal();
+        }
+    });
+    //  $('.main').bind('touchmove', function () {
+    //    if (/ipad|iphone|mac/i.test(navigator.userAgent)) {
+    //      $('#input-action').blur();
+    //    }
+    //  });
+
+    //发送消息
+    function onSendClick() {
+        var inputText = app.inputText;
+        var currentNodes = app.currentNodes;
+        if (!inputText.trim() == '') {
+            if (currentNodes.length == 1 && currentNodes[0].nodeType == "INPUT") {
+                var node = currentNodes[0];
+
+                if (node.inputType === "float") {
+                    if (isNaN(inputText)) {
+                        addServerTextMessage("请输入正确数字");
+                        return
+                    }
+                } else if (node.inputType === "phonenum") {
+                    if (!isPhoneNum(inputText)) {
+                        addServerTextMessage("请输入正确座机或者手机号码");
+                        return
+                    }
+                }
+
+                addClientTextMessage(inputText);
+                if (node.paramName) {
+                    app.param[node.paramName] = inputText;
+                }
+                socketSendmessage({
+                    "messageRequestType": "CLICK",
+                    "parentAlias": node.alias,
+                    "text": inputText,
+                    "conversationId": app.conversationId,
+                    "board": 'hyjf'
+                });
+                app.onTextInputNode = false;
+            } else {
+                app.selectShow = false;
+                addClientTextMessage(inputText)
+                socketSendmessage({
+                    "messageRequestType": "INPUT",
+                    "text": inputText,
+                    "conversationId": app.conversationId,
+                    "board": 'hyjf'
+                })
+            }
+        } else {
+            app.inputTextEmptyErrorShow = true;
+            setTimeout(function () {
+                app.inputTextEmptyErrorShow = false;
+            }, 2000);
+        }
+        app.inputText = "";
+    }
+
+    $('footer').on("touchmove", function (event) {
+        event.preventDefault();
+    });
+
+    function scrollBottom() {
+        $('html,body').animate({scrollTop: 1000}, 100);
+    }
+
+
+    function prevLegal() {
+        app.legalIndex--;
+        resultScrollToTop();
+    }
+
+    function nextLegal() {
+        app.legalIndex++;
+        resultScrollToTop();
+    }
+
+    $('.btn-group .btn-ss').bind('touchstart', function () {
+        app.confirmationModal = true;
+    });
+    $('.confirmation-box .operation a').bind('touchstart', function () {
+        app.confirmationModal = false;
+    });
+
+
+    function initSwiper() {
+        /* tab swiper Begin */
+        var tabsSwiper;
+        tabsSwiper = new Swiper('.swiper-container', {
+            calculateHeight: true,
+            followFinger: false,
+            speed: 300,
+            onSlideChangeStart: function () {
+                $(".tab .active").removeClass('active');
+                $(".tab li").eq(tabsSwiper.activeIndex).addClass('active');
+            },
+            onSlideChangeEnd: function (swiper) {
+                resultScrollToTop();
+            }
+        });
+        setTimeout(function () {
+            tabsSwiper.swipeTo(0, 0); //初始化Swiper时异步执行展示第一项内容的方法
+        }, 0);
+        $(".tab li").on('touchstart mousedown', function (e) {
+            e.preventDefault()
+            $(".tab .active").removeClass('active');
+            $(this).addClass('active');
+            tabsSwiper.swipeTo($(this).index());
+
+        });
+
+        $(".tab li").click(function (e) {
+            e.preventDefault();
+        });
+        /* tab swiper End */
+    }
+
+    //	]]>
+</script>
+<script th:src="@{/js/wx/iscroll.js}"></script>
+<script th:src="@{/js/wx/iosSelect.js}"></script>
+<script th:src="@{/js/wx/idangerous.swiper.min.js}"></script>
+<script>
+    $('#app').css("display", "block");
+</script>
+</body>
+
+</html>

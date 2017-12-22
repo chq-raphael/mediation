@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="full-screen" content="yes">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="640">
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>法律小崇</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bgWhite">
+<div id="lodingBox"></div>
+<header>
+    <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MDMwMjUwMA==&scene=124#wechat_redirect" class="headerBack"></a>
+    <span>个人中心</span>
+</header>
+<div class="uCenterBg">
+    <img th:src="@{/images/uCenterBg.jpg}">
+    <div class="box">
+        <span class="logo"><img th:src="@{/images/headerUser.png}"></span>
+        <span class="name">昵称</span>
+        <span class="tel"><span></span>13198588430</span>
+    </div>
+</div>
+<ul class="mainWrap uCenterHrefList">
+    <li>
+        <a th:href="@{/uc/profile}"><span>我的资料</span></a>
+    </li>
+    <li>
+        <a th:href="@{/index.php?act=index&op=tiaojieing}"><span>我的调解</span></a>
+    </li>
+    <li>
+        <a th:href="@{/index.php?act=index&op=fasttj}"><span>一键调解</span></a>
+    </li>
+</ul>
+<script type="text/javascript" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</body>
+</html>

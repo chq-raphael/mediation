@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="screen-orientation" content="portrait">
+	<meta name="browsermode" content="application">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="x5-fullscreen" content="true">
+	<meta name="x5-page-mode" content="app">
+	<meta name="full-screen" content="yes">
+	<meta name="HandheldFriendly" content="true">
+	<meta name="MobileOptimized" content="640">
+	<meta name="renderer" content="webkit">
+	<meta charset="utf-8">
+	<title>法律小崇</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo App_URL;?>/public/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo App_URL;?>/public/css/base.css">
+	<link rel="stylesheet" href="<?php echo App_URL;?>/public/css/style.css">
+    <style>
+        #city-picker{
+            margin-left: 40%;
+            margin-right: 20%;
+            margin-top: 20%;
+            width: 200px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+	<div id="lodingBox"></div>
+	<header>
+		<a href="<?php echo App_URL;?>" class="headerBack"></a>
+		<span>详细资料信息</span>
+	</header>
+	<ul class="ucDataBox">
+		<li class="logo">
+			<span class="name">头像</span>
+			<span class="img"><img src="<?php echo $headimgurl;?>"></span>
+		</li>
+		<li>
+			<span class="name">姓名</span>
+			<span class="input"><input type="text" id="name" value="<?php echo $info['advisoryName'];?> "></span>
+		</li>
+		
+		<li>
+			<span class="name">性别</span>
+			<span class="text" id="userSex"><?php echo $info['sex'];?></span>
+			<input type="hidden" value="0"><!-- 0:男 1：女 -->
+		</li>
+		
+		
+		<li>
+			<span class="name">电话号码</span>
+			<span class="input"><input type="text" id="mobile" value="<?php echo $info['telephone'];?>"></span>
+		</li>
+		<li>
+			<span class="name">身份证号码</span>
+			<span class="input"><input type="text" id="idcode" placeholder="<?php echo $info['idcard'];?>"></span>
+		</li>
+		<li>
+			<span class="name">地区</span>
+			<span class="text" id="sel_city"><?php echo $info['city'];?></span>
+		</li>
+		<li><span class="name">地址</span>
+			<span class="input"><input type='text' placeholder='填写具体地址...' id="address" value="<?php echo $info['address'];?>" /></span>
+		</li>
+	</ul>
+	<div class="tjpageBox">
+		<div class="mainBtn st2">
+			<a href="javascript:;" id="submit">保存</a>
+			<a href="javascript:history.back();" >返回</a>
+		</div>
+	</div>
+	<script type="text/javascript" src="<?php echo App_URL;?>/public/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="<?php echo App_URL;?>/public/js/common.js"></script>
+	<script type="text/javascript" src="<?php echo App_URL;?>/public/js/picker.min.js"></script>
+	<script type="text/javascript" src="<?php echo App_URL;?>/public/js/city.js"></script>
+	<script>
+	$("#submit").click(function(){
+		var mobile = $("#mobile").val();
+		var name = $("#name").val();
+		var sex=$("#userSex").html();
+		var idcode = $("#idcode").val();
+		
+		if (name == ""){
+			alert("请输入姓名");
+			return false;
+		}
+		
+		if (mobile == ''){
+            alert('请输入手机号');
+            return false;
+        }                    
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+	    if(!myreg.test(mobile)) 
+	    { 
+	           alert('请输入有效的手机号码！'); 		           
+	           return false; 
+	    } 
+		if (idcode != ""){
+			if (!checkCard(idcode)){
+				 alert('请输入有效的身份证号！'); 		           
+		         return false;
+			}
+		}
+	    
+		var city = $("#sel_city").html();
+		$.post('<?php echo App_URL;?>/index.php?act=index&op=ajaxeditinfo',{name:name,mobile:mobile,idcode:idcode,sex:sex,city:city,address:$("#address").val()},function(){
+			alert("保存成功");
+		});
+	});
+	
+
+	 
+		 //function checkidno(obj) { 
+		  var vcity={ 11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古", 
+		    21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏", 
+		    33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南", 
+		    42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆", 
+		    51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃", 
+		    63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"
+		   }; 
+		 checkCard = function(obj) 
+		 { 
+		  //var card = document.getElementById('card_no').value; 
+		  //是否为空 
+		  // if(card === '') 
+		  // { 
+		  //  return false; 
+		  //} 
+		  //校验长度，类型 
+		  if(isCardNo(obj) === false) 
+		  { 
+		   return false; 
+		  } 
+		  //检查省份 
+		  if(checkProvince(obj) === false) 
+		  { 
+		   return false; 
+		  } 
+		  //校验生日 
+		  if(checkBirthday(obj) === false) 
+		  { 
+		   return false; 
+		  } 
+		  //检验位的检测 
+		  if(checkParity(obj) === false) 
+		  { 
+		   return false; 
+		  } 
+		  return true; 
+		 }; 
+		 //检查号码是否符合规范，包括长度，类型 
+		 isCardNo = function(obj) 
+		 { 
+		  //身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X 
+		  var reg = /(^\d{15}$)|(^\d{17}(\d|X)$)/; 
+		  if(reg.test(obj) === false) 
+		  { 
+		   return false; 
+		  } 
+		  return true; 
+		 }; 
+		 //取身份证前两位,校验省份 
+		 checkProvince = function(obj) 
+		 { 
+		  var province = obj.substr(0,2); 
+		  if(vcity[province] == undefined) 
+		  { 
+		   return false; 
+		  } 
+		  return true; 
+		 }; 
+		 //检查生日是否正确 
+		 checkBirthday = function(obj) 
+		 { 
+		  var len = obj.length; 
+		  //身份证15位时，次序为省（3位）市（3位）年（2位）月（2位）日（2位）校验位（3位），皆为数字 
+		  if(len == '15') 
+		  { 
+		   var re_fifteen = /^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/; 
+		   var arr_data = obj.match(re_fifteen); 
+		   var year = arr_data[2]; 
+		   var month = arr_data[3]; 
+		   var day = arr_data[4]; 
+		   var birthday = new Date('19'+year+'/'+month+'/'+day); 
+		   return verifyBirthday('19'+year,month,day,birthday); 
+		  } 
+		  //身份证18位时，次序为省（3位）市（3位）年（4位）月（2位）日（2位）校验位（4位），校验位末尾可能为X 
+		  if(len == '18') 
+		  { 
+		   var re_eighteen = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/; 
+		   var arr_data = obj.match(re_eighteen); 
+		   var year = arr_data[2]; 
+		   var month = arr_data[3]; 
+		   var day = arr_data[4]; 
+		   var birthday = new Date(year+'/'+month+'/'+day); 
+		   return verifyBirthday(year,month,day,birthday); 
+		  } 
+		  return false; 
+		 }; 
+		 //校验日期 
+		 verifyBirthday = function(year,month,day,birthday) 
+		 { 
+		  var now = new Date(); 
+		  var now_year = now.getFullYear(); 
+		  //年月日是否合理 
+		  if(birthday.getFullYear() == year && (birthday.getMonth() + 1) == month && birthday.getDate() == day) 
+		  { 
+		   //判断年份的范围（3岁到100岁之间) 
+		   var time = now_year - year; 
+		   if(time >= 0 && time <= 130) 
+		   { 
+		    return true; 
+		   } 
+		   return false; 
+		  } 
+		  return false; 
+		 }; 
+		 //校验位的检测 
+		 checkParity = function(obj) 
+		 { 
+		  //15位转18位 
+		  obj = changeFivteenToEighteen(obj); 
+		  var len = obj.length; 
+		  if(len == '18') 
+		  { 
+		   var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2); 
+		   var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'); 
+		   var cardTemp = 0, i, valnum; 
+		   for(i = 0; i < 17; i ++) 
+		   { 
+		    cardTemp += obj.substr(i, 1) * arrInt[i]; 
+		   } 
+		   valnum = arrCh[cardTemp % 11]; 
+		   if (valnum == obj.substr(17, 1)) 
+		   { 
+		    return true; 
+		   } 
+		   return false; 
+		  } 
+		  return false; 
+		 }; 
+		 //15位转18位身份证号 
+		 changeFivteenToEighteen = function(obj) 
+		 { 
+		  if(obj.length == '15') 
+		  { 
+		   var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2); 
+		   var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'); 
+		   var cardTemp = 0, i;  
+		   obj = obj.substr(0, 6) + '19' + obj.substr(6, obj.length - 6); 
+		   for(i = 0; i < 17; i ++) 
+		   { 
+		    cardTemp += obj.substr(i, 1) * arrInt[i]; 
+		   } 
+		   obj += arrCh[cardTemp % 11]; 
+		   return obj; 
+		  } 
+		  return obj; 
+		 };
+	
+	
+	var nameEl = document.getElementById('sel_city');
+
+	var first = []; /* 省，直辖市 */
+	var second = []; /* 市 */
+	var third = []; /* 镇 */
+
+	var selectedIndex = [0, 0, 0]; /* 默认选中的地区 */
+
+	var checked = [0, 0, 0]; /* 已选选项 */
+
+	function creatList(obj, list){
+	  obj.forEach(function(item, index, arr){
+	  var temp = new Object();
+	  temp.text = item.name;
+	  temp.value = index;
+	  list.push(temp);
+	  })
+	}
+
+	creatList(city, first);
+
+	if (city[selectedIndex[0]].hasOwnProperty('sub')) {
+	  creatList(city[selectedIndex[0]].sub, second);
+	} else {
+	  second = [{text: '', value: 0}];
+	}
+
+	if (city[selectedIndex[0]].sub[selectedIndex[1]].hasOwnProperty('sub')) {
+	  creatList(city[selectedIndex[0]].sub[selectedIndex[1]].sub, third);
+	} else {
+	  third = [{text: '', value: 0}];
+	}
+
+	var picker = new Picker({
+	    data: [first, second, third],
+	  selectedIndex: selectedIndex,
+	    title: '地址选择'
+	});
+
+	picker.on('picker.select', function (selectedVal, selectedIndex) {
+	  var text1 = first[selectedIndex[0]].text;
+	  var text2 = second[selectedIndex[1]].text;
+	  var text3 = third[selectedIndex[2]] ? third[selectedIndex[2]].text : '';
+
+	    nameEl.innerText = text1 + ' ' + text2 + ' ' + text3;
+	});
+
+	picker.on('picker.change', function (index, selectedIndex) {
+	  if (index === 0){
+	    firstChange();
+	  } else if (index === 1) {
+	    secondChange();
+	  }
+
+	  function firstChange() {
+	    second = [];
+	    third = [];
+	    checked[0] = selectedIndex;
+	    var firstCity = city[selectedIndex];
+	    if (firstCity.hasOwnProperty('sub')) {
+	      creatList(firstCity.sub, second);
+
+	      var secondCity = city[selectedIndex].sub[0]
+	      if (secondCity.hasOwnProperty('sub')) {
+	        creatList(secondCity.sub, third);
+	      } else {
+	        third = [{text: '', value: 0}];
+	        checked[2] = 0;
+	      }
+	    } else {
+	      second = [{text: '', value: 0}];
+	      third = [{text: '', value: 0}];
+	      checked[1] = 0;
+	      checked[2] = 0;
+	    }
+
+	    picker.refillColumn(1, second);
+	    picker.refillColumn(2, third);
+	    picker.scrollColumn(1, 0)
+	    picker.scrollColumn(2, 0)
+	  }
+
+	  function secondChange() {
+	    third = [];
+	    checked[1] = selectedIndex;
+	    var first_index = checked[0];
+	    if (city[first_index].sub[selectedIndex].hasOwnProperty('sub')) {
+	      var secondCity = city[first_index].sub[selectedIndex];
+	      creatList(secondCity.sub, third);
+	      picker.refillColumn(2, third);
+	      picker.scrollColumn(2, 0)
+	    } else {
+	      third = [{text: '', value: 0}];
+	      checked[2] = 0;
+	      picker.refillColumn(2, third);
+	      picker.scrollColumn(2, 0)
+	    }
+	  }
+
+	});
+
+	picker.on('picker.valuechange', function (selectedVal, selectedIndex) {
+	  console.log(selectedVal);
+	  console.log(selectedIndex);
+	});
+
+	nameEl.addEventListener('click', function () {
+	    picker.show();
+	});
+	</script>
+
+</body>
+</html>

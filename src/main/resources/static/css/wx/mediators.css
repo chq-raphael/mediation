@@ -1,0 +1,76 @@
+.mediators {
+    margin-top: 45px;
+}
+
+.mediators .page-tit {
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-indent: 15px;
+    margin-bottom: 10px;
+}
+
+.mediators-boxs .box {
+    margin: 1px 0;
+    background: #fff;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+.mediators-boxs .box {
+    display: flex;
+    padding: 15px 5px 15px 15px;
+}
+
+.mediators-boxs .box .pic {
+    margin-right: 10px;
+}
+
+.mediators-boxs .box .pic img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.mediators-boxs .box .info {
+    flex: 1;
+    color: #555;
+    max-height: 48px;
+    overflow: hidden;
+    transition: all ease 0.2s;
+}
+
+.mediators-boxs .box.open .info {
+    max-height: 500px;
+    transition: all ease 0.2s;
+}
+
+.mediators-boxs .box .info p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 6px 0;
+}
+
+.mediators-boxs .box .arrow {
+    padding: 0 10px;
+}
+
+.mediators-boxs .box .arrow i {
+    display: block;
+    width: 11px;
+    height: 7px;
+    background-image: url(/images/arrow-t-b@2x.png);
+    background-size: 11px 14px;
+    background-repeat: no-repeat;
+    margin-top: 20px;
+}
+
+.mediators-boxs .box .arrow.top i {
+    background-position: 0 0;
+}
+
+.mediators-boxs .box .arrow.bottom i {
+    background-position: 0 -7px;
+}
