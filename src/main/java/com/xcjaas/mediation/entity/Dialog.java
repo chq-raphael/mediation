@@ -1,6 +1,5 @@
 package com.xcjaas.mediation.entity;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -8,19 +7,19 @@ import java.util.List;
  */
 public class Dialog {
     private double calculateResult;
-    private String[] clientText;
+    private List<String> clientText;
     private String completeServerText;
     private Conversation conversation;
     private String errorMsg;
     private String leaf;
-    private String[] legalCases;
+    private List<String> legalCases;
     private String mediators;
     private String needMediators;
     private List<Node> nodes;
     private String onClose;
     private String predictionResult;
     private String remoteInfo;
-    private String[] text;
+    private List<String> text;
 
     public double getCalculateResult() {
         return calculateResult;
@@ -30,11 +29,11 @@ public class Dialog {
         this.calculateResult = calculateResult;
     }
 
-    public String[] getClientText() {
+    public List<String> getClientText() {
         return clientText;
     }
 
-    public void setClientText(String[] clientText) {
+    public void setClientText(List<String> clientText) {
         this.clientText = clientText;
     }
 
@@ -70,11 +69,11 @@ public class Dialog {
         this.leaf = leaf;
     }
 
-    public String[] getLegalCases() {
+    public List<String> getLegalCases() {
         return legalCases;
     }
 
-    public void setLegalCases(String[] legalCases) {
+    public void setLegalCases(List<String> legalCases) {
         this.legalCases = legalCases;
     }
 
@@ -126,31 +125,11 @@ public class Dialog {
         this.remoteInfo = remoteInfo;
     }
 
-    public String[] getText() {
+    public List<String> getText() {
         return text;
     }
 
-    public void setText(String[] text) {
+    public void setText(List<String> text) {
         this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "Dialog{" +
-                "calculateResult=" + calculateResult +
-                ", clientText=" + Arrays.toString(clientText) +
-                ", completeServerText='" + completeServerText + '\'' +
-                ", conversation=" + conversation +
-                ", errorMsg='" + errorMsg + '\'' +
-                ", leaf='" + leaf + '\'' +
-                ", legalCases=" + Arrays.toString(legalCases) +
-                ", mediators='" + mediators + '\'' +
-                ", needMediators='" + needMediators + '\'' +
-                ", nodes=" + nodes +
-                ", onClose='" + onClose + '\'' +
-                ", predictionResult='" + predictionResult + '\'' +
-                ", remoteInfo='" + remoteInfo + '\'' +
-                ", text=" + Arrays.toString(text) +
-                '}';
     }
 }

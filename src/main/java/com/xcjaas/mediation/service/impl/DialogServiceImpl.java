@@ -8,6 +8,7 @@ import com.xcjaas.mediation.service.DialogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,9 @@ public class DialogServiceImpl implements DialogService {
         List<Node> nodes = nodeMapper.listByParent("hyjf");
 
         dialog.setNodes(nodes);
-        dialog.setText(new String[]{"您好，我是小崇机器人，请您点击选择想要咨询的问题，您也可以直接输入语音或者文字向我提问"});
+        List<String> texts = new ArrayList<>();
+        texts.add("您好，我是小崇机器人，请您点击选择想要咨询的问题，您也可以直接输入语音或者文字向我提问");
+        dialog.setText(texts);
         return dialog;
     }
 }

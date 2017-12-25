@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xcjaas.mediation.mapper.WsMapper">
+
+	<resultMap id="nodeMap" type="com.xcjaas.mediation.ws.model.Nodes">
+        <result property="mid" column="mid"/>
+        <result property="id" column="id"/>
+        <result property="rootId" column="root_id"/>
+        <result property="alias" column="alias"/>
+        <result property="sanswers" column="s_answers"/>
+        <result property="chooseSentence" column="choose_sentence"/>
+        <result property="clickable" column="click_able"/>
+        <result property="inputType" column="input_type"/>
+        <result property="skey" column="s_key"/>
+        <result property="leaf" column="leaf"/>
+        <result property="legalProvision" column="legal_provision"/>
+        <result property="predictionResult" column="prediction_result"/>
+        <result property="root" column="root"/>
+        <result property="text" column="text"/>
+        <result property="clearText" column="clear_text"/>
+        <result property="paramName" column="param_name"/>
+        <result property="parent" column="parent"/>
+        <result property="parentRoot" column="parent_root"/>
+        <result property="soptions" column="s_options"/>
+        <result property="loopTemplates" column="loop_templates"/>
+        <result property="nodeType" column="node_type"/>
+        <result property="loopCondition" column="loop_condition"/>
+	</resultMap>
+
+	<resultMap id="rootMap" type="com.xcjaas.mediation.ws.model.JsonRootBean">
+		<result property="id" column="id"/>
+		<result property="calculateResult" column="calculate_result"/>
+		<result property="clientTexts" column="clientTexts"/>
+		<result property="errorMsg" column="error_msg"/>
+		<result property="leaf" column="leaf"/>
+		<result property="legalCasess" column="legal_cases"/>
+		<result property="mediators" column="mediators"/>
+		<result property="needMediators" column="need_mediators"/>
+		<result property="onClose" column="on_close"/>
+		<result property="predictionResult" column="prediction_result"/>
+		<result property="remoteInfo" column="remote_info"/>
+		<result property="texts" column="texts"/>
+		<result property="completeServerText" column="complete_server_text"/>
+	</resultMap>
+
+	<resultMap id="conversationMap" type="com.xcjaas.mediation.ws.model.Conversation">
+		<result property="mid" column="mid"/>
+		<result property="rootId" column="root_id"/>
+		<result property="id" column="id"/>
+		<result property="categoryAlias" column="category_alias"/>
+		<result property="clientId" column="client_id"/>
+		<result property="deviceId" column="device_id"/>
+		<result property="ipAddress" column="ip_address"/>
+		<result property="source" column="source"/>
+		<result property="weChatUserId" column="we_chat_user_id"/>
+	</resultMap>
+	
+	<insert id="insertNode" useGeneratedKeys="true" keyProperty="mid">
+    <![CDATA[
+        INSERT INTO t_o_node (
+        	id ,
+        	root_id ,
+        	alias ,
+        	s_answers ,
+        	choose_sentence ,
+        	click_able ,
+        	input_type ,
+        	s_key ,
+        	leaf ,
+        	legal_provision ,
+        	prediction_result ,
+        	root ,
+        	text ,
+        	clear_text ,
+        	param_name ,
+        	parent ,
+        	parent_root ,
+        	s_options ,
+        	loop_templates ,
+        	node_type ,
+        	loop_condition 
+        ) VALUES (
+        	#{id} ,
+        	#{rootId} ,
+        	#{alias} ,
+        	#{sanswers} ,
+        	#{chooseSentence} ,
+        	#{clickable} ,
+        	#{inputType} ,
+        	#{skey} ,
+        	#{leaf} ,
+        	#{legalProvision} ,
+        	#{predictionResult} ,
+        	#{root} ,
+        	#{text} ,
+        	#{clearText} ,
+        	#{paramName} ,
+        	#{parent} ,
+        	#{parentRoot} ,
+        	#{soptions} ,
+        	#{loopTemplates} ,
+        	#{nodeType} ,
+        	#{loopCondition} 
+        )
+    ]]>
+	</insert>
+
+	<insert id="insertRoot" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+        INSERT INTO t_res_root (
+
+        	calculate_result ,
+        	clientTexts ,
+        	error_msg ,
+        	leaf ,
+        	legal_cases ,
+        	mediators ,
+        	need_mediators ,
+        	on_close ,
+        	prediction_result ,
+        	remote_info ,
+        	texts ,
+        	complete_server_text
+        ) VALUES (
+
+        	#{calculateResult} ,
+        	#{clientTexts} ,
+        	#{errorMsg} ,
+        	#{leaf} ,
+        	#{legalCasess} ,
+        	#{mediators} ,
+        	#{needMediators} ,
+        	#{onClose} ,
+        	#{predictionResult} ,
+        	#{remoteInfo} ,
+        	#{texts} ,
+        	#{completeServerText}
+        )
+    ]]>
+	</insert>
+
+	<insert id="insertConversation" useGeneratedKeys="true" keyProperty="mid">
+		<![CDATA[
+        INSERT INTO t_conversation (
+        	root_id ,
+        	id ,
+        	category_alias ,
+        	client_id ,
+        	device_id ,
+        	ip_address ,
+        	source ,
+        	we_chat_user_id
+        ) VALUES (
+        	#{rootId} ,
+        	#{id} ,
+        	#{categoryAlias} ,
+        	#{clientId} ,
+        	#{deviceId} ,
+        	#{ipAddress} ,
+        	#{source} ,
+        	#{weChatUserId}
+        )
+    ]]>
+	</insert>
+
+
+</mapper>
+

@@ -1,11 +1,13 @@
 package com.xcjaas.mediation.entity;
 
+import java.util.List;
+
 /**
  * Created by wallaw on 2017/12/19.
  */
 public class Node {
     private String alias;
-    private String[] answers;
+    private List<String> answers;
     private String chooseSentence;
     private String clearText;
     private boolean clickable;
@@ -28,11 +30,11 @@ public class Node {
         this.alias = alias;
     }
 
-    public String[] getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(String[] answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 
@@ -52,7 +54,7 @@ public class Node {
         this.clearText = clearText;
     }
 
-    public boolean getClickable() {
+    public boolean isClickable() {
         return clickable;
     }
 
