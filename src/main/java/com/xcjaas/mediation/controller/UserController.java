@@ -34,7 +34,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String to_Person_Info_Html() {
-        return "/user/personal-info";
+        return "/user/register";
     }
 
     /*
@@ -99,6 +99,11 @@ public class UserController {
     @RequestMapping(value = "/pingjia", method = RequestMethod.GET)
     public String to_Pingjia_Html() {
         return "/user/pingjia";
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
+        return "/user/test";
     }
 
 }

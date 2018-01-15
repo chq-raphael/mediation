@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.UserMapper">
-    <insert id="add" useGeneratedKeys="true" keyProperty="userId">
+<mapper namespace="com.xcjaas.mediation.mapper.UserMapper">
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
       insert into t_user(user_name,user_sex,user_birth,user_card_id,user_phone_num,user_native_place,user_nation,user_address)
        values ( #{userName},#{userSex},#{userBirth},#{userCardId},#{userTel},#{userJig},#{userMinz},#{userAddr});
     </insert>
