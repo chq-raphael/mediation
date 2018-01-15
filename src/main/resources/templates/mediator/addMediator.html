@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>添加调解员</title>
+    <script th:src="@{/fyjs/jquery-2.1.1.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/admin.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/amazeui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/td.css}"/>
+    <script th:src="@{/fyjs/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<h1>添加界面</h1>
+
+<form action='/mediator/addMediator' method='post'>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td class="active">调解员姓名</td>
+            <td class="success">电话号码</td>
+            <td class="warning">擅长调解领域</td>
+            <td class="danger">所在机构</td>
+            <td class="primary">性别</td>
+            <td class="info">调解中案件</td>
+            <td class="active">待受理案件</td>
+            <td class="success">调解成功案件</td>
+            <td class="warning">调解失败案件</td>
+            <td class="success">提交</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input name='name'  style='text-align:center'></td>
+            <td><input name='phone_num' style='text-align:center'></td>
+            <td><input name='field' style='text-align:center'></td>
+            <td><input name='organization' style='text-align:center'></td>
+            <td><input name='sex'  style='text-align:center'></td>
+            <td><input name='mediating_count' value="0" style='text-align:center' disabled='disabled'></td>
+            <td><input name='prepare_mediate_count' value="0" style='text-align:center' disabled='disabled'></td>
+            <td><input name='success_mediated_count' value="0" style='text-align:center' disabled='disabled'></td>
+            <td><input name='failed_ediated_count' value="0" style='text-align:center' disabled='disabled'></td>
+            <td><input type='submit' name='提交'></td>
+
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<div>
+    <button type='button' class='returnButton'>取消添加，返回主页</button>
+</div>
+</body>
+<script type="text/javascript">
+
+    $(".returnButton").unbind("click");
+    $(".returnButton").click(function () {
+        window.location.href = "/mediator/index";
+    })
+
+
+</script>
+</html>
