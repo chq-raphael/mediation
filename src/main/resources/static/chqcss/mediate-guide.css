@@ -1,0 +1,31 @@
+@import "common.css";
+#mediateG_box {
+  padding: 1rem;
+}
+#mediateG_box .mediateG {
+  width: 100%;
+  height: 35rem;
+  font-size: 1.3rem;
+  color: #666;
+  line-height: 2rem;
+  overflow-y: scroll;
+  padding: 1rem;
+  background-color: #fff;
+}
+#mediateG_box .mediateG::-webkit-scrollbar {
+  display: none ;
+}
+#mediateG_box .mediateG .mediateG_title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+#mediateG_box .mediateG_tongyi {
+  margin-top: 2rem;
+  padding: 1rem 0 ;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #14c177;
+  border-radius: .5rem;
+}

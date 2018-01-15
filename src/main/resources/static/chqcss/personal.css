@@ -1,0 +1,61 @@
+@import "common.css";
+#personal #per_info {
+  background-image: url(../chqimage/beijing.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+#personal #per_info .per_info_touxiang {
+  text-align: center;
+  width: 25%;
+}
+#personal #per_info .per_info_touxiang img {
+  width: 100%;
+}
+#personal #per_info .per_info_name {
+  padding: .2rem 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+#personal #per_info .per_info_phone {
+  padding: .2rem 0;
+  font-size: 1.3rem;
+  color: #e6e6e6;
+  background: url("../chqimage/icon-phone.png") no-repeat;
+  background-size: contain;
+}
+#personal #per_info .per_info_phone span {
+  padding-left: 1.8rem;
+}
+#personal #per_info .per_info_phone img {
+  position: absolute;
+  top: .5rem;
+}
+#personal #per_state {
+  display: flex;
+}
+#personal #per_state .state {
+  width: 33.3%;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  margin: 1rem .2rem 0 0;
+  padding: 1rem 0;
+}
+#personal #per_state .state .state_img {
+  text-align: center;
+  width: 40%;
+}
+#personal #per_state .state .state_img img {
+  width: 100%;
+}
+#personal #per_state .state .state_info {
+  color: #4d4d4d;
+  padding-top: .2rem;
+}

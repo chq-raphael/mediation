@@ -1,0 +1,39 @@
+@import "common.css";
+#personalInfo_box{
+  font-size:1.5rem;
+  color:#808080;
+  //输入
+  #info{
+    margin-top:1rem;
+    width:100%;
+    p{
+      width:100%;
+      background-color:#fff;
+      padding:1rem;
+      margin-bottom:2px;
+      text-align: left;
+      span{
+        &.required{
+          color:#ed2929;
+          margin-right:.2rem;
+        }
+      }
+      input{
+        width:75%;
+        text-align: right;
+        border:none;
+        outline: none;
+        font-size:1.5rem;
+        &::-webkit-input-placeholder{
+          color:#ccc;
+        }
+        &::-moz-placeholder{
+          color:#ccc;
+        }
+        &:active{
+          color:#333;
+        }
+      }
+    }
+  }
+}

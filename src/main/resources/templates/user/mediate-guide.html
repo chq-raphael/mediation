@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>调解引导</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/chqcss/mediate-guide.css}">
+    <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+<!--顶部标题-->
+
+<div id="head">
+    <a href="personal-info.html" class="return_img float_left"><img  src="/chqimage/icon-fanh.png"  alt=""></a>
+    <p class="head_title">我要调解</p>
+</div>
+<div id="mediateG_box">
+    <div class="mediateG">
+        <p class="mediateG_title">法院通知书</p>
+        <p class="mediateG_name">张三：</p>
+        <p class="mediateG_content"> 今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
+        </p>
+    </div>
+    <div class="next_step">同意先行调解</div>
+</div>
+
+<script>
+    $('.next_step').on('click',function () {
+        window.location.href = '/user/choice-mediate';
+    })
+</script>
+</body>
+</html>

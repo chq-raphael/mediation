@@ -1,0 +1,59 @@
+@import "common.css";
+#otherDsr_box{
+  font-size:1.5rem;
+  color:#666;
+  //当事人列表
+  .dsr_list{
+    .dsr{
+      margin-bottom:1rem;
+      width:100%;
+      p{
+        width:100%;
+        background-color:#fff;
+        padding:1rem;
+        margin-bottom:2px;
+        text-align: left;
+        span{
+          //必填
+          &.required{
+            color:#ed2929;
+            margin-right:.2rem;
+          }
+        }
+        input{
+          width:75%;
+          text-align: right;
+          border:none;
+          outline: none;
+          font-size:1.5rem;
+          &::-webkit-input-placeholder{
+            color:#ccc;
+          }
+          &::-moz-placeholder{
+            color:#ccc;
+          }
+          &:active{
+            color:#333;
+          }
+        }
+      }
+    }
+  }
+  //添加
+  .add_box{
+       //height: 90px;
+       font-size: 1.4rem;
+       color: #14c177;
+       text-align: center;
+       background-color: #fff;
+       padding: 1rem 0;
+       border-radius: .5rem;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       img{
+         width:5%;
+         margin-right:.5rem;
+       }
+     }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>用户中心</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet"  th:href="@{/chqcss/personal.css}">
+    <script type="text/javascript"  th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript"  th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+<!--顶部标题-->
+<div id="head">
+    <a href="other-dsr.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
+    <p class="head_title">我的调解</p>
+</div>
+<!--个人中心-->
+<div id="personal">
+    <!--个人信息-->
+    <div id="per_info">
+        <p class="per_info_touxiang"><img src="/chqimage/touxiang.png" alt="头像"></p>
+        <p class="per_info_name">李花花</p>
+        <p class="per_info_phone"><span>13547978085</span></p>
+    </div>
+    <!--我的调解-->
+    <div id="per_state">
+        <a href="my-mediate.html"  class="state">
+            <p class="state_img"><img src="/chqimage/icon-qingqiu.png" alt=""></p>
+            <p class="state_info">我的调解</p>
+        </a>
+        <a href="#"  class="state">
+            <p class="state_img"><img src="/chqimage/icon-tianjia.png" alt=""></p>
+            <p class="state_info">新增调解</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

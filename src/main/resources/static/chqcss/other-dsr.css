@@ -1,0 +1,51 @@
+@import "common.css";
+#otherDsr_box {
+  font-size: 1.5rem;
+  color: #666;
+}
+#otherDsr_box .dsr_list .dsr {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+#otherDsr_box .dsr_list .dsr p {
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem;
+  margin-bottom: 2px;
+  text-align: left;
+}
+#otherDsr_box .dsr_list .dsr p span.required {
+  color: #ed2929;
+  margin-right: .2rem;
+}
+#otherDsr_box .dsr_list .dsr p input {
+  width: 75%;
+  text-align: right;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+}
+#otherDsr_box .dsr_list .dsr p input::-webkit-input-placeholder {
+  color: #ccc;
+}
+#otherDsr_box .dsr_list .dsr p input::-moz-placeholder {
+  color: #ccc;
+}
+#otherDsr_box .dsr_list .dsr p input:active {
+  color: #333;
+}
+#otherDsr_box .add_box {
+  font-size: 1.4rem;
+  color: #14c177;
+  text-align: center;
+  background-color: #fff;
+  padding: 1rem 0;
+  border-radius: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#otherDsr_box .add_box img {
+  width: 5%;
+  margin-right: .5rem;
+}

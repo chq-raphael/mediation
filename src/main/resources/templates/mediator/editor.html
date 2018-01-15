@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>编辑</title>
+    <script th:src="@{/fyjs/jquery-2.1.1.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/admin.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/amazeui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/td.css}"/>
+    <script th:src="@{/fyjs/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<h1>编辑页面</h1>
+
+<form action='/mediator/modifyMediator' method='post'>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td class="danger">编号</td>
+            <td class="active">调解员姓名</td>
+            <td class="success">电话号码</td>
+            <td class="warning">擅长调解领域</td>
+            <td class="danger">所在机构</td>
+            <td class="primary">性别</td>
+            <td class="info">调解中案件</td>
+            <td class="active">待受理案件</td>
+            <td class="success">调解成功案件</td>
+            <td class="warning">调解失败案件</td>
+            <td class="success">提交 / 删除</td>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</form>
+
+<div>
+    <button type='button'  class='returnButton'>取消编辑，返回主页</button>
+</div>
+</body>
+<script type="text/javascript">
+
+    $(".returnButton").unbind("click");
+    $(".returnButton").click(function () {
+        window.location.href = "/mediator/index";
+    })
+
+    $(function () {
+        showOne();
+        function showOne() {
+            var newid_w = localStorage.getItem("id_w");
+            newid_w = JSON.parse(newid_w);
+            var newId = newid_w.id;
+            $.ajax({
+                type: "post",
+                url: "selectMediatorById",
+                data: {id: newId},
+                dataType: "json",
+                success: function (oldOneData) {
+                    $("h1").html(oldOneData.name + "&nbsp;&nbsp;&nbsp;基本信息编辑");
+                    var tbody = "";
+                    var tr = "";
+                    tr += "<tr>";
+                    tr += "<td><input name='id' value='" + oldOneData.id + "' readonly='true' style='width: 40px;text-align:center;background-color:#EBEBE4'></td>";
+                    tr += "<td><input name='name' value='" + oldOneData.name + "' style='text-align:center'></td>";
+                    tr += "<td><input name='phone_num' value='" + oldOneData.phone_num + "' style='text-align:center'></td>";
+                    tr += "<td><input name='field' value='" + oldOneData.field + "' style='text-align:center'></td>";
+                    tr += "<td><input name='organization' value='" + oldOneData.organization + "' style='text-align:center'></td>";
+                    tr += "<td><input name='sex' value='" + oldOneData.sex + "' style='text-align:center'></td>";
+                    tr += "<td><input name='mediating_count' value='" + oldOneData.mediating_count + "' style='text-align:center' disabled='disabled'></td>";
+                    tr += "<td><input name='prepare_mediate_count' value='" + oldOneData.prepare_mediate_count + "' style='text-align:center' disabled='disabled'></td>";
+                    tr += "<td><input name='success_mediated_count' value='" + oldOneData.success_mediated_count + "' style='text-align:center' disabled='disabled'></td>";
+                    tr += "<td><input name='failed_ediated_count' value='" + oldOneData.failed_ediated_count + "' style='text-align:center' disabled='disabled'></td>";
+                    tr += "<td><input type='submit' name='提交'><button value='" + oldOneData.id + "' type='button'  style='color: red' class='delButton'>删除</button></td>";
+                    tr += "</tr>";
+                    tr += "";
+                    tbody += tr;
+
+                    $("tbody").html(tbody);
+
+                    $(".delButton").unbind("click");
+                    $(".delButton").click(function () {
+                        var delId = $(this).val();
+                        window.location.href = "/mediator/deleteMediatorById?id=" + delId;
+                    })
+                },
+                error: function () {
+                    alert("error");
+                }
+
+            })
+        }
+    })
+</script>
+</html>

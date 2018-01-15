@@ -1,0 +1,108 @@
+@import "base.css";
+.float_left{
+  float:left;
+}
+.float_right{
+  float:right;
+}
+/*全屏*/
+html,body{
+  height:100%;
+  background-color:#f5f5f5;
+  overflow-y:auto;
+  //隐藏滚动条
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}
+/*顶部标题栏*/
+#head{
+  width:100%;
+  background-color: #000;
+  color:#fff;
+  font-size:1.7rem;
+  padding:1rem 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .return_img{
+    position: absolute;
+    top:1rem;
+    left:1rem;
+    img{
+      width: 2rem;
+    }
+  }
+  .head_title{
+    width:100%;
+    font-size:1.5rem;
+    text-align: center;
+  }
+}
+//小崇提示
+.prompt{
+  padding:1rem;
+  line-height: 2rem;
+  font-size:1.3rem;
+}
+//确定，提交，下一步
+.next_step{
+  display: block;
+  margin:5rem 1rem 0;
+  background-color:#60c89b;
+  font-size:1.4rem;
+  color:#fff;
+  text-align: center;
+  letter-spacing: .5rem;
+  border-radius:.5rem;
+  padding:1rem;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);//移动端a标签点击默认样式
+  -webkit-tap-highlight-color: transparent;
+}
+
+//选框
+.xuankuang{
+  position: relative;
+  .check_label{
+    width:30px;
+    height:30px;
+    background-color:#eee;
+    cursor: pointer;
+    border:1px solid #ccc;
+    border-radius:20%;
+    position:absolute;
+    top:0;
+    left: 0;
+    &::after{
+      content:'';
+      opacity: .3;
+      width:20px;
+      height:10px;
+      position: absolute;
+      top:5px;
+      left:5px;
+      border:3px solid #ccc;
+      border-top:none;
+      border-right:none;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg) ;
+      -ms-transform: rotate(-45deg) ;
+      -o-transform: rotate(-45deg) ;
+      transform: rotate(-45deg) ;
+
+    }
+    .check{
+      display: none;
+    }
+    .check:checked + label::after{
+      opacity: 1;
+      border-left:3px solid #14c177;
+      border-bottom:3px solid #14c177;
+    }
+  }
+}

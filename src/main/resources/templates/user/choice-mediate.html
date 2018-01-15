@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}"  type="image/x-icon">
+    <title>选择调解员</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/chqcss/choice-mediate.css}" >
+    <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+<!--顶部标题-->
+<div id="head">
+    <a href="mediate-guide.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png"  alt=""></a>
+    <p class="head_title">我要调解</p>
+</div>
+<div id="choiceM_box">
+    <p class="prompt">关于本次纠纷案就，小崇为您找到了<span>3</span>名合适的调解员，您可以从中选择2名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
+    <ul class="choiceM_list">
+        <li class="choiceM">
+            <div class="mediator_toux"><img src="/chqimage/touxiang.png" alt=""></div>
+            <div class="mediator_info">
+                <p>
+                    <span class="mediator_name">王阳</span>
+                    <span class="mediator_phone">11111111111</span>
+                </p>
+                <p class="mediator_introduce">律师，从事多年婚姻家庭纠纷调解工作，律师，从事多年婚姻家庭纠纷调解工作，擅长帮助当事人各方快速达成共识，化解纠纷</p>
+            </div>
+            <div class="isChoice_box"><img src="/chqimage/duoxuan.png" alt=""  class="isChoice"></div>
+        </li>
+        <li class="choiceM">
+            <div class="mediator_toux"><img  src="/chqimage/touxiang.png" alt=""></div>
+            <div class="mediator_info">
+                <p>
+                    <span class="mediator_name">王阳</span>
+                    <span class="mediator_phone">11111111111</span>
+                </p>
+                <p class="mediator_introduce">律师，从事多年婚姻家庭纠纷调解工作，律师，从事多年婚姻家庭纠纷调解工作，擅长帮助当事人各方快速达成共识，化解纠纷</p>
+            </div>
+            <div class="isChoice_box"><img src="/chqimage/duoxuan.png" alt=""  class="isChoice"></div>
+        </li>
+        <li class="choiceM">
+            <div class="mediator_toux"><img  src="/chqimage/touxiang.png" alt=""></div>
+            <div class="mediator_info">
+                <p>
+                    <span class="mediator_name">王阳</span>
+                    <span class="mediator_phone">11111111111</span>
+                </p>
+                <p class="mediator_introduce">律师，从事多年婚姻家庭纠纷</p>
+            </div>
+            <div class="isChoice_box"><img src="/chqimage/duoxuan.png" alt=""  class="isChoice"></div>
+        </li>
+
+    </ul>
+    <a class="next_step">确定</a>
+</div>
+<script>
+    <!--开关,判断选择状态-->
+    var swith = 1;
+    $(".isChoice").on('click',function () {
+        if(swith){
+            $(this).attr('src','../../static/chqimage/duoxuany.png');
+            swith = 0;
+        }else{
+            $(this).attr('src','../../static/chqimage/duoxuan.png');
+            swith = 1
+        }
+    });
+    $('.next_step').on('click',function () {
+        window.location.href = '/user/other-dsr';
+    })
+</script>
+
+</body>
+</html>

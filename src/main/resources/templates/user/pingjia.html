@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>用户中心</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet"  th:href="@{/chqcss/pingjia.css}">
+    <script type="text/javascript"  th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript"  th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+<!--顶部标题-->
+<div id="head">
+    <a href="my-mediate.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
+    <p class="head_title">我的评价</p>
+</div>
+<div id="pingjia_box">
+
+        <div class="pingjia_content">
+            <textarea name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
+        </div>
+        <div class="tongyi">
+            <p>是否认可调解结果</p>
+            <p><img src="/chqimage/tongyiy.png" alt="" class="tongyi_img"></p>
+        </div>
+        <div class="pingjia_tijiao next_step">提交</div>
+</div>
+<script>
+    <!--开关,判断选择状态-->
+    var swith = 1;
+    $(".tongyi_img").on('click',function () {
+        if(swith){
+            $(this).attr('src','../../static/chqimage/tongyi.png');
+            swith = 0;
+        }else{
+            $(this).attr('src','../../static/chqimage/tongyiy.png');
+            swith = 1
+        }
+    });
+</script>
+
+</body>
+</html>

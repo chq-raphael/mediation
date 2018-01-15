@@ -1,0 +1,59 @@
+@import "common.css";
+#choiceM_box {
+  font-size: 1.5rem;
+  color: #666;
+}
+#choiceM_box .choiceM_list {
+  padding: 0 1rem;
+}
+#choiceM_box .choiceM_list .choiceM {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  color: #808080;
+  overflow: hidden;
+  border-radius: .5rem;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_toux {
+  width: 25%;
+  align-self: stretch;
+  margin-right: 1rem;
+  background-color: #f00;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_toux img {
+  width: 100%;
+  height: 100%;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_info {
+  line-height: 2rem;
+  padding: .5rem 0 ;
+  width: 72%;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_info .mediator_name {
+  font-size: 1.5rem;
+  color: #333;
+  margin-right: 2rem;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_info .mediator_phone {
+  background: url("../chqimage/icon-phone.png") no-repeat;
+  background-size: contain;
+  padding-left: 1.5rem;
+  font-size: 1.3rem;
+}
+#choiceM_box .choiceM_list .choiceM .mediator_info .mediator_introduce {
+  height: 4rem;
+  font-size: 1.3rem;
+  overflow: hidden;
+  display: -webkit-box;
+  /*多行文本仅显示2行，-webkit-内核样式，非css标注规范*/
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+#choiceM_box .choiceM_list .choiceM .isChoice_box {
+  width: 8%;
+  margin-right: .5rem;
+}
+#choiceM_box .choiceM_list .choiceM .isChoice_box img {
+  width: 100%;
+}

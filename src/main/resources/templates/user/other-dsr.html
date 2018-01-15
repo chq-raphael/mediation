@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>其他当事人</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet"  th:href="@{/chqcss/other-dsr.css}">
+    <script type="text/javascript"  th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript"  th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+
+<!--顶部标题-->
+<div id="head">
+    <a href="choice-mediate.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
+    <p class="head_title">添加其他当事人</p>
+</div>
+<!--主要内容盒子-->
+<div id="otherDsr_box">
+    <!--小崇提示-->
+    <div class="prompt">为及时通知其他当事人参加调解，请填写其他当事人信息，如有疑问，请咨询我</div>
+    <ul class="dsr_list">
+        <li class="dsr">
+            <p>
+                <span class="required">*</span><span>姓名</span>
+                <input type="text" placeholder="请输入" class="dsr_name float_right">
+            </p>
+            <p>
+                <span class="required">*</span><span>电话</span>
+                <input type="text" placeholder="请输入" class="dsr_tel float_right">
+            </p>
+        </li>
+    </ul>
+    <div class="add_box"><img src="/chqimage/icon-tianjia.png" alt=""><span>添加其他当事人</span></div>
+
+    <!--下一步-->
+    <a class="next_step">确定</a>
+</div>
+
+<script>
+    $(".add_box").on('click',function(){
+        var html = '';
+        html = '<li class="dsr"><p><span class="required">*</span><span>姓名</span><input type="text" placeholder="请输入" class="dsr_name float-right"></p><p><span class="required">*</span><span>电话</span><input type="text" placeholder="请输入" class="dsr_tel float-right"></p></li>'
+        $('.dsr_list').append(html);
+    });
+    $('.next_step').on('click',function () {
+        var dsrList = $('.dsr_list');
+        for(var i=0 ; i<dsrList.length;i++){
+
+        }
+        var dsrName = $('.dsr_name');
+        var dsrTel = $('.dsr_tel');
+
+
+        window.location.href='/user/personal'
+
+    })
+</script>
+
+
+</body>
+</html>
