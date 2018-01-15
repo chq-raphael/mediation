@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Administrator on 2018/1/10.
+ * 用户登录
  */
 @Controller
 @RequestMapping("/user")
