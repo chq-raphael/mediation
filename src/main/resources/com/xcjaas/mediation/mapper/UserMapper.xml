@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
     <insert id="add" useGeneratedKeys="true" keyProperty="userId">
-        insert into t_user(userName,userSex,userBirth,userCardId,userTel,userJig,userMinz,userAddr)
-        values ( #{userName},#{userSex},#{userBirth},#{userCardId},#{userTel},#{userJig},#{userMinz},#{userAddr});
+      insert into t_user(user_name,user_sex,user_birth,user_card_id,user_phone_num,user_native_place,user_nation,user_address)
+       values ( #{userName},#{userSex},#{userBirth},#{userCardId},#{userTel},#{userJig},#{userMinz},#{userAddr});
     </insert>
 </mapper>
 
