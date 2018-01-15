@@ -5,21 +5,37 @@ import java.util.List;
 /**
  * Created by wallaw on 2017/12/19.
  */
+//节点类
 public class Node {
+    //别名
     private String alias;
+    //答案
     private List<String> answers;
+    //选择的话语
     private String chooseSentence;
+    //明文
     private String clearText;
+    //可以点击的
     private boolean clickable;
+
     private String id;
+    //按钮类型
     private String inputType;
+    //关键字
     private String keyWords;
+    //是否是叶子节点
     private boolean leaf;
+    //法律条文
     private String legalProvision;
+    //节点类型
     private String nodeType;
+    //父类名称
     private String parent;
+    //父类根id
     private boolean parentRoot;
+    //是否是根
     private boolean root;
+
     private String text;
 
     public String getAlias() {
@@ -140,5 +156,26 @@ public class Node {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "alias='" + alias + '\'' +
+                ", answers=" + answers +
+                ", chooseSentence='" + chooseSentence + '\'' +
+                ", clearText='" + clearText + '\'' +
+                ", clickable=" + clickable +
+                ", id='" + id + '\'' +
+                ", inputType='" + inputType + '\'' +
+                ", keyWords='" + keyWords + '\'' +
+                ", leaf=" + leaf +
+                ", legalProvision='" + legalProvision + '\'' +
+                ", nodeType='" + nodeType + '\'' +
+                ", parent='" + parent + '\'' +
+                ", parentRoot=" + parentRoot +
+                ", root=" + root +
+                ", text='" + text + '\'' +
+                '}';
     }
 }

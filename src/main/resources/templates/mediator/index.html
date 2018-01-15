@@ -1,10 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" >
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>智慧法务后台管理</title>
 
+    <script th:src="@{/fyjs/jquery-2.1.1.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/admin.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/amazeui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/fycss/td.css}"/>
+    <script th:src="@{/fyjs/bootstrap.min.js}"></script>
+
+</head>
+
+<body >
+
+<h1 >智慧法务运营管理中心</h1>
+<div class="am-btn-toolbars am-btn-toolbar am-kg am-cf"
+     style="float: right">
+    <ul>
+        <li><input type="text"
+                   class="am-form-field am-input-sm am-input-xm" id="search"
+                   placeholder="输入名字查找" /></li>
+        <li><button id="searchByName" type="button"
+                    class="am-btn am-radius am-btn-xs am-btn-success"
+                    style="margin-top: 4px;margin-right:40px">搜索</button></li>
+    </ul>
+</div>
+<div>
+    <button class="btn btn-primary" id="addOne">添加调解员</button>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td class="active">调解员姓名</td>
+        <td class="success">电话号码</td>
+        <td class="warning">擅长调解领域</td>
+        <td class="danger">所在机构</td>
+        <td class="primary">性别</td>
+        <td class="info">调解中案件</td>
+        <td class="active">待受理案件</td>
+        <td class="success">调解成功案件</td>
+        <td class="warning">调解失败案件</td>
+        <td class="danger"><font color="#00008b"><b>操作</b></font></td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div>
+
+    <div id="showAllLawFenyeDiv" style="margin-right:20px">
+        <ul id="showAllLawFenye" class="am-pagination am-fr">
+        </ul>
+    </div>
+</div>
 </body>
+<script type="text/javascript">
+
+    $("#addOne").unbind("click");
+    $("#addOne").click(function(){
+        window.location.href = "/mediator/addMediatorHtml"
+    })
+
+    $(function() {
+        showAllByPage(1);
+        function showAllByPage(pageNo) {
+            var search = $("#search").val();
+            $.ajax({
+                type: "post",
+                url: "/mediator/data",
+                data: {pageNo:pageNo,search:search},
+                dataType: "json",
+                success: function (result) {
+                    if(result.mediators.length==0){
+                        alert(search+"：没有查找到对应数据");
+                    };
+                    var pages = result.pages;
+                    var pageNo = result.pageNo;
+
+                    var tbody = "";
+                    for (i = 0; i <  result.mediators.length; i++) {
+                        var tr = "";
+                        tr += "<tr>";
+                        tr += "<td>" + result.mediators[i].name + "</td>";
+                        tr += "<td>" + result.mediators[i].phone_num + "</td>";
+                        tr += "<td>" + result.mediators[i].field + "</td>";
+                        tr += "<td>" + result.mediators[i].organization + "</td>";
+                        tr += "<td>" + result.mediators[i].sex + "</td>";
+                        tr += "<td>" + result.mediators[i].mediating_count + "</td>";
+                        tr += "<td>" + result.mediators[i].prepare_mediate_count + "</td>";
+                        tr += "<td>" + result.mediators[i].success_mediated_count + "</td>";
+                        tr += "<td>" + result.mediators[i].failed_ediated_count + "</td>";
+                        tr += "<td><button value='" + result.mediators[i].id + "' type='button' class='btn btn-primary editorButton'>编辑</button>" ;
+                        if( result.mediators[i].state==0){
+                            tr +="&nbsp;<button value='" +result.mediators[i].id + "' type='button'  class='btn btn-info stateButton'>启用状态</button></td>";
+                        }else {
+                            tr +="&nbsp;<button value='" +result.mediators[i].id + "' type='button'  style='color: red' class='btn btn-warning stateButton'><b>停用状态</b></button></td>";
+                        }
+
+                        tr += "</tr>";
+                        tbody += tr;
+                    }
+                    $("tbody").html(tbody);
+
+                    var ul = "";
+                    for(i=1;i<=pages;i++){
+                        var li = "";
+                        li += "<li class='fenli'><a class='fenye' id='numberPage'>"+i+"</a></li>";
+                        ul += li;
+                    }
+                    var uli =""
+                    uli += "<li><a class='fenye' id='previousPage'>«</a></li>";
+                    uli += ul;
+                    uli += "<li><a class='fenye' id='nextPage'>»</a></li>";
+                    $("#showAllLawFenye").html(uli);
+
+                    $(".fenye").unbind("click");
+                    $(".fenye").click(function(){
+                        var id = $(this).attr("id");
+                        if(id == "previousPage"){
+                            if(pageNo == 1){
+                                alert("已经第一页了");
+                            }else{
+                                showAllByPage(pageNo-1);
+                            }
+                        }else if(id == "nextPage"){
+                            if(pageNo == pages){
+                                alert("已经是最后一页了");
+                            }else{
+                                showAllByPage(pageNo+1);
+                            }
+                        }else if(id == "numberPage"){
+                            showAllByPage($(this).text());
+                        }
+                    })
+                    var number = pageNo-1;
+                    $(".fenli:eq("+number+")").attr("class","am-active");
+
+                    $("#searchByName").unbind("click");
+                    $("#searchByName").click(function(){
+                        showAllByPage(1);
+                    })
+
+                    $(".editorButton").unbind("click");
+                    $(".editorButton").click(function(){
+                        var modId = $(this).val();
+                        var id_w={id:modId};
+                        id_w=JSON.stringify(id_w);
+                        localStorage.setItem("id_w",id_w);
+                        window.location.href = "/mediator/editor"
+                    })
+
+
+                    $(".stateButton").click(function(){
+                        var stateId = $(this).val();
+                        $.ajax({
+                            type: "post",
+                            url: "/mediator/changeState",
+                            data: {id:stateId,state:result.mediators[i].state},
+                            dataType: "json",
+                            success:showAllByPage(1)
+                        })
+
+                    })
+
+                }
+            })
+        }
+
+    })
+</script>
 </html>

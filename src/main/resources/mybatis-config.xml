@@ -20,5 +20,7 @@
     </typeAliases>
     <mappers>
         <mapper resource="com/xcjaas/mediation/mapper/NodeMapper.xml"/>
+        <mapper resource="com/xcjaas/mediation/mapper/MediatorMapper.xml"/>
+        <mapper resource="com/xcjaas/mediation/mapper/UserMapper.xml"/>
     </mappers>
 </configuration>

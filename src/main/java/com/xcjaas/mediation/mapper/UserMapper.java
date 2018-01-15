@@ -1,6 +1,7 @@
-package com.example.demo.mapper;
+package com.xcjaas.mediation.mapper;
 
-import com.example.demo.entity.User;
+
+import com.xcjaas.mediation.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface UserMapper {
-    void add(User user);
+    void addUser(User user);
 }

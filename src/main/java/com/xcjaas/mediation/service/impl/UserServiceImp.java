@@ -1,8 +1,9 @@
-package com.example.demo.service.serviceImp;
+package com.xcjaas.mediation.service.impl;
 
-import com.example.demo.entity.User;
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.service.UserService;
+
+import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.mapper.UserMapper;
+import com.xcjaas.mediation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UserServiceImp implements UserService {
     @Autowired
     UserMapper userMapper;
     @Override
-    public void add(User user) {
-        userMapper.add(user);
+    public void addUser(User user) {
+        userMapper.addUser(user);
     }
 }

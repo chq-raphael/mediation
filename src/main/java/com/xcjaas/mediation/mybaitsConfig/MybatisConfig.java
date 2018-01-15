@@ -1,4 +1,5 @@
-package com.fy.pagehelper.mybaitsConfig;
+package com.xcjaas.mediation.mybaitsConfig;
+
 
 import com.github.pagehelper.PageHelper;
 import org.springframework.context.annotation.Bean;

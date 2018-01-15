@@ -7,11 +7,8 @@
     <!--插入-->
     <insert id="addMediator">
         insert into t_mediator(name,
-        phone_num,field,organization,sex
-        ,mediating_count,prepare_mediate_count,
-        success_mediated_count,failed_ediated_count,state)
-        values ( #{name},#{phone_num},#{field},#{organization},#{sex},#{mediating_count},#{prepare_mediate_count}
-        ,#{success_mediated_count},#{failed_ediated_count},#{state});
+        phone_num,field,organization,sex,mediating_count,prepare_mediate_count,success_mediated_count,failed_ediated_count,state)
+        values ( #{name},#{phone_num},#{field},#{organization},#{sex},0,0,0,0,#{state});
     </insert>
 
     <!--根据id查找-->
@@ -20,7 +17,7 @@
     </select>
 
     <!--查找所有-->
-    <resultMap type="Law" id="MediatorMap">
+    <resultMap type="Mediator" id="MediatorMap">
 
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -35,10 +32,11 @@
         <result column="state" property="state"/>
 
     </resultMap>
+
     <select id="selectMediatorsByPage" parameterType="string" resultMap="MediatorMap">
         SELECT * FROM t_mediator where 1=1
-        <if test='search!=null and search!=""'>
-            and name like '%${search}%'
+        <if test='_parameter!=null and _parameter!=""'>
+            and name like '%${_parameter}%'
         </if>
     </select>
 
@@ -47,7 +45,7 @@
         delete from t_mediator where id=#{id}
     </delete>
 
-    <!--修改-->
+    <!--修改个人信息-->
     <update id="modifyMediator" parameterType="Mediator">
         update t_mediator set
           name=#{name},
@@ -57,6 +55,21 @@
           sex=#{sex}
         where
            id=#{id}
+    </update>
+
+    <!--修改状态 启用  -->
+    <update id="enable" parameterType="Mediator">
+        update t_mediator set
+        state=0
+        where
+        id=#{id}
+    </update>
+    <!--修改状态 停用  -->
+    <update id="disable" parameterType="Mediator">
+        update t_mediator set
+        state=1
+        where
+        id=#{id}
     </update>
 
 </mapper>

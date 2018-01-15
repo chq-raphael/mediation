@@ -5,20 +5,35 @@ import java.util.List;
 /**
  * Created by wallaw on 2017/12/19.
  */
+//会话体
 public class Dialog {
+    //预测结果
     private double calculateResult;
+    //客户文本
     private List<String> clientText;
+    //完整的服务器文本
     private String completeServerText;
+    //会话类Conversation
     private Conversation conversation;
+    //错误信息
     private String errorMsg;
+    //页
     private String leaf;
+    //合法案例
     private List<String> legalCases;
+    //调解人
     private String mediators;
+    //需要调解人
     private String needMediators;
+    //节点集合类Node
     private List<Node> nodes;
+    //关闭窗口
     private String onClose;
+    //预测结果
     private String predictionResult;
+    //延伸信息
     private String remoteInfo;
+    //text集合
     private List<String> text;
 
     public double getCalculateResult() {

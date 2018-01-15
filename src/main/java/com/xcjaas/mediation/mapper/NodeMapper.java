@@ -13,4 +13,5 @@ import java.util.List;
 public interface NodeMapper {
     void insert(Node node);
     List<Node> listByParent(@Param("parent") String parent);
+
 }

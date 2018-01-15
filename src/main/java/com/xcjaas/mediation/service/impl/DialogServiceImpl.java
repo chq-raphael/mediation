@@ -35,6 +35,7 @@ public class DialogServiceImpl implements DialogService {
 
         List<Node> nodes = nodeMapper.listByParent("hyjf");
 
+
         dialog.setNodes(nodes);
         List<String> texts = new ArrayList<>();
         texts.add("您好，我是小崇机器人，请您点击选择想要咨询的问题，您也可以直接输入语音或者文字向我提问");

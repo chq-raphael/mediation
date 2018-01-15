@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.xcjaas.mediation.service;
 
-import com.example.demo.entity.User;
+
+import com.xcjaas.mediation.entity.User;
 
 /**
  * Created by Administrator on 2018/1/10.
  */
 public interface UserService {
-    void add(User user);
+    void addUser(User user);
 }

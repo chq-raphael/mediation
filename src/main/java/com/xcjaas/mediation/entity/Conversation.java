@@ -5,15 +5,25 @@ import java.util.Date;
 /**
  * Created by wallaw on 2017/12/19.
  */
+//会话
 public class Conversation {
+    //分类别名
     private String categoryAlias;
+    //客户端Id
     private String clientId;
+    //创建日期
     private Date createDate;
+    //设备Id
     private String deviceId;
+
     private String id;
+    //ip地址
     private String ipAddress;
+    //最新更新时间
     private String lastModifiedDate;
+    //本源
     private String source;
+    //微信用户Id
     private String weChatUserId;
 
     public String getCategoryAlias() {
