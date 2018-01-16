@@ -63,6 +63,7 @@ public class UserController {
     }
     //返回3个调解员
     @RequestMapping(value = "/3mediators", method = RequestMethod.GET)
+    @ResponseBody
     public List<User> show_3Mediators() {
         return userService.selectThreeMediators();
     }
