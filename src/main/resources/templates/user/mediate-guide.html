@@ -36,7 +36,10 @@
         },
         mounted:function () {
             //缓存取出用户名
-            this.mediateG_name = localStorage.getItem("name");
+            var user = localStorage.getItem("localUser");
+            user = JSON.parse(user);
+            this.mediateG_name=user.userName;
+
             var _that = this;
             $.ajax({
                 url:'/user/text',

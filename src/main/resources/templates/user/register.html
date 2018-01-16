@@ -47,6 +47,9 @@
             userMinz: '',
             userAddr: ''
         },
+        mounted:function () {
+            localStorage.clear();
+        },
         methods: {
             printinfo: function () {
 //               console.log(this.userName);
@@ -77,26 +80,27 @@
                     userMinz:this.userMinz,
                     userAddr:this.userAddr
                 };
-                console.log(userInfo);
 
-                //缓存用户名
-                localStorage.setItem("name",this.userName);
-
+                var _that = this;
                 $.ajax({
                      url:'/user/add',
                      type:'get',
-                     async:true,
                      data:userInfo,
+                     async:false,
                      dataType:'json',
-                     success:function (result) {
-                        if(result=='1'){
-                            console.log("注册成功！");
-                        }else{
-                            console.log("注册失败！");
-                        }
+                     success:function (userId) {
+                         var user = {
+                             'userName':_that.userName,
+                             'userId':userId
+                         };
+//                         console.log(user);
+                        user=JSON.stringify(user);
+//                        console.log(user);
+                        window.localStorage.setItem('localUser',user);
                      },
                      error:function (err) {
                          console.log(err);
+                         return false;
                      }
                  });
                 window.location.href = '/user/mediate-guide';
