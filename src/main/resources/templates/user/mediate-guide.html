@@ -20,7 +20,7 @@
 <div id="mediateG_box">
     <div class="mediateG">
         <p class="mediateG_title">法院通知书</p>
-        <p class="mediateG_name">张三：</p>
+        <p class="mediateG_name"></p>
         <p class="mediateG_content"> 今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
             今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
             今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
@@ -37,6 +37,16 @@
 </div>
 
 <script>
+
+    //fy 页面传参
+    $(function(){
+        var new_name = localStorage.getItem("old_name");
+        new_name = JSON.parse(new_name);
+        var new_name = new_name.name;
+        $(".mediateG_name").text(new_name+" :");
+    });
+
+
     $('.next_step').on('click',function () {
         window.location.href = '/user/choice-mediate';
     })

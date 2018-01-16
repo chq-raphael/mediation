@@ -79,6 +79,13 @@
                     userAddr:this.userAddr
                 };
                 console.log(userInfo);
+
+                //fy 页面传参
+                var old_name = userInfo.userName;
+                var old_name={name:old_name};
+                old_name=JSON.stringify(old_name);
+                localStorage.setItem("old_name",old_name);
+
                 $.ajax({
                      url:'/user/add',
                      type:'get',
@@ -96,9 +103,13 @@
                          console.log(err);
                      }
                  });
+                window.location.href = '/user/mediate-guide';
             }
         }
     });
+
+
+
 </script>
 
 <!--    <script type="text/javascript">

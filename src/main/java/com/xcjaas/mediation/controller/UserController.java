@@ -101,9 +101,4 @@ public class UserController {
         return "/user/pingjia";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test() {
-        return "/user/test";
-    }
-
 }
