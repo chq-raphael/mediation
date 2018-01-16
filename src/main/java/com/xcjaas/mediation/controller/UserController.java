@@ -91,13 +91,7 @@ public class UserController {
     @ResponseBody
     public int add(@Param("user") User user) {
         userService.addUser(user);
-        if (user.getUserName() == null) {
-            //添加失败返回0
-            return 0;
-        } else {
-            //添加成功返回1
-            return 1;
-        }
+       return user.getUserId();
 
     }
     /*
