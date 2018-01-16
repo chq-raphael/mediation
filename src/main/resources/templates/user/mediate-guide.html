@@ -20,32 +20,38 @@
 <div id="mediateG_box">
     <div class="mediateG">
         <p class="mediateG_title">法院通知书</p>
-        <p class="mediateG_name"></p>
-        <p class="mediateG_content"> 今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-            今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。今天天气好晴朗，处处好风光。
-        </p>
+        <p class="mediateG_name">{{mediateG_name}}：</p>
+        <p class="mediateG_content">{{mediateG_content}}</p>
     </div>
-    <div class="next_step">同意先行调解</div>
+    <div class="next_step" >同意先行调解</div>
 </div>
 
 <script>
-
-    //fy 页面传参
-    $(function(){
-        var new_name = localStorage.getItem("old_name");
-        new_name = JSON.parse(new_name);
-        var new_name = new_name.name;
-        $(".mediateG_name").text(new_name+" :");
+    new Vue({
+        el:'#mediateG_box',
+        data:{
+            mediateG_title:'',
+            mediateG_name:'',
+            mediateG_content:''
+        },
+        mounted:function () {
+            //缓存取出用户名
+            this.mediateG_name = localStorage.getItem("name");
+            var _that = this;
+            $.ajax({
+                url:'/user/text',
+                type:'get',
+                datatype:'text',
+                async:true,
+                success:function (result) {
+                    _that.mediateG_content = result;
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            })
+        }
     });
-
 
     $('.next_step').on('click',function () {
         window.location.href = '/user/choice-mediate';

@@ -49,6 +49,7 @@ public class UserController {
     }
     //返回文本
     @RequestMapping(value = "/text", method = RequestMethod.GET)
+    @ResponseBody
     public String show_Text() {
         return Constant.CONSTANT_TEXT;
     }

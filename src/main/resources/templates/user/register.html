@@ -58,7 +58,6 @@
                     $('#userSex').focus().val("");
                     return false;
                 }
-//                console.log(userSex);
                 // 判断必填项
                 var userRequired = [this.userName, userSex, this.userBirth, this.userCardId, this.userTel];
                 for (var i = 0; i < userRequired.length; i++) {
@@ -80,11 +79,8 @@
                 };
                 console.log(userInfo);
 
-                //fy 页面传参.
-                var old_name = userInfo.userName;
-                var old_name={name:old_name};
-                old_name=JSON.stringify(old_name);
-                localStorage.setItem("old_name",old_name);
+                //缓存用户名
+                localStorage.setItem("name",this.userName);
 
                 $.ajax({
                      url:'/user/add',
