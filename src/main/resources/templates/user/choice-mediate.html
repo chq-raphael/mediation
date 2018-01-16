@@ -19,14 +19,14 @@
 <div id="choiceM_box">
     <p class="prompt">关于本次纠纷案就，小崇为您找到了3名合适的调解员，您可以从中选择2名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
     <ul class="choiceM_list">
-        <li class="choiceM" v-for="mediate in mediateList">
-            <div class="mediator_toux"><img v-bind:src="{{mediate.img}}" alt=""></div>
+        <li class="choiceM" v-for="mediator in mediatorList">
+            <div class="mediator_toux"><img   src="/chqimage/touxiang.png" alt=""></div>
             <div class="mediator_info">
                 <p>
-                    <span class="mediator_name">{{mediate.name}}</span>
-                    <span class="mediator_phone">{{mediate.phone}}</span>
+                    <span class="mediator_name">{{mediator.name}}</span>
+                    <span class="mediator_phone">{{mediator.phone_num}}</span>
                 </p>
-                <p class="mediator_introduce">{{mediate.intro}}</p>
+                <p class="mediator_introduce">{{mediator.field}}</p>
             </div>
             <div class="isChoice_box"><img src="/chqimage/duoxuan.png" alt=""  class="isChoice"></div>
         </li>
@@ -76,16 +76,19 @@
     new Vue({
         el:"#choiceM_box",
         data:{
-
+            name:'',
+            phone_num:'',
+            field:'',
+            mediatorList:[]
         },
         mounted:function () {
+            var _that = this;
             $.ajax({
-                url:'',
+                url:'/user/3mediators',
                 type:'get',
-                data:'',
                 datatype:'json',
                 success:function (result) {
-                    console.log(result);
+                    _that.mediatorList=result;
                 },
                 error:function (err) {
                     console.log(err);
