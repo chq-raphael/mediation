@@ -8,6 +8,7 @@ public class Mediator {
     private String name;//调解员姓名
     private String phone_num;//电话
     private String field;//擅长领域
+    private String introduce;//个人简介
     private String organization;//所在机构
     private String sex;//性别
     private int mediating_count;//调解中案件
@@ -15,6 +16,14 @@ public class Mediator {
     private int success_mediated_count;//调解成功案件
     private int failed_ediated_count;//调解失败案件
     private int state;//启用/停用
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
 
     public int getId() {
         return id;
@@ -111,6 +120,7 @@ public class Mediator {
                 ", name='" + name + '\'' +
                 ", phone_num='" + phone_num + '\'' +
                 ", field='" + field + '\'' +
+                ", introduce='" + introduce + '\'' +
                 ", organization='" + organization + '\'' +
                 ", sex='" + sex + '\'' +
                 ", mediating_count=" + mediating_count +
