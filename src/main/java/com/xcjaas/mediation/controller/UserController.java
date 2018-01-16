@@ -2,6 +2,7 @@ package com.xcjaas.mediation.controller;
 
 
 import com.xcjaas.mediation.constant.Constant;
+import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
@@ -32,7 +33,13 @@ public class UserController {
     public String to_Person_Info_Html() {
         return "/user/register";
     }
-
+   // 在personal-info.html界面，添加用户信息
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @ResponseBody
+    public int add(@Param("user") User user) {
+        userService.addUser(user);
+        return user.getUserId();
+    }
     /*
         页面跳转2:填写完个人信息，跳转至mediate-guide.html，确认条款
      */
@@ -83,17 +90,14 @@ public class UserController {
     public String to_Other_Dsr_Html() {
         return "/user/other-dsr";
     }
-
-    /*
-    在personal-info.html界面，添加用户信息
-     */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    @ResponseBody
-    public int add(@Param("user") User user) {
-        userService.addUser(user);
-       return user.getUserId();
-
+    //增加案例
+    @RequestMapping(value = "/addCase", method = RequestMethod.GET)
+    public String addCase(Case cas) {
+        cas.setCase_user_id(100);
+        userService.insertCase(cas);
+        return "/user/other-dsr";
     }
+
     /*
     跳转至个人主页, personal.html
      */

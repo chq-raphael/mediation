@@ -26,7 +26,11 @@
         <foreach collection="list" item="item" separator=",">
             (#{item.state_0_user_id},#{item.state_0_mediator_id})
         </foreach>
+    </insert>
 
+    <insert id="insertCase" >
+        insert into t_case(case_state,case_user_id)
+        VALUES (0,#{case_user_id});
     </insert>
 </mapper>
 

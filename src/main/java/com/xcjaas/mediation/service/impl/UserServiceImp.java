@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.service.impl;
 
 
+import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.mapper.UserMapper;
@@ -31,5 +32,10 @@ public class UserServiceImp implements UserService {
     @Override
     public void insertTwoMediators(List<State_Zero> state_Zeros) {
         userMapper.insertTwoMediators(state_Zeros);
+    }
+
+    @Override
+    public void insertCase(Case cas) {
+        userMapper.insertCase(cas);
     }
 }
