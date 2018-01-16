@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.controller;
 
 
+import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/10.
@@ -44,6 +47,11 @@ public class UserController {
     public String to_Mediate_Guide_Html() {
         return "/user/mediate-guide";
     }
+    //返回文本
+    @RequestMapping(value = "/text", method = RequestMethod.GET)
+    public String show_Text() {
+        return Constant.CONSTANT_TEXT;
+    }
 
     /*
        页面跳转3: 确认条款后，跳转至choice-mediate.html选择调解员
@@ -52,6 +60,17 @@ public class UserController {
     public String to_Choice_Mediate_Html() {
         return "/user/choice-mediate";
     }
+    //返回3个调解员
+    @RequestMapping(value = "/3mediators", method = RequestMethod.GET)
+    public List<User> show_3Mediators() {
+        return userService.selectThreeMediators();
+    }
+    //存储2个调解员
+    @RequestMapping(value = "/2mediators", method = RequestMethod.GET)
+    public void insert_2Mediators() {
+
+    }
+
 
     /*
       页面跳转4: 确认条款后，跳转至other-dsr.html选择其他当事人

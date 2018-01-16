@@ -7,6 +7,8 @@ import com.xcjaas.mediation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/1/10.
  */
@@ -18,5 +20,10 @@ public class UserServiceImp implements UserService {
     @Override
     public void addUser(User user) {
         userMapper.addUser(user);
+    }
+
+    @Override
+    public List<User> selectThreeMediators() {
+        return userMapper.selectThreeMediators();
     }
 }

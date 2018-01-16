@@ -1,4 +1,6 @@
-package com.xcjaas.mediation.entity;
+package com.xcjaas.mediation.entity.encapsulation;
+
+import com.xcjaas.mediation.entity.Mediator;
 
 import java.util.List;
 

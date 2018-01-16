@@ -3,7 +3,7 @@ package com.xcjaas.mediation.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xcjaas.mediation.entity.Mediator;
-import com.xcjaas.mediation.entity.MediatorsResult;
+import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;

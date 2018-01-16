@@ -3,9 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xcjaas.mediation.mapper.UserMapper">
+    <!--register.html插入用户数据-->
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
       insert into t_user(user_name,user_sex,user_birth,user_card_id,user_phone_num,user_native_place,user_nation,user_address)
        values ( #{userName},#{userSex},#{userBirth},#{userCardId},#{userTel},#{userJig},#{userMinz},#{userAddr});
+    </insert>
+
+    <!--choice-mediate.html中查到3个调解员返回给页面-->
+    <resultMap id="choose3" type="Mediator">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone_num" property="phone_num"/>
+    </resultMap>
+    <select id="selectThreeMediators" resultMap="choose3">
+      SELECT * FROM t_mediator limit 0,3;
+    </select>
+
+    <insert id="insertTwoMediators" >
+
     </insert>
 </mapper>
 
