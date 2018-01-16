@@ -2,7 +2,7 @@ package com.xcjaas.mediation.mapper;
 
 
 import com.xcjaas.mediation.entity.User;
-import com.xcjaas.mediation.entity.encapsulation.State_0;
+import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +18,5 @@ public interface UserMapper {
 
     List<User> selectThreeMediators();
 
-    void insertTwoMediators(State_0 state_0);
+    void insertTwoMediators(List<State_Zero> state_Zeros);
 }

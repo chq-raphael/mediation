@@ -3,6 +3,7 @@ package com.xcjaas.mediation.controller;
 
 import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +25,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /*
-      链接跳转
-   */
-/*
-    @RequestMapping(value = "/other", method = RequestMethod.GET)
-    public String index() {
-        return "/html/other-dsr";
-    }
-*/
     /*
         页面跳转1:跳转到personal-info.html，填写个人信息
      */
@@ -68,8 +61,18 @@ public class UserController {
     }
     //存储2个调解员
     @RequestMapping(value = "/2mediators", method = RequestMethod.GET)
-    public void insert_2Mediators() {
-
+    public String insert_2Mediators() {
+        List<State_Zero> state_Zeros=new ArrayList<>();
+        State_Zero state1=new State_Zero();
+        state1.setState_0_user_id(1);
+        state1.setState_0_mediator_id(10);
+        State_Zero state2=new State_Zero();
+        state2.setState_0_user_id(2);
+        state2.setState_0_mediator_id(20);
+        state_Zeros.add(state1);
+        state_Zeros.add(state2);
+        userService.insertTwoMediators(state_Zeros);
+        return "/user/choice-mediate";
     }
 
 

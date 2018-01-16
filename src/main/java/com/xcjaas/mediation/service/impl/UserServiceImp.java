@@ -2,6 +2,7 @@ package com.xcjaas.mediation.service.impl;
 
 
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.mapper.UserMapper;
 import com.xcjaas.mediation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> selectThreeMediators() {
         return userMapper.selectThreeMediators();
+    }
+
+    @Override
+    public void insertTwoMediators(List<State_Zero> state_Zeros) {
+        userMapper.insertTwoMediators(state_Zeros);
     }
 }

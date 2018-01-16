@@ -19,7 +19,13 @@
       SELECT * FROM t_mediator limit 0,3;
     </select>
 
-    <insert id="insertTwoMediators" >
+    <!--挑选备用的两个调解员-->
+    <insert id="insertTwoMediators" parameterType="ArrayList">
+        insert into t_case_state_prepare(prepare_user_id,prepare_mediator_id)
+        VALUES 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.state_0_user_id},#{item.state_0_mediator_id})
+        </foreach>
 
     </insert>
 </mapper>
