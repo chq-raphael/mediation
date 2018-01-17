@@ -2,6 +2,7 @@ package com.xcjaas.mediation.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
@@ -10,8 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -61,10 +68,29 @@ public class MediatorController {
     }
 
     @RequestMapping(value = "/addMediator", method = RequestMethod.POST)
-    public String addMediator(Mediator mediator) {
+    public String addMediator(Mediator mediator,@RequestParam("file") MultipartFile file) {
         mediator.setState(0);
-        mediatorService.addMediator(mediator);
-        return "/mediator/index";
+        System.out.println(mediator);
+        if (!file.isEmpty()) {
+            try {
+                BufferedOutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(
+                                new File(Constant.CONSTANT_PATH + mediator.getName() + ".jpg")));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+                String filename = Constant.CONSTANT_PATH + mediator.getName() + ".jpg";
+                mediator.setPicture(filename);
+                System.out.println(mediator);
+                mediatorService.addMediator(mediator);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+            return "/mediator/index";
+        } else {
+            return "上传失败，文件为空！";
+        }
     }
 
     /*

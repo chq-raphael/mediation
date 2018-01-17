@@ -10,6 +10,7 @@ public class Mediator {
     private String phone_num;//电话
     private String field;//擅长领域
     private String introduce;//个人简介
+    private String picture;//头像
     private String organization;//所在机构
     private String sex;//性别
     private int mediating_count;//调解中案件
@@ -17,6 +18,15 @@ public class Mediator {
     private int success_mediated_count;//调解成功案件
     private int failed_ediated_count;//调解失败案件
     private int state;//启用/停用
+
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getIntroduce() {
         return introduce;
@@ -129,6 +139,7 @@ public class Mediator {
                 ", success_mediated_count=" + success_mediated_count +
                 ", failed_ediated_count=" + failed_ediated_count +
                 ", state=" + state +
+                ", picture='" + picture + '\'' +
                 '}';
     }
 }

@@ -5,10 +5,10 @@
 <mapper namespace="com.xcjaas.mediation.mapper.MediatorMapper">
 
     <!--插入-->
-    <insert id="addMediator">
+    <insert id="addMediator" parameterType="Mediator">
         insert into t_mediator(name,
-        phone_num,field,organization,sex,mediating_count,prepare_mediate_count,success_mediated_count,failed_ediated_count,state)
-        values ( #{name},#{phone_num},#{field},#{organization},#{sex},0,0,0,0,#{state});
+        phone_num,field,picture,organization,sex,mediating_count,prepare_mediate_count,success_mediated_count,failed_ediated_count,state)
+        values ( #{name},#{phone_num},#{field},#{picture},#{organization},#{sex},0,0,0,0,#{state});
     </insert>
 
     <!--根据id查找-->

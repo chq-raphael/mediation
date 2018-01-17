@@ -15,15 +15,16 @@
 <body>
 <h1>添加界面</h1>
 
-<form action='/mediator/addMediator' method='post'>
+<form action='/mediator/addMediator' method='post' enctype="multipart/form-data">
     <table class="table table-striped">
         <thead>
         <tr>
+            <td class="success">上传头像</td>
             <td class="active">调解员姓名</td>
             <td class="success">电话号码</td>
             <td class="warning">擅长调解领域</td>
             <td class="danger">所在机构</td>
-            <td class="primary">性别</td>
+            <td class="warning">性别</td>
             <td class="info">调解中案件</td>
             <td class="active">待受理案件</td>
             <td class="success">调解成功案件</td>
@@ -33,11 +34,12 @@
         </thead>
         <tbody>
         <tr>
-            <td><input name='name'  style='text-align:center'></td>
+            <td><input type="file" name='file' style='text-align:center'></td>
+            <td><input name='name' style='text-align:center'></td>
             <td><input name='phone_num' style='text-align:center'></td>
             <td><input name='field' style='text-align:center'></td>
             <td><input name='organization' style='text-align:center'></td>
-            <td><input name='sex'  style='text-align:center'></td>
+            <td><input name='sex' style='text-align:center'></td>
             <td><input name='mediating_count' value="0" style='text-align:center' disabled='disabled'></td>
             <td><input name='prepare_mediate_count' value="0" style='text-align:center' disabled='disabled'></td>
             <td><input name='success_mediated_count' value="0" style='text-align:center' disabled='disabled'></td>
