@@ -18,7 +18,7 @@
         width:25%;
         align-self: stretch;
         margin-right:1rem;
-        background-color:#f00;
+        background-color:#60c89b;
         img{
           width:100%;
           height:100%;
@@ -52,8 +52,46 @@
       .isChoice_box{
         width:8%;
         margin-right:.5rem;
-        img{
+        position: relative;
+
+/*        img{
           width:100%;
+        }*/
+        .checkbox{
+          width:100%;
+          height:100%;
+          display: none;
+        }
+        .labelbox{
+          width:2rem;
+          height:2rem;
+          background-color:#fff;
+          border:1px solid #ccc;
+          border-radius:20%;
+          position:absolute;
+          top:0;
+          left: 0;
+        }
+        .checkbox:checked + .labelbox{
+          border:1px solid #60c89b;
+        }
+        .checkbox:checked + .labelbox:after{
+          content:'';
+          width:1.4rem;
+          height:.8rem;
+          position: absolute;
+          top:.3rem;
+          left:.3rem;
+          opacity: 1;
+          border-top:none;
+          border-right:none;
+          border-left:3px solid #60c89b;
+          border-bottom:3px solid #60c89b;
+          -webkit-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg) ;
+          -ms-transform: rotate(-45deg) ;
+          -o-transform: rotate(-45deg) ;
+          transform: rotate(-45deg) ;
         }
       }
     }

@@ -93,17 +93,15 @@
                              'userName':_that.userName,
                              'userId':userId
                          };
-//                         console.log(user);
                         user=JSON.stringify(user);
-//                        console.log(user);
                         window.localStorage.setItem('localUser',user);
+                         window.location.href = '/user/mediate-guide';
                      },
                      error:function (err) {
                          console.log(err);
                          return false;
                      }
                  });
-                window.location.href = '/user/mediate-guide';
             }
         }
     });
