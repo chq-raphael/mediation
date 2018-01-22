@@ -19,9 +19,9 @@
 <div id="choiceM_box">
     <p class="prompt">关于本次纠纷案就，小崇为您找到了3名合适的调解员，您可以从中选择2名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
     <ul class="choiceM_list">
-        <li class="choiceM" v-for="mediator in mediatorList" @click="show">
+        <li class="choiceM" v-for="mediator in mediatorList">
             <div class="mediator_toux"><img   src="/chqimage/test.jpg" alt=""></div>
-            <div class="mediator_info">
+            <div class="mediator_info" @click.stop="show(mediator.id)">
                 <p>
                     <span class="mediator_name">{{mediator.name}}</span>
                     <span class="mediator_phone">{{mediator.phone_num}}</span>
@@ -36,6 +36,7 @@
     </ul>
     <div class="prompt prompt2" style="display: none">请选择2名调解员</div>
     <a class="next_step" @click="sure">确定</a>
+
 </div>
 <script>
     new Vue({
@@ -44,6 +45,7 @@
             name:'',
             phone_num:'',
             field:'',
+            id:'',
             mediatorList:[]
         },
         mounted:function () {
@@ -62,15 +64,12 @@
             })
         },
         methods:{
-            show:function () {
-
-                var m_id;        //mediator.id
-                console.log("调解员id:");
-                console.log(m_id);
+            show:function (mediatorId) {
+               var m_id = mediatorId;    //mediator.id
+                console.log("调解员id:"+m_id);
 /*                $.ajax({
-                    url:'',
+                    url:'/user/mediator?m_id='+m_id,
                     type:'get',
-                    data:'',
                     datatype:'json',
                     success:function (result) {
                         console.log(result);
@@ -96,7 +95,7 @@
                     console.log(choiceM);
                     $('.prompt2').css('display','none');
 /*                    $.ajas({
-                        url:'',
+                        url:'/user/choiceM',
                         type:'get',
                         data:choiceM,
                         datatype:'json',
