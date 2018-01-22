@@ -20,7 +20,7 @@
     <p class="prompt">关于本次纠纷案就，小崇为您找到了3名合适的调解员，您可以从中选择2名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
     <ul class="choiceM_list">
         <li class="choiceM" v-for="mediator in mediatorList">
-            <div class="mediator_toux"><img   src="/chqimage/test.jpg" alt=""></div>
+            <div class="mediator_toux"><img :src="mediator.picture" alt=""></div>
             <div class="mediator_info" @click.stop="show(mediator.id)">
                 <p>
                     <span class="mediator_name">{{mediator.name}}</span>
@@ -44,6 +44,7 @@
         data:{
             name:'',
             phone_num:'',
+            picture:'',
             field:'',
             id:'',
             mediatorList:[]

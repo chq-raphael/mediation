@@ -79,7 +79,7 @@ public class MediatorController {
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
-                String filename = Constant.CONSTANT_PATH + mediator.getName() + ".jpg";
+                String filename = "\\webapp\\img-mediator\\" + mediator.getName() + ".jpg";
                 mediator.setPicture(filename);
                 System.out.println(mediator);
                 mediatorService.addMediator(mediator);

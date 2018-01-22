@@ -1,4 +1,4 @@
-package com.xcjaas.mediation.mybaitsConfig;
+package com.xcjaas.mediation.config;
 
 
 import com.github.pagehelper.PageHelper;
