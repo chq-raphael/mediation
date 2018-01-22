@@ -54,9 +54,16 @@
            })
         },
         queding:function () {
+            var dsrInfo = [];
             $('.dsr').each(function () {
-                console.log(this.id);
-            })
+//                console.log(this.id);
+                dsrInfo.push({
+                    dsrId:this.id,
+                    dsrName:item.dsrName,
+                    dsrTel:item.dsrTel
+                })
+            });
+            console.log(dsrInfo);
 
         }
     }
