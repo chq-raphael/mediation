@@ -76,7 +76,8 @@ public class UserController {
 
     //存储2个调解员
     @RequestMapping(value = "/mediators2", method = RequestMethod.GET)
-    public String insert_2Mediators(@RequestParam("mediator_1") int mediator_1,
+    @ResponseBody
+    public int insert_2Mediators(@RequestParam("mediator_1") int mediator_1,
                                     @RequestParam("mediator_2") int mediator_2) {
 
         List<State_Zero> state_Zeros = new ArrayList<>();
@@ -91,10 +92,15 @@ public class UserController {
 
         state_Zeros.add(state_zero1);
         state_Zeros.add(state_zero2);
-        System.out.println(state_Zeros);
-
         userService.insertTwoMediators(state_Zeros);
-        return "/user/choice-mediate";
+       //如果插入成功返回自增长id！=0，返回0表示插入成功；否则，表示失败
+        if(state_zero1.getState_0_id()!=0){
+            System.out.println("插入成功");
+            return 0;
+        }else {
+            System.out.println("插入失败");
+            return 1;
+        }
     }
 
 

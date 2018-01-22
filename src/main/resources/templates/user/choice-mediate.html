@@ -90,15 +90,13 @@
                     console.log("长度为2时");
                     console.log(choiceM);
                     $('.prompt2').css('display', 'none');
-                    //缓存取出用户名.
-                    var user = localStorage.getItem("localUser");
-                    user = JSON.parse(user);
+
                     $.ajax({
                         url: '/user/mediators2',
                         type: 'get',
                         data: {
                             mediator_1:choiceM[0],
-                            mediator_2:choiceM[1],
+                            mediator_2:choiceM[1]
                             }
                         ,
                         datatype: 'json',
