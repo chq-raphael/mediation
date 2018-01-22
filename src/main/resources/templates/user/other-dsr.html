@@ -22,45 +22,45 @@
     <!--小崇提示-->
     <div class="prompt">为及时通知其他当事人参加调解，请填写其他当事人信息，如有疑问，请咨询我</div>
     <ul class="dsr_list">
-        <li class="dsr" v-for="(item,index) in items" :id="index">
+        <li class="dsr" v-for="(dsr,i) in dsrList" :id="i">
             <p>
                 <span class="required">*</span><span>姓名</span>
-                <input type="text" v-model="item.dsrName" placeholder="请输入" class="dsr_name float_right">
+                <input type="text" v-model="dsr.dsrName" placeholder="请输入" class="dsr_name float_right">
             </p>
             <p>
                 <span class="required">*</span><span>电话</span>
-                <input type="text" v-model="item.dsrTel" placeholder="请输入" class="dsr_tel float_right">
+                <input type="text" v-model="dsr.dsrTel" placeholder="请输入" class="dsr_tel float_right">
             </p>
         </li>
     </ul>
     <div class="add_box" @click="add" ><img src="/chqimage/icon-tianjia.png" alt=""><span>添加其他当事人</span></div>
     <!--下一步-->
-    <a class="next_step" @click="queding">确定</a>
+    <a class="next_step" @click="confirm">确定</a>
 </div>
 
 <script>
  new Vue({
     el:'#otherDsr_box',
     data:{
-        items:[
+        dsrList:[
             {dsrName:'', dsrTel:''}
         ]
     },
     methods:{
         add:function () {
-           this.items.push({
+           this.dsrList.push({
                 dsrName:'',
                 dsrTel:''
            })
         },
-        queding:function () {
+        confirm:function () {
             var dsrInfo = [];
             $('.dsr').each(function () {
 //                console.log(this.id);
                 dsrInfo.push({
                     dsrId:this.id,
-                    dsrName:item.dsrName,
-                    dsrTel:item.dsrTel
+                    dsrName:this.dsrName,
+                    dsrTel:this.dsrTel
                 })
             });
             console.log(dsrInfo);
