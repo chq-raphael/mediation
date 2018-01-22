@@ -62,13 +62,13 @@ public class UserController {
         return "/user/choice-mediate";
     }
     //返回3个调解员
-    @RequestMapping(value = "/3mediators", method = RequestMethod.GET)
+    @RequestMapping(value = "/mediators3", method = RequestMethod.GET)
     @ResponseBody
     public List<User> show_3Mediators() {
         return userService.selectThreeMediators();
     }
     //存储2个调解员
-    @RequestMapping(value = "/2mediators", method = RequestMethod.GET)
+    @RequestMapping(value = "/mediators2", method = RequestMethod.GET)
     public String insert_2Mediators() {
         List<State_Zero> state_Zeros=new ArrayList<>();
         State_Zero state1=new State_Zero();
