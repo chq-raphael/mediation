@@ -34,19 +34,14 @@
             </div>
         </li>
     </ul>
-    <div class="prompt prompt2" style="display: none">请选择2名调解员</div>
     <a class="next_step" @click="sure">确定</a>
+    <div class="prompt prompt2" style="display: none">请选择2名调解员</div>
 
 </div>
 <script>
     new Vue({
         el:"#choiceM_box",
         data:{
-            name:'',
-            phone_num:'',
-            picture:'',
-            field:'',
-            id:'',
             mediatorList:[]
         },
         mounted:function () {
@@ -95,13 +90,14 @@
                     console.log("长度为2时");
                     console.log(choiceM);
                     $('.prompt2').css('display','none');
-/*                    $.ajas({
+/*                    $.ajax({
                         url:'/user/choiceM',
                         type:'get',
                         data:choiceM,
                         datatype:'json',
                         success:function (result) {
-                            console.log(result)
+                            console.log(result);
+                            window.location.href='/user/other-dsr';
                         },
                         error:function (err) {
                             console.log(err);
