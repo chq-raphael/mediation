@@ -9,11 +9,10 @@ import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,6 +25,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    public int userId = 0;
+
     /*
         页面跳转1:跳转到personal-info.html，填写个人信息
      */
@@ -33,13 +34,16 @@ public class UserController {
     public String to_Person_Info_Html() {
         return "/user/register";
     }
-   // 在personal-info.html界面，添加用户信息
+
+    // 在personal-info.html界面，添加用户信息
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     @ResponseBody
     public int add(@Param("user") User user) {
         userService.addUser(user);
+        userId = user.getUserId();
         return user.getUserId();
     }
+
     /*
         页面跳转2:填写完个人信息，跳转至mediate-guide.html，确认条款
      */
@@ -47,6 +51,7 @@ public class UserController {
     public String to_Mediate_Guide_Html() {
         return "/user/mediate-guide";
     }
+
     //返回文本
     @RequestMapping(value = "/text", method = RequestMethod.GET)
     @ResponseBody
@@ -61,24 +66,33 @@ public class UserController {
     public String to_Choice_Mediate_Html() {
         return "/user/choice-mediate";
     }
+
     //返回3个调解员
     @RequestMapping(value = "/mediators3", method = RequestMethod.GET)
     @ResponseBody
     public List<User> show_3Mediators() {
         return userService.selectThreeMediators();
     }
+
     //存储2个调解员
     @RequestMapping(value = "/mediators2", method = RequestMethod.GET)
-    public String insert_2Mediators() {
-        List<State_Zero> state_Zeros=new ArrayList<>();
-        State_Zero state1=new State_Zero();
-        state1.setState_0_user_id(1);
-        state1.setState_0_mediator_id(10);
-        State_Zero state2=new State_Zero();
-        state2.setState_0_user_id(2);
-        state2.setState_0_mediator_id(20);
-        state_Zeros.add(state1);
-        state_Zeros.add(state2);
+    public String insert_2Mediators(@RequestParam("mediator_1") int mediator_1,
+                                    @RequestParam("mediator_2") int mediator_2) {
+
+        List<State_Zero> state_Zeros = new ArrayList<>();
+
+        State_Zero state_zero1 = new State_Zero();
+        state_zero1.setState_0_user_id(userId);
+        state_zero1.setState_0_mediator_id(mediator_1);
+
+        State_Zero state_zero2 = new State_Zero();
+        state_zero2.setState_0_user_id(userId);
+        state_zero2.setState_0_mediator_id(mediator_2);
+
+        state_Zeros.add(state_zero1);
+        state_Zeros.add(state_zero2);
+        System.out.println(state_Zeros);
+
         userService.insertTwoMediators(state_Zeros);
         return "/user/choice-mediate";
     }
@@ -91,6 +105,7 @@ public class UserController {
     public String to_Other_Dsr_Html() {
         return "/user/other-dsr";
     }
+
     //增加案例
     @RequestMapping(value = "/addCase", method = RequestMethod.GET)
     public String addCase(Case cas) {

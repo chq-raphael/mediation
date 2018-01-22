@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}"  type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
     <title>选择调解员</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <link rel="stylesheet" th:href="@{/chqcss/choice-mediate.css}" >
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" th:href="@{/chqcss/choice-mediate.css}">
     <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
 </head>
 <body>
 <!--顶部标题..-->
 <div id="head">
-    <a href="mediate-guide.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png"  alt=""></a>
+    <a href="mediate-guide.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
     <p class="head_title">我要调解</p>
 </div>
 <div id="choiceM_box">
@@ -40,74 +40,74 @@
 </div>
 <script>
     new Vue({
-        el:"#choiceM_box",
-        data:{
-            mediatorList:[]
+        el: "#choiceM_box",
+        data: {
+            mediatorList: []
         },
-        mounted:function () {
+        mounted: function () {
             var _that = this;
             $.ajax({
-                url:'/user/mediators3',
-                type:'get',
-                datatype:'json',
-                success:function (result) {
-                    _that.mediatorList=result;
+                url: '/user/mediators3',
+                type: 'get',
+                datatype: 'json',
+                success: function (result) {
+                    _that.mediatorList = result;
                     console.log(_that.mediatorList);
                 },
-                error:function (err) {
+                error: function (err) {
                     console.log(err);
                 }
             })
         },
-        methods:{
-            show:function (mediatorId) {
-               var m_id = mediatorId;    //mediator.id
-                console.log("调解员id:"+m_id);
-/*                $.ajax({
-                    url:'/user/mediator?m_id='+m_id,
-                    type:'get',
-                    datatype:'json',
-                    success:function (result) {
-                        console.log(result);
-                    },
-                    error:function (err) {
-                        console.log(err);
-                    }
-                })*/
+        methods: {
+            show: function (mediatorId) {
+                var m_id = mediatorId;    //mediator.id
+                console.log("调解员id:" + m_id);
+                /*                $.ajax({
+                 url:'/user/mediator?m_id='+m_id,
+                 type:'get',
+                 datatype:'json',
+                 success:function (result) {
+                 console.log(result);
+                 },
+                 error:function (err) {
+                 console.log(err);
+                 }
+                 })*/
             },
-            sure:function () {
-                var choiceM=[];
-                $('.checkbox:checked').each(function(){
+            sure: function () {
+                var choiceM = [];
+                $('.checkbox:checked').each(function () {
                     choiceM.push($(this).attr('id'));
                 });
-                if(choiceM.length!=2){
+                if (choiceM.length != 2) {
                     console.log("不为2时");
                     console.log(choiceM);
-                    $('.prompt2').css('display','block');
+                    $('.prompt2').css('display', 'block');
                     return false;
 
-                }else{
+                } else {
                     console.log("长度为2时");
                     console.log(choiceM);
-                    $('.prompt2').css('display','none');
+                    $('.prompt2').css('display', 'none');
                     //缓存取出用户名.
                     var user = localStorage.getItem("localUser");
                     user = JSON.parse(user);
-                   var userId =user.userId;
                     $.ajax({
-                        url:'/user/mediators2',
-                        type:'get',
-                        data:{
-                            choiceM:choiceM,
-                            userId:userId
-                        },
-                        datatype:'json',
-                        success:function (result) {
+                        url: '/user/mediators2',
+                        type: 'get',
+                        data: {
+                            mediator_1:choiceM[0],
+                            mediator_2:choiceM[1],
+                            }
+                        ,
+                        datatype: 'json',
+                        success: function (result) {
                             console.log(result);
 
 //                            window.location.href='/user/other-dsr';
                         },
-                        error:function (err) {
+                        error: function (err) {
                             console.log(err);
                         }
                     })
@@ -115,10 +115,8 @@
 
             }
         }
-        
+
     });
-
-
 
 
 </script>
