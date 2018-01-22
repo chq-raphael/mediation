@@ -47,7 +47,7 @@
         mounted:function () {
             var _that = this;
             $.ajax({
-                url:'/user/3mediators',
+                url:'/user/mediators3',
                 type:'get',
                 datatype:'json',
                 success:function (result) {
@@ -90,19 +90,20 @@
                     console.log("长度为2时");
                     console.log(choiceM);
                     $('.prompt2').css('display','none');
-/*                    $.ajax({
-                        url:'/user/choiceM',
+                    $.ajax({
+                        url:'/user/mediators2',
                         type:'get',
-                        data:choiceM,
+                        data:{choiceM:choiceM},
                         datatype:'json',
                         success:function (result) {
                             console.log(result);
-                            window.location.href='/user/other-dsr';
+
+//                            window.location.href='/user/other-dsr';
                         },
                         error:function (err) {
                             console.log(err);
                         }
-                    })*/
+                    })
                 }
 
             }
