@@ -52,7 +52,6 @@
                 datatype: 'json',
                 success: function (result) {
                     _that.mediatorList = result;
-                    console.log(_that.mediatorList);
                 },
                 error: function (err) {
                     console.log(err);
@@ -81,21 +80,17 @@
                     choiceM.push($(this).attr('id'));
                 });
                 if (choiceM.length != 2) {
-                    console.log("不为2时");
-                    console.log(choiceM);
                     $('.prompt2').css('display', 'block');
                     return false;
 
                 } else {
-                    console.log("长度为2时");
-                    console.log(choiceM);
                     $('.prompt2').css('display', 'none');
-
+                    choiceM = JSON.stringify(choiceM);
                     $.ajax({
                         url: '/user/mediators2',
                         type: 'post',
                         contentType : 'application/json;charset=utf-8',
-                        data: JSON.stringify(choiceM),
+                        data:choiceM,
                         datatype: 'json',
                         success: function (result) {
                             console.log(result);
@@ -109,7 +104,6 @@
 
             }
         }
-
     });
 
 
