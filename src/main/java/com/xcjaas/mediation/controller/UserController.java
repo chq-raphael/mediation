@@ -7,14 +7,12 @@ import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
-import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.java2d.pipe.SpanIterator;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -90,8 +88,8 @@ public class UserController {
         }
         userService.insertTwoMediators(state_Zeros);
 
-        //如果插入成功返回自增长id！=0，返回0表示插入成功；否则，1表示失败
-        if (state_Zeros.get(0).getState_0_id() != 0 && state_Zeros.get(0).getState_0_user_id() != 0 && state_Zeros.get(0).getState_0_mediator_id() != 0) {
+        //如果插入成功返回自增长id，返回0表示插入成功；否则，1表示失败
+        if (state_Zeros.get(0).getState_0_id() != 0) {
             return 0;
         } else {
             return 1;
