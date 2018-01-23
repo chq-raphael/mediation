@@ -93,12 +93,9 @@
 
                     $.ajax({
                         url: '/user/mediators2',
-                        type: 'get',
-                        data: {
-                            mediator_1:choiceM[0],
-                            mediator_2:choiceM[1]
-                            }
-                        ,
+                        type: 'post',
+                        contentType : 'application/json;charset=utf-8',
+                        data: JSON.stringify(choiceM),
                         datatype: 'json',
                         success: function (result) {
                             console.log(result);

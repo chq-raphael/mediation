@@ -7,9 +7,11 @@ import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
+import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.java2d.pipe.SpanIterator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,34 +77,26 @@ public class UserController {
     }
 
     //存储2个调解员
-    @RequestMapping(value = "/mediators2", method = RequestMethod.GET)
+    @RequestMapping(value = "/mediators2", method = RequestMethod.POST)
     @ResponseBody
-    public int insert_2Mediators(@RequestParam("mediator_1") int mediator_1,
-                                    @RequestParam("mediator_2") int mediator_2) {
+    public int insert_2Mediators(@RequestBody List<Integer> choiceM) {
 
         List<State_Zero> state_Zeros = new ArrayList<>();
-
-        State_Zero state_zero1 = new State_Zero();
-        state_zero1.setState_0_user_id(userId);
-        state_zero1.setState_0_mediator_id(mediator_1);
-
-        State_Zero state_zero2 = new State_Zero();
-        state_zero2.setState_0_user_id(userId);
-        state_zero2.setState_0_mediator_id(mediator_2);
-
-        state_Zeros.add(state_zero1);
-        state_Zeros.add(state_zero2);
+        for (int i = 0; i < choiceM.size(); i++) {
+            State_Zero sz = new State_Zero();
+            sz.setState_0_user_id(userId);
+            sz.setState_0_mediator_id(choiceM.get(i));
+            state_Zeros.add(sz);
+        }
         userService.insertTwoMediators(state_Zeros);
-       //如果插入成功返回自增长id！=0，返回0表示插入成功；否则，表示失败
-        if(state_zero1.getState_0_id()!=0){
-            System.out.println("插入成功");
+
+        //如果插入成功返回自增长id！=0，返回0表示插入成功；否则，1表示失败
+        if (state_Zeros.get(0).getState_0_id() != 0 && state_Zeros.get(0).getState_0_user_id() != 0 && state_Zeros.get(0).getState_0_mediator_id() != 0) {
             return 0;
-        }else {
-            System.out.println("插入失败");
+        } else {
             return 1;
         }
     }
-
 
     /*
       页面跳转4: 确认条款后，跳转至other-dsr.html选择其他当事人
