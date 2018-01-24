@@ -67,15 +67,14 @@
 <script>
     /*调解状态tab切换*/
     $(".mediate_state").on('click',function () {
-        var index=$(this).index();
-        $(this).addClass('state_active').siblings().removeClass('state_active');//选中当前样式，并移除其他tab的样式；
-        $('.hengx_img').hide().eq(index).show();
-        $('.case_list').hide().eq(index).show();
+        var i = $(this).index();
+        $(this).addClass('state_active').siblings().removeClass('state_active');
+        $('.hengx_img').hide().eq(i).show();
+        $('.case_list').hide().eq(i).show();
     });
-
-        $('.pingjia').on('click',function () {
-            window.location.href='/user/pingjia'
-        })
+    $('.pingjia').on('click',function () {
+        window.location.href = '/user/pingjia';
+    });
 
 </script>
 

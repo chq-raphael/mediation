@@ -50,10 +50,10 @@
                 type:'post',
                 datatype:'json',
                 contentType : 'application/json;charset=utf-8',
-                success:function (userInfo) {
-//                    console.log(userInfo);
-                    _that.userName = userInfo.userName;
-                    _that.userTel = userInfo.userTel;
+                success:function (result) {
+//                    console.log(result);
+                    _that.userName = result.userName;
+                    _that.userTel = result.userTel;
 
                 },
                 error:function (err) {
