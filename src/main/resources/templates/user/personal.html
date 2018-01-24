@@ -21,8 +21,8 @@
     <!--个人信息-->
     <div id="per_info">
         <p class="per_info_touxiang"><img src="/chqimage/touxiang.png" alt="头像"></p>
-        <p class="per_info_name">李花花</p>
-        <p class="per_info_phone"><span>13547978085</span></p>
+        <p class="per_info_name">{{userName}}</p>
+        <p class="per_info_phone"><span>{{userTel}}</span></p>
     </div>
     <!--我的调解-->
     <div id="per_state">
@@ -40,7 +40,22 @@
     new Vue({
         el:'#personal',
         data:{
-
+            userName:'',
+            userTel:''
+        },
+        mounted:function () {
+            var _that = this;
+            $.ajax({
+                url:'',
+                type:'get',
+                datatype:'json',
+                success:function (result) {
+                    console.log(result);
+                },
+                error:function (err) {
+                    console.log('错误'+err);
+                }
+            })
         }
     })
 </script>
