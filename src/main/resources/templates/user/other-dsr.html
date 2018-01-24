@@ -22,7 +22,7 @@
     <!--小崇提示-->
     <div class="prompt">为及时通知其他当事人参加调解，请填写其他当事人信息，如有疑问，请咨询我</div>
     <ul class="dsr_list">
-        <li class="dsr" v-for="(dsr,i) in dsrList" :index="i">
+        <li class="dsr" v-for="(dsr,i) in dsrList">
             <p>
                 <span class="required">*</span><span>姓名</span>
                 <input type="text" v-model="dsr.dsrName" placeholder="请输入" class="dsr_name float_right">
@@ -58,7 +58,6 @@
 //            console.log(this.dsrList);
             for(var i=0;i<this.dsrList.length;i++){
                 dsrInfo.push({
-                    dsrId:i,
                     dsrName:this.dsrList[i].dsrName,
                     dsrTel:this.dsrList[i].dsrTel
                 })
