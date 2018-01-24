@@ -47,10 +47,14 @@
             var _that = this;
             $.ajax({
                 url:'',
-                type:'get',
+                type:'post',
                 datatype:'json',
-                success:function (result) {
-                    console.log(result);
+                contentType : 'application/json;charset=utf-8',
+                success:function (userInfo) {
+                    console.log(userInfo);
+                    _that.userName = userInfo.userName;
+                    _that.userTel = userInfo.userTel;
+
                 },
                 error:function (err) {
                     console.log('错误'+err);
