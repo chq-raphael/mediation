@@ -65,7 +65,7 @@
             console.log(dsrInfo);
             dsrInfo = JSON.stringify(dsrInfo);
             $.ajax({
-                url:'',
+                url:'/user/dsr',
                 type:'get',
                 data:dsrInfo,
                 datatype:'json',
@@ -73,7 +73,7 @@
                     console.log(result);
                 },
                 error:function (err) {
-                    console.log(err);
+                    console.log('错误'+err);
                 }
             })
         }
