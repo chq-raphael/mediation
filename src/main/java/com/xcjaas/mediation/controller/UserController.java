@@ -4,6 +4,7 @@ package com.xcjaas.mediation.controller;
 import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
@@ -102,6 +103,12 @@ public class UserController {
     @RequestMapping(value = "/other-dsr", method = RequestMethod.GET)
     public String to_Other_Dsr_Html() {
         return "/user/other-dsr";
+    }
+    @RequestMapping(value = "/dsr", method = RequestMethod.POST)
+    @ResponseBody
+    public int show_dsr(@RequestBody List<Dsr> dsrInfo) {
+        System.out.println(dsrInfo);
+        return 0;
     }
 
     //增加案例
