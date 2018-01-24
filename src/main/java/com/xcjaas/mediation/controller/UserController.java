@@ -127,7 +127,9 @@ public class UserController {
         return "/user/personal";
     }
     @RequestMapping(value = "/personal", method = RequestMethod.POST)
+    @ResponseBody
     public User showOne() {
+        System.out.println(userId);
         return userService.selectOne(userId);
     }
 

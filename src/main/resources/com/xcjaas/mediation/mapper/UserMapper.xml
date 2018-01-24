@@ -34,8 +34,8 @@
         VALUES (0,#{case_user_id});
     </insert>
 
-    <select id="selectOne" parameterType="int">
-        SELECT * FROM t_user WHERE userId=#{userId}
+    <select id="selectOne" parameterType="int" resultType="User">
+        SELECT * FROM t_user WHERE user_id=#{userId}
     </select>
 
 </mapper>
