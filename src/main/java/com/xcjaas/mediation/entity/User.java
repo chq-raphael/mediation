@@ -5,6 +5,7 @@ package com.xcjaas.mediation.entity;
  */
 public class User {
     private int userId;
+    private String wx_id;
     private String userName;
     private String userSex;
     private String userBirth;
@@ -27,6 +28,14 @@ public class User {
                 ", userMinz='" + userMinz + '\'' +
                 ", userAddr='" + userAddr + '\'' +
                 '}';
+    }
+
+    public String getWx_id() {
+        return wx_id;
+    }
+
+    public void setWx_id(String wx_id) {
+        this.wx_id = wx_id;
     }
 
     public int getUserId() {

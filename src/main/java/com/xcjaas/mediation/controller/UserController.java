@@ -129,7 +129,6 @@ public class UserController {
     @RequestMapping(value = "/personal", method = RequestMethod.POST)
     @ResponseBody
     public User showOne() {
-        System.out.println(userId);
         return userService.selectOne(userId);
     }
 
