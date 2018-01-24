@@ -55,19 +55,30 @@
         },
         confirm:function () {
             var dsrInfo = [];
-            $('.dsr').each(function () {
-//                console.log(this.id);
+//            console.log(this.dsrList);
+            for(var i=0;i<this.dsrList.length;i++){
                 dsrInfo.push({
-                    dsrId:this.id,
-                    dsrName:$(this).children('.dsr_name').val(),
-                    dsrTel:$(this).children('.dsr_tel').val()
+                    dsrId:i,
+                    dsrName:this.dsrList[i].dsrName,
+                    dsrTel:this.dsrList[i].dsrTel
                 })
-            });
+            }
             console.log(dsrInfo);
-
+            dsrInfo = JSON.stringify(dsrInfo);
+            $.ajax({
+                url:'',
+                type:'get',
+                data:dsrInfo,
+                datatype:'json',
+                success:function (result) {
+                    console.log(result);
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            })
         }
     }
-
 })
 </script>
 
