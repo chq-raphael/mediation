@@ -33,5 +33,10 @@
         insert into t_case(case_state,case_user_id)
         VALUES (0,#{case_user_id});
     </insert>
+
+    <select id="selectOne" parameterType="int">
+        SELECT * FROM t_user WHERE userId=#{userId}
+    </select>
+
 </mapper>
 

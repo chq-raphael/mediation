@@ -126,6 +126,10 @@ public class UserController {
     public String to_Personal_Html() {
         return "/user/personal";
     }
+    @RequestMapping(value = "/personal", method = RequestMethod.POST)
+    public User showOne() {
+        return userService.selectOne(userId);
+    }
 
     /*
     跳转至我的调解,my-mediate.html

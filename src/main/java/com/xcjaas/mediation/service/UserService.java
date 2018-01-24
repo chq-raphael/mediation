@@ -15,4 +15,5 @@ public interface UserService {
     List<User> selectThreeMediators();
     void insertTwoMediators(List<State_Zero> state_Zeros);
     void insertCase(Case cas);
+    User selectOne(int userId);
 }

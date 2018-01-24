@@ -22,4 +22,6 @@ public interface UserMapper {
     void insertTwoMediators(List<State_Zero> state_Zeros);
 
     void insertCase(Case cas);
+
+    User selectOne(int userId);
 }

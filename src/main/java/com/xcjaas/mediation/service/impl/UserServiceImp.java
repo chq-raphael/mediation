@@ -38,4 +38,9 @@ public class UserServiceImp implements UserService {
     public void insertCase(Case cas) {
         userMapper.insertCase(cas);
     }
+
+    @Override
+    public User selectOne(int userId) {
+        return userMapper.selectOne(userId);
+    }
 }
