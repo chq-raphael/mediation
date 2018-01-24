@@ -46,12 +46,12 @@
         mounted:function () {
             var _that = this;
             $.ajax({
-                url:'',
+                url:'/user/personal',
                 type:'post',
                 datatype:'json',
                 contentType : 'application/json;charset=utf-8',
                 success:function (userInfo) {
-                    console.log(userInfo);
+//                    console.log(userInfo);
                     _that.userName = userInfo.userName;
                     _that.userTel = userInfo.userTel;
 
