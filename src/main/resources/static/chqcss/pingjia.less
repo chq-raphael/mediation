@@ -10,7 +10,7 @@
   .pingjia_content{
     .pingjia{
       width:100%;
-      height:20rem;
+      height:30rem;
       font-size:1.4rem;
       font-family: "黑体";
       overflow: hidden;
@@ -18,17 +18,59 @@
       outline: none;
       resize:none;
       border:none;
-      line-height:2rem;
     }
   }
   .tongyi{
     display: flex;
     justify-content:space-between;
     align-items: center;
-    padding-left:1rem;
+    padding:.5rem 1rem;
     color:#333;
-    .tongyi_img{
-      width:70%;
+    font-size:1.4rem;
+    .isChoice_box{
+      height:2.2rem;
+      #checkbox{
+        display:none;
+      }
+      #checkbox + .labelbox{
+        width:4.2rem;
+        height:2.2rem;
+        display:inline-block;
+        position:relative;
+      }
+      #checkbox + .labelbox:before{
+        content:'';
+        width:2rem;
+        height:2rem;
+        background-color:#fff;
+        border-radius:50%;
+        position:absolute;
+        top:.1rem;
+        left:.1rem;
+        z-index:1111;
+        transition:all 0.1s ease-in;
+      }
+      #checkbox + .labelbox:after{
+        content:'';
+        width:100%;
+        height:100%;
+        position:absolute;
+        background-color:#ccc;
+        border-radius:1rem;
+        transition:all 0.1s ease-in;
+      }
+      #checkbox:checked +.labelbox:before{
+        content:'';
+        position:absolute;
+        left:2.1rem;
+      }
+      #checkbox:checked + .labelbox:after{
+        content:'';
+        position:absolute;
+        background-color:#60c89b;
+      }
     }
+
+
   }
 }

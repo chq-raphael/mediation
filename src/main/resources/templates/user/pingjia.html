@@ -17,28 +17,50 @@
     <p class="head_title">我的评价</p>
 </div>
 <div id="pingjia_box">
-
         <div class="pingjia_content">
-            <textarea name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
+            <textarea v-model="message" name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
         </div>
         <div class="tongyi">
-            <p>是否认可调解结果</p>
-            <p><img src="/chqimage/tongyiy.png" alt="" class="tongyi_img"></p>
+            <div>是否认可调解结果</div>
+            <div class="isChoice_box">
+                <input type="checkbox" id="checkbox" >
+                <label for="checkbox" class="labelbox"></label>
+            </div>
         </div>
-        <div class="pingjia_tijiao next_step">提交</div>
+        <div class="pingjia_tijiao next_step" @click="pingjia">提交</div>
 </div>
 <script>
-    <!--开关,判断选择状态-->
-    var swith = 1;
-    $(".tongyi_img").on('click',function () {
-        if(swith){
-            $(this).attr('src','../../static/chqimage/tongyi.png');
-            swith = 0;
-        }else{
-            $(this).attr('src','../../static/chqimage/tongyiy.png');
-            swith = 1
+new Vue({
+    el:'#pingjia_box',
+    data:{
+        message:''
+    },
+    methods:{
+        pingjia:function () {
+            if($('#checkbox').is(':checked')){
+                console.log(this.message);
+                var _that = this;
+           /*     $.ajax({
+                    url:'',
+                    type:'get',
+                    contentType : 'application/json;charset=utf-8',
+                    data:JSON.stringify(_that.message),
+                    datatype:'json',
+                    success:function (result) {
+                        console.log(result);
+                    },
+                    error:function (err) {
+                        console.log('错误'+err);
+
+                    }
+                });*/
+            }else{
+                return false;
+            }
         }
-    });
+    }
+})
+
 </script>
 
 </body>
