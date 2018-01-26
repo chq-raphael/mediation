@@ -35,23 +35,26 @@
             mediateG_content:''
         },
         mounted:function () {
-            //缓存取出用户名
-            var user = localStorage.getItem("localUser");
-            user = JSON.parse(user);
-            this.mediateG_name = user.userName;
+            this.$nextTick(function (){
+                //缓存取出用户名
+                var user = localStorage.getItem("localUser");
+                user = JSON.parse(user);
+                this.mediateG_name = user.userName;
 
-            var _that = this;
-            $.ajax({
-                url:'/user/text',
-                type:'get',
-                datatype:'text',
-                success:function (result) {
-                    _that.mediateG_content = result;
-                },
-                error:function (err) {
-                    console.log(err);
-                }
+                var _that = this;
+                $.ajax({
+                    url:'/user/text',
+                    type:'get',
+                    datatype:'text',
+                    success:function (result) {
+                        _that.mediateG_content = result;
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
             })
+
         }
     });
 

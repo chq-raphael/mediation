@@ -7,6 +7,7 @@
   padding: 0 1rem;
 }
 #choiceM_box .choiceM_list .choiceM {
+  height: 7rem;
   background-color: #fff;
   margin-bottom: 1rem;
   display: flex;
