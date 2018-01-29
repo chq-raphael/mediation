@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon"  th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>我的调解</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/m-css/m-personal.css}">
+    <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+    <!--顶部标题-->
+    <div id="head">
+        <p class="return_img float_left"><a href="#"><img src="/m-css/icon-fanhui.png" alt=""></a></p>
+        <p class="head_title">我的调解</p>
+    </div>
+    <!--个人中心-->
+    <div id="personal_box">
+        <!--个人信息-->
+        <div id="per_info">
+           <p class="per_info_touxiang"><img src="/m-css/touxiang.png" alt="头像"></p>
+            <p class="per_info_name">李花花</p>
+            <p class="per_info_phone"><span>13547978085</span></p>
+        </div>
+        <!--调解事件数量-->
+        <div id="per_num">
+            <div class="num_box">
+                <p class="num"><span>80</span>&nbsp;件</p>
+                <p class="num_event">调解成功</p>
+            </div>
+            <div class="num_box">
+                <p class="num"><span>20</span>&nbsp;件</p>
+                <p class="num_event">调解失败</p>
+            </div>
+            <div class="num_box">
+                <p class="num"><span>80</span>&nbsp;%</p>
+                <p class="num_event">调解率</p>
+            </div>
+        </div>
+        <!--调解状态-->
+        <div id="per_state">
+            <div  class="state">
+                    <p class="state_img"><img src="/m-css/icon-qingqiu.png" alt=""></p>
+                    <p class="state_info">调解请求</p>
+            </div>
+            <div class="state">
+                    <p class="state_img"><img src="/m-css/icon-zhengzai.png" alt=""></p>
+                    <p class="state_info">正在调解</p>
+            </div>
+            <div  class="state">
+                    <p class="state_img"><img src="/m-css/icon-lishi.png" alt=""></p>
+                    <p class="state_info">历史调解</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*点击调解状态跳转,并选中相应状态列表*/
+        $('.state').on('click',function(){
+            var index=$(this).index();
+            console.log(index);
+            window.location.href='../page/myMediate.html?'+index;
+        });
+    </script>
+</body>
+</html>

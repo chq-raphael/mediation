@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon"  th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>调解日志</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/m-css/m-casediary.css}">
+    <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+    <div class="content_box">
+        <div id="head">
+            <a href="#" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
+            <p class="head_title">调解日志</p>
+        </div>
+        <div id="casediary_box">
+            <!--日志列表-->
+            <ul class="cdiaryList">
+                <li class="cdiary">
+                    <p class="cdiary_time">2017-12-12</p>
+                    <p class="cdiary_content">今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，
+                        今天去见了当事人，
+                    </p>
+                </li>
+                <li class="cdiary">
+                    <p class="cdiary_time">2017-12-12</p>
+                    <p class="cdiary_content">今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，
+                        今天去见了当事人，
+                    </p>
+                </li>
+            </ul>
+            <div class="add_diary"><img src="/m-image/icon-tianjia.png" alt=""> <span>添加日志</span></div>
+        </div>
+    </div>
+    <!--添加日志弹出框-->
+    <div class="modal_box">
+        <div class="modal_content">
+            <p class="prompt">添加日志</p>
+            <p class="choice_time"><input type="text" placeholder="选择日期" class="jcDateIco"></p>
+            <p><textarea name="diary_content" class="diary_content" rows="5" placeholder="填写日志内容"></textarea></p>
+            <p><input type="button" value="提交" class="diary_tijiao"></p>
+        </div>
+    </div>
+
+    <script>
+        //确认受理弹出模态框
+        $('.add_diary').on('click',function(){
+            $('.modal_box').eq(0).css('visibility','visible');
+        });
+        //点击空白部分退出模态框
+        $('.modal_box').on('click',function(e){
+            var modalContent=$('.modal_content');//目标对象
+            if(!modalContent.is(e.target) && modalContent.has(e.target).length === 0  ){//判断当前事件不是有目标对象及其子元素触发
+                $('.modal_box').css('visibility','hidden')
+            }
+        });
+    </script>
+
+</body>
+</html>

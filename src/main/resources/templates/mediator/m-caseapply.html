@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon"  th:href="@{/chqimage/favicon.ico}" type="image/x-icon">
+    <title>调节申请</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" th:href="@{/chqcss/mediate-apply.css}">
+    <script type="text/javascript" th:src="@{/chqjs/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
+</head>
+<body>
+<!--顶部标题-->
+<div class="content_box">
+    <div id="head">
+        <a href="#" class="return_img float_left"><img src="../image/icon-fanhui.png" alt=""></a>
+        <p class="head_title">调解申请</p>
+    </div>
+    <div id="caseapply_box">
+        <!--纠纷事项-->
+        <div class="ca_case">
+            <p class="float_left">原告：<span class="ca_ygName">张三</span></p>
+            <p class="float_left">手机号码：<span class="ca_ygTel">111111111111</span></p>
+            <p class="float_left">被告：<span class="ca_bgName">李四</span></p>
+            <p class="float_left">手机号码：<span class="ca_bgTel">111111111111</span></p>
+            <p>纠纷事项：
+                <span class="ca_jfcase">
+                纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项
+             纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事
+            </span>
+            </p>
+        </div>
+        <!--申请相关-->
+        <div class="ca_other">
+            <p>申请人：<span>张三</span></p>
+            <p>申请时间：<span>2017-12-25</span></p>
+            <p>申请来源：<span>通过崇州市人名法院诉讼法务厅，小崇机器人申请</span></p>
+        </div>
+        <!--是否受理-->
+        <div class="ca_apply">
+            <div class="ca_apply_accept">确认受理</div>
+            <div class="ca_apply_refuse">拒绝申请</div>
+        </div>
+    </div>
+
+</div>
+<!--弹出模态框-->
+<!--接受调解-->
+<div class="modal_box">
+    <div class="modal_content">你已确认受理了本次纠纷案件的调解申请，请及时联系当事人，说明调解相关的事项，约定调解时间的地点。
+        <br />在调解期间，请做好调解日志。</div>
+</div>
+<!--拒绝调解-->
+<div class="modal_box">
+    <div class="modal_content">
+        <p class="prompt">请选择拒绝理由</p>
+        <form action="#" method="get" id="refuseReason">
+            <p><label><input type="checkbox" name="refuseReason" />不是我擅长的领域</label></p>
+            <p><label><input type="checkbox" name="refuseReason" />最近因事外出，无法参与调解</label></p>
+            <p><label><input type="checkbox" name="refuseReason" />不与当事人有关系，需要回避</label></p>
+            <p><label><input type="checkbox" name="refuseReason" />其他原因</label></p>
+            <p><textarea  name="otherReason" rows="5" cols="30"  placeholder="请在此处填写你拒绝本次纠纷调解的详细原因" ></textarea></p>
+            <p><input type="button" value="提交" class="refuse_tijiao"></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    //确认受理弹出模态框
+    $('.ca_apply_accept').on('click',function(){
+        $('.modal_box').eq(0).css('visibility','visible');
+    });
+    //拒绝申请弹出模态框
+    $('.ca_apply_refuse').on('click',function(){
+        $('.modal_box').eq(1).css('visibility','visible');
+    });
+    //点击空白部分退出模态框
+    $('.modal_box').on('click',function(e){
+        var modalContent=$('.modal_content');//目标对象
+        if(!modalContent.is(e.target) && modalContent.has(e.target).length === 0  ){//判断当前事件不是有目标对象及其子元素触发
+            $('.modal_box').css('visibility','hidden')
+        }
+    });
+</script>
+</body>
+</html>
