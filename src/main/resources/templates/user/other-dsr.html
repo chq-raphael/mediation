@@ -14,7 +14,7 @@
 
 <!--顶部标题-->
 <div id="head">
-    <a href="choice-mediate.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
+    <a href="mediate-guide.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
     <p class="head_title">添加其他当事人</p>
 </div>
 <!--主要内容盒子-->
@@ -62,7 +62,6 @@
                     dsrTel:this.dsrList[i].dsrTel
                 })
             }
-//            console.log(dsrInfo);
             dsrInfo = JSON.stringify(dsrInfo);
             $.ajax({
                 url:'/user/dsr',
@@ -72,8 +71,7 @@
                 datatype:'json',
                 success:function (result) {
                     console.log(result);
-
-                    window.location.href = '/user/personal';
+                    window.location.href = '/user/choice-mediate';
                 },
                 error:function (err) {
                     console.log('错误'+err);

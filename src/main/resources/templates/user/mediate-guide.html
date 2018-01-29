@@ -23,7 +23,7 @@
         <p class="mediateG_name">{{mediateG_name}}：</p>
         <p class="mediateG_content">{{mediateG_content}}</p>
     </div>
-    <div class="next_step" >同意先行调解</div>
+    <div class="next_step" @click="agree">同意先行调解</div>
 </div>
 
 <script>
@@ -55,12 +55,13 @@
                 })
             })
 
+        },
+        methods:{
+            agree:function () {
+                window.location.href = '/user/other-dsr';
+            }
         }
     });
-
-    $('.next_step').on('click',function () {
-        window.location.href = '/user/choice-mediate';
-    })
 </script>
 </body>
 </html>

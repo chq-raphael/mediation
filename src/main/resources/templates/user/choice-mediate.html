@@ -13,11 +13,11 @@
 <body>
 <!--顶部标题...-->
 <div id="head">
-    <a href="mediate-guide.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
+    <a href="other-dsr.html" class="return_img float_left"><img src="/chqimage/icon-fanh.png" alt=""></a>
     <p class="head_title">我要调解</p>
 </div>
 <div id="choiceM_box">
-    <p class="prompt">关于本次纠纷案就，小崇为您找到了3名合适的调解员，您可以从中选择2名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
+    <p class="prompt">关于本次纠纷案就，小崇为您找到了<span>{{m_ready}}</span>名合适的调解员，您可以从中选择<span >{{m_confirm}}</span>名调解员，小崇将在你选择的调解员中制定一名为本次纠纷调解</p>
     <ul class="choiceM_list">
         <li class="choiceM" v-for="mediator in mediatorList">
             <div class="mediator_toux"><img :src="mediator.picture" alt=""></div>
@@ -36,14 +36,16 @@
     </ul>
     <a class="next_step" @click="sure">确定</a>
     <!--提示-->
-    <div class="prompt prompt2" style="display: none">请选择2名调解员</div>
+    <div class="prompt prompt2" style="display: none">请选择 <span>{{m_confirm}}</span>名调解员</div>
 
 </div>
 <script>
     new Vue({
         el: "#choiceM_box",
         data: {
-            mediatorList: []
+            mediatorList: [],
+            m_ready:'',
+            m_confirm:''
         },
         mounted: function () {
             this.$nextTick(function () {
@@ -54,6 +56,8 @@
                     datatype: 'json',
                     success: function (result) {
                         _that.mediatorList = result;
+                        _that.m_ready = _that.mediatorList.length;
+                        _that.m_confirm = _that.mediatorList.length - 1;
                     },
                     error: function (err) {
                         console.log('错误'+err);
@@ -82,7 +86,7 @@
                 $('.checkbox:checked').each(function () {
                     choiceM.push($(this).attr('id'));
                 });
-                if (choiceM.length != 2) {
+                if (choiceM.length !=(this.mediatorList.length - 1) ) {
 //                    必须选择来那个嘛调解员，否则显示提示
                     $('.prompt2').css('display', 'block');
                     return false;
@@ -98,7 +102,7 @@
                         datatype: 'json',
                         success: function (result) {
 //                            console.log(result);
-                            window.location.href = '/user/other-dsr';
+                            window.location.href = '/user/personal';
                         },
                         error: function (err) {
                             console.log('错误'+err);
