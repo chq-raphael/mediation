@@ -1,0 +1,191 @@
+@import "base.css";
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+/*全屏*/
+html,
+body {
+  height: 100%;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+/*顶部标题栏*/
+#head {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.7rem;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#head:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#head .return_img {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+#head .return_img img {
+  width: 2rem;
+}
+#head .head_title {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.prompt {
+  padding: 1rem;
+  line-height: 2rem;
+  font-size: 1.3rem;
+}
+.next_step {
+  display: block;
+  margin: 5rem 1rem 0;
+  background-color: #60c89b;
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+  letter-spacing: .5rem;
+  border-radius: .5rem;
+  padding: 1rem;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+.xuankuang {
+  position: relative;
+}
+.xuankuang .check_label {
+  width: 30px;
+  height: 30px;
+  background-color: #eee;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.xuankuang .check_label::after {
+  content: '';
+  opacity: .3;
+  width: 20px;
+  height: 10px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 3px solid #ccc;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.xuankuang .check_label .check {
+  display: none;
+}
+.xuankuang .check_label .check:checked + label::after {
+  opacity: 1;
+  border-left: 3px solid #14c177;
+  border-bottom: 3px solid #14c177;
+}
+#personal_box #per_info {
+  background-image: url(../m-image/beijing.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+#personal_box #per_info .per_info_name {
+  padding: .2rem 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+#personal_box #per_info .per_info_phone {
+  padding: .2rem 0;
+  font-size: 1.2rem;
+  color: #e6e6e6;
+  background: url("../m-image/icon-phone.png") no-repeat;
+  background-size: contain;
+}
+#personal_box #per_info .per_info_phone span {
+  padding-left: 1.8rem;
+}
+#personal_box #per_info .per_info_phone img {
+  position: absolute;
+  top: .5rem;
+}
+#personal_box #per_info .per_info_touxiang {
+  text-align: center;
+  width: 25%;
+}
+#personal_box #per_info .per_info_touxiang img {
+  width: 100%;
+}
+#personal_box #per_num {
+  display: flex;
+  background-color: #fff;
+  padding: .5rem 0;
+}
+#personal_box #per_num .num_box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  border-right: .2rem solid #f5f5f5;
+}
+#personal_box #per_num .num_box:nth-child(3) {
+  border-right: 0;
+}
+#personal_box #per_num .num_box .num {
+  font-size: 1.6rem;
+  color: #333;
+}
+#personal_box #per_num .num_box .num_event {
+  font-size: 1rem;
+  color: #999;
+  padding-top: .5rem;
+}
+#personal_box #per_state {
+  display: flex;
+}
+#personal_box #per_state .state {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  margin: 1rem .2rem 0 0;
+  padding: 1rem 0;
+}
+#personal_box #per_state .state:nth-child(3) {
+  margin-right: 0;
+}
+#personal_box #per_state .state .state_img {
+  text-align: center;
+  width: 40%;
+}
+#personal_box #per_state .state .state_img img {
+  width: 100%;
+}
+#personal_box #per_state .state .state_info {
+  font-size: 1.2rem;
+  color: #4d4d4d;
+  padding-top: .2rem;
+}

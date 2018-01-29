@@ -1,0 +1,153 @@
+@import "base.css";
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+/*全屏*/
+html,
+body {
+  height: 100%;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+/*顶部标题栏*/
+#head {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.7rem;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#head:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#head .return_img {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+#head .return_img img {
+  width: 2rem;
+}
+#head .head_title {
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.prompt {
+  padding: 1rem;
+  line-height: 2rem;
+  font-size: 1.3rem;
+}
+.next_step {
+  display: block;
+  margin: 5rem 1rem 0;
+  background-color: #60c89b;
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+  letter-spacing: .5rem;
+  border-radius: .5rem;
+  padding: 1rem;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+.xuankuang {
+  position: relative;
+}
+.xuankuang .check_label {
+  width: 30px;
+  height: 30px;
+  background-color: #eee;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.xuankuang .check_label::after {
+  content: '';
+  opacity: .3;
+  width: 20px;
+  height: 10px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 3px solid #ccc;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.xuankuang .check_label .check {
+  display: none;
+}
+.xuankuang .check_label .check:checked + label::after {
+  opacity: 1;
+  border-left: 3px solid #14c177;
+  border-bottom: 3px solid #14c177;
+}
+#content_box {
+  position: relative;
+  z-index: 1;
+}
+#content_box #caseapply_box .ca_case,
+#content_box #caseapply_box .ca_other {
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #fff;
+  border-radius: .5rem;
+  font-size: 1.3rem;
+  color: #808080;
+}
+#content_box #caseapply_box .ca_case p,
+#content_box #caseapply_box .ca_other p {
+  margin: .5rem 0;
+  line-height: 2rem;
+}
+#content_box #caseapply_box .ca_case p span,
+#content_box #caseapply_box .ca_other p span {
+  color: #333;
+}
+#content_box #caseapply_box .ca_case p:not(:last-child) {
+  width: 50%;
+}
+#content_box #caseapply_box .ca_detail {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+#content_box #caseapply_box .ca_detail a {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+#content_box #caseapply_box .ca_detail a .ca_detail_diary,
+#content_box #caseapply_box .ca_detail a .ma_detail_result {
+  margin: 2rem;
+  padding: .7rem 3rem;
+  font-size: 1.4rem;
+  color: #fff;
+  border-radius: 1rem;
+}
+#content_box #caseapply_box .ca_detail a .ca_detail_diary {
+  background-color: #ccc;
+}
+#content_box #caseapply_box .ca_detail a .ca_detail_result {
+  background-color: #60c89b;
+}
