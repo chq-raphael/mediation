@@ -1,0 +1,50 @@
+@import "common";
+#content_box{
+  position: relative;
+  z-index:1;
+  #caseapply_box {
+    .ca_case, .ca_other {
+      padding: 1rem;
+      margin: 1rem;
+      background-color: #fff;
+      border-radius: .5rem;
+      font-size: 1.3rem;
+      color: #808080;
+      p {
+        margin: .5rem 0;
+        line-height: 2rem;
+        span {
+          color: #333;
+        }
+      }
+    }
+    .ca_case {
+      p:not(:last-child) {
+        width: 50%;
+      }
+    }
+    .ca_detail{
+      display: flex;
+      justify-content: center;
+      margin-top:5rem;
+      a{
+        display: flex;
+        flex:1;
+        justify-content: center;
+        .ca_detail_diary,.ma_detail_result{
+          margin:2rem;
+          padding:.7rem 3rem;
+          font-size:1.4rem;
+          color:#fff;
+          border-radius:1rem;
+        }
+        .ca_detail_diary{
+          background-color:#ccc;
+        }
+        .ca_detail_result{
+          background-color:#60c89b;
+        }
+      }
+    }
+  }
+}
