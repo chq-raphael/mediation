@@ -3,6 +3,7 @@ package com.xcjaas.mediation.service.impl;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.mapper.UserMapper;
 import com.xcjaas.mediation.service.UserService;
@@ -42,5 +43,10 @@ public class UserServiceImp implements UserService {
     @Override
     public User selectOne(int userId) {
         return userMapper.selectOne(userId);
+    }
+
+    @Override
+    public void insertDsr(List<Dsr> dsrs) {
+        userMapper.insertDsr(dsrs);
     }
 }

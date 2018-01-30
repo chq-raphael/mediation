@@ -15,7 +15,7 @@
 <body>
 <h1>编辑页面</h1>
 
-<form action='/mediator/modifyMediator' method='post'>
+<form action='/mediatorM/modifyMediator' method='post'>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -44,7 +44,7 @@
 
     $(".returnButton").unbind("click");
     $(".returnButton").click(function () {
-        window.location.href = "/mediator/index";
+        window.location.href = "/mediatorM/index";
     })
 
     $(function () {
@@ -83,7 +83,7 @@
                     $(".delButton").unbind("click");
                     $(".delButton").click(function () {
                         var delId = $(this).val();
-                        window.location.href = "/mediator/deleteMediatorById?id=" + delId;
+                        window.location.href = "/mediatorM/deleteMediatorById?id=" + delId;
                     })
                 },
                 error: function () {
