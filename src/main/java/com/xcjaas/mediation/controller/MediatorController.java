@@ -59,6 +59,7 @@ public class MediatorController {
     public String toMyMdeaiateHtml() {
         return "/mediator/m-mymediate";
     }
+    //返回页面stateNum
     @RequestMapping(value = "/stateNum", method = RequestMethod.GET)
     @ResponseBody
     public int stateNum() {
@@ -82,6 +83,7 @@ public class MediatorController {
     }
     //存储state_num值用来判断跳转至“我的调解”的哪个模块
     @RequestMapping(value="/saveNum",method =RequestMethod.GET)
+    @ResponseBody
      public void saveNum(int state_num){
         stateNum=state_num;
     }
