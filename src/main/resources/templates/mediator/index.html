@@ -61,7 +61,7 @@
 
     $("#addOne").unbind("click");
     $("#addOne").click(function(){
-        window.location.href = "/mediator/addMediatorHtml"
+        window.location.href = "/mediatorM/addMediatorHtml"
     })
 
     $(function() {
@@ -70,7 +70,7 @@
             var search = $("#search").val();
             $.ajax({
                 type: "post",
-                url: "/mediator/data",
+                url: "/mediatorM/data",
                 data: {pageNo:pageNo,search:search},
                 dataType: "json",
                 success: function (result) {
@@ -150,7 +150,7 @@
                         var id_w={id:modId};
                         id_w=JSON.stringify(id_w);
                         localStorage.setItem("id_w",id_w);
-                        window.location.href = "/mediator/editor"
+                        window.location.href = "/mediatorM/editor"
                     })
 
 
@@ -158,7 +158,7 @@
                         var stateId = $(this).val();
                         $.ajax({
                             type: "post",
-                            url: "/mediator/changeState",
+                            url: "/mediatorM/changeState",
                             data: {id:stateId,state:result.mediators[i].state},
                             dataType: "json",
                             success:showAllByPage(1)

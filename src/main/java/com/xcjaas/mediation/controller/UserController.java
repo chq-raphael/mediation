@@ -27,6 +27,7 @@ public class UserController {
     UserService userService;
 
     public int userId = 0;
+    public int casId = 0;
 
     /*
         页面跳转1:跳转到personal-info.html，填写个人信息
@@ -61,7 +62,48 @@ public class UserController {
     }
 
     /*
-       页面跳转3: 确认条款后，跳转至choice-mediate.html选择调解员
+    页面跳转3: 确认条款后，数据库t_case表新建数据，跳转至other-dsr.html添加其他当事人
+    */
+    @RequestMapping(value = "/other-dsr", method = RequestMethod.GET)
+    public String to_Other_Dsr_Html() {
+        Case cas = new Case();
+        //设置调解类型为0（比如家庭纠纷）
+        cas.setCase_type(0);
+        //设置调解状态为0（准备状态）
+        cas.setCase_state(0);
+        //设置调解发起人id
+        cas.setCase_user_id(userId);
+        userService.insertCase(cas);
+        casId = cas.getCase_id();
+        return "/user/other-dsr";
+    }
+
+    //t_litigant表储存其他当事人
+    @RequestMapping(value = "/dsr", method = RequestMethod.POST)
+    @ResponseBody
+    public int show_dsr(@RequestBody List<Dsr> dsrInfo) {
+        System.out.println(dsrInfo);
+        List<Dsr> dsrs = new ArrayList<>();
+        for (int i = 0; i < dsrInfo.size(); i++) {
+            Dsr dsr = new Dsr();
+            dsr.setCaseId(casId);
+            dsr.setDsrState(0);
+            dsr.setTeId(0);
+            dsr.setDsrName(dsrInfo.get(i).getDsrName());
+            dsr.setDsrTel(dsrInfo.get(i).getDsrTel());
+            dsrs.add(dsr);
+        }
+        userService.insertDsr(dsrs);
+        //如果插入成功返回自增长id，返回0表示插入成功；否则，1表示失败
+        if (dsrs.get(0).getDsrId() != 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    /*
+       页面跳转4: 确认条款后，前台并跳转至choice-mediate.html选择调解员
      */
     @RequestMapping(value = "/choice-mediate", method = RequestMethod.GET)
     public String to_Choice_Mediate_Html() {
@@ -85,6 +127,7 @@ public class UserController {
             State_Zero sz = new State_Zero();
             sz.setState_0_user_id(userId);
             sz.setState_0_mediator_id(choiceM.get(i));
+            sz.setState_0_case_id(casId);
             state_Zeros.add(sz);
         }
         userService.insertTwoMediators(state_Zeros);
@@ -97,19 +140,6 @@ public class UserController {
         }
     }
 
-    /*
-      页面跳转4: 确认条款后，跳转至other-dsr.html选择其他当事人
-    */
-    @RequestMapping(value = "/other-dsr", method = RequestMethod.GET)
-    public String to_Other_Dsr_Html() {
-        return "/user/other-dsr";
-    }
-    @RequestMapping(value = "/dsr", method = RequestMethod.POST)
-    @ResponseBody
-    public int show_dsr(@RequestBody List<Dsr> dsrInfo) {
-        System.out.println(dsrInfo);
-        return 0;
-    }
 
     //增加案例
     @RequestMapping(value = "/addCase", method = RequestMethod.GET)
@@ -126,6 +156,7 @@ public class UserController {
     public String to_Personal_Html() {
         return "/user/personal";
     }
+
     @RequestMapping(value = "/personal", method = RequestMethod.POST)
     @ResponseBody
     public User showOne() {

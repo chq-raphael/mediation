@@ -3,6 +3,7 @@ package com.xcjaas.mediation.mapper;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,6 @@ public interface UserMapper {
     void insertCase(Case cas);
 
     User selectOne(int userId);
+
+    void insertDsr(List<Dsr> dsrs);
 }

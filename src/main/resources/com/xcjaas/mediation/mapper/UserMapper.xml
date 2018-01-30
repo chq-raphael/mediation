@@ -9,6 +9,20 @@
        values ( #{userName},#{userSex},#{userBirth},#{userCardId},#{userTel},#{userJig},#{userMinz},#{userAddr});
     </insert>
 
+    <insert id="insertCase" useGeneratedKeys="true" keyProperty="case_id">
+        insert into t_case(case_type,case_state,case_user_id)
+        VALUES (#{case_type},#{case_state},#{case_user_id});
+    </insert>
+
+    <!--数据库插入当事人-->
+    <insert id="insertDsr" parameterType="ArrayList" useGeneratedKeys="true" keyProperty="dsrId">
+        insert into t_dsr(dsrName,dsrTel,dsrState,teId,caseId)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.dsrName},#{item.dsrTel},#{item.dsrState},#{item.teId},#{item.caseId})
+        </foreach>
+    </insert>
+
     <!--choice-mediate.html中查到3个调解员返回给页面-->
     <resultMap id="choose3" type="Mediator">
         <id column="id" property="id"/>
@@ -17,21 +31,16 @@
         <result column="picture" property="picture"></result>
     </resultMap>
     <select id="selectThreeMediators" resultMap="choose3">
-      SELECT * FROM t_mediator limit 0,3;
+      SELECT * FROM t_mediator limit 0,5;
     </select>
 
     <!--挑选备用的两个调解员-->
     <insert id="insertTwoMediators" parameterType="ArrayList" useGeneratedKeys="true" keyProperty="state_0_id">
-        insert into t_case_state_prepare(state_0_user_id,state_0_mediator_id)
+        insert into t_case_state_prepare(state_0_user_id,state_0_case_id,state_0_mediator_id)
         VALUES 
         <foreach collection="list" item="item" separator=",">
-            (#{item.state_0_user_id},#{item.state_0_mediator_id})
+            (#{item.state_0_user_id},#{item.state_0_case_id},#{item.state_0_mediator_id})
         </foreach>
-    </insert>
-
-    <insert id="insertCase" >
-        insert into t_case(case_state,case_user_id)
-        VALUES (0,#{case_user_id});
     </insert>
 
     <select id="selectOne" parameterType="int" resultType="User">
