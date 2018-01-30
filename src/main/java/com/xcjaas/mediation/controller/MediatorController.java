@@ -18,11 +18,61 @@ public class MediatorController {
     @Autowired
     private MediatorService mediatorService;
 
+    public int stateNum=0;
+
+    /*
+    跳转至“调解申请”页面
+     */
     @RequestMapping(value = "/to_apply", method = RequestMethod.GET)
     public String toApplyHtml() {
         return "/mediator/m-caseapply";
     }
 
+    /*
+    跳转至“调解详情”页面
+     */
+    @RequestMapping(value = "/to_detail", method = RequestMethod.GET)
+    public String toDetailHtml() {
+        return "/mediator/m-casedetail";
+    }
+
+    /*
+    跳转至“调解日志”页面
+     */
+    @RequestMapping(value = "/to_diary", method = RequestMethod.GET)
+    public String toDiaryHtml() {
+        return "/mediator/m-casediary";
+    }
+
+    /*
+    跳转至“调解结果”页面
+     */
+    @RequestMapping(value = "/to_result", method = RequestMethod.GET)
+    public String toResultHtml() {
+        return "/mediator/m-caseresult";
+    }
+
+    /*
+    跳转至调解员“我的调解”页面
+     */
+    @RequestMapping(value = "/to_mymediate", method = RequestMethod.GET)
+    public String toMyMdeaiateHtml() {
+        return "/mediator/m-mymediate";
+    }
+    @RequestMapping(value = "/stateNum", method = RequestMethod.GET)
+    @ResponseBody
+    public int stateNum() {
+        return stateNum;
+    }
+
+    /*
+    跳转至调解员的个人主页
+     */
+    @RequestMapping(value = "/to_personal", method = RequestMethod.GET)
+    public String toPersonalHtml() {
+        return "/mediator/m-personal";
+    }
+    //在调解员个人主页上展示个人信息
     @RequestMapping(value = "/showMediatorInfo", method = RequestMethod.GET)
     @ResponseBody
     public Mediator mediator_personal() {
@@ -30,30 +80,9 @@ public class MediatorController {
         System.out.println(mediator);
         return mediator;
     }
-
-    @RequestMapping(value = "/to_detail", method = RequestMethod.GET)
-    public String toDetailHtml() {
-        return "/mediator/m-casedetail";
-    }
-
-
-    @RequestMapping(value = "/to_diary", method = RequestMethod.GET)
-    public String toDiaryHtml() {
-        return "/mediator/m-casediary";
-    }
-
-    @RequestMapping(value = "/to_result", method = RequestMethod.GET)
-    public String toResultHtml() {
-        return "/mediator/m-caseresult";
-    }
-
-    @RequestMapping(value = "/to_mymediate", method = RequestMethod.GET)
-    public String toMyMdeaiateHtml() {
-        return "/mediator/m-mymediate";
-    }
-
-    @RequestMapping(value = "/to_personal", method = RequestMethod.GET)
-    public String toPersonalHtml() {
-        return "/mediator/m-personal";
+    //存储state_num值用来判断跳转至“我的调解”的哪个模块
+    @RequestMapping(value="/saveNum",method =RequestMethod.GET)
+     public void saveNum(int state_num){
+        stateNum=state_num;
     }
 }
