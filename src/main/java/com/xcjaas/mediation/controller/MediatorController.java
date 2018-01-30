@@ -1,5 +1,6 @@
 package com.xcjaas.mediation.controller;
 
+import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018\1\30 0030.
@@ -64,6 +67,13 @@ public class MediatorController {
     @ResponseBody
     public int stateNum() {
         return stateNum;
+    }
+    //返回页面stateNum
+    @RequestMapping(value = "/mediatorCaseInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Case> mediatorCase() {
+       List<Case> cases=mediatorService.selectMediatorCaseById(2);
+        return cases;
     }
 
     /*
