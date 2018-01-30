@@ -90,9 +90,8 @@
             methods:{
                 mymediate:function (state_num) {
                     $.ajax({
-                        url:'/mediator/saveNum',
+                        url:'/mediator/saveNum?state_num='+state_num,
                         type:'get',
-                        data:state_num,
                         datatype:'json',
                         success:function (result,state) {
 //                            console.log(result);
