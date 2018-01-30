@@ -168,7 +168,8 @@ body::-webkit-scrollbar {
 }
 #mm_box .case_list .case .case_other .fayuan,
 #mm_box .case_list .case .case_other .zhuangtai,
-#mm_box .case_list .case .case_other .diary {
+#mm_box .case_list .case .case_other .diary,
+#mm_box .case_list .case .case_other .pingjia {
   height: 1.8rem;
   line-height: 1.6rem;
   border-radius: 1rem;
@@ -179,7 +180,8 @@ body::-webkit-scrollbar {
   color: #f8a36a;
   border: 1px solid #f8a36a;
 }
-#mm_box .case_list .case .case_other .zhuangtai {
+#mm_box .case_list .case .case_other .zhuangtai,
+#mm_box .case_list .case .case_other .pingjia {
   color: #14c177;
   border: 1px solid #14c177;
 }
