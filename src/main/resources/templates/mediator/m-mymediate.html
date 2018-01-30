@@ -33,19 +33,19 @@
             </li>
         </ul>
         <!--事件-->
-        <!--调解需求-->
+        <!--待受理-->
         <ul class="case_list" style="display: block">
             <a href="#">
                 <li class="case">
                     <div class="case_title">
                         <span class="float_left title">离婚纠纷调解</span><span class="float_right time">2017-12-25</span>
                     </div>
-                    <a href="#"><div class="case_content">
-                        等待受理，等待受理，等待受理，等待受理，等待受理，等待受理
-                    </div></a>
+                    <div class="case_content">
+                        待受理，待受理，待受理，待受理
+                    </div>
                     <div class="case_other">
-                        <a href="#"><div class="fayuan float_left">崇州市人民法院</div></a>
-                        <a href="m-caseapply.html"><div class="zhuangtai float_left">等待受理</div></a>
+                        <div class="fayuan float_left">崇州市人民法院</div>
+                        <div class="zhuangtai float_left">待受理</div>
                     </div>
                 </li>
             </a>
@@ -96,6 +96,27 @@
             $('.hengx_img').hide().eq(i).show();
             $('.case_list').hide().eq(i).show();
         });
+        new Vue({
+            el:'#mm_box',
+            data:{
+
+            },
+            mounted:function () {
+                this.$nextTick(function () {
+                    $.ajax({
+                        url:'/mediator/stateNum',
+                        type:'get',
+                        datatype:'json',
+                        success:function (result,state) {
+                            console.log(result);
+                        },
+                        error:function (err) {
+                            console.log('错误'+err);
+                        }
+                    })
+                })
+            }
+        })
     </script>
 </body>
 </html>

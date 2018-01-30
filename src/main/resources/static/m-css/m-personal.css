@@ -106,7 +106,6 @@ body::-webkit-scrollbar {
   background-image: url(../m-image/beijing.png);
   background-repeat: no-repeat;
   background-size: cover;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,7 +131,6 @@ body::-webkit-scrollbar {
   top: .5rem;
 }
 #personal_box #per_info .per_info_touxiang {
-  text-align: center;
   width: 25%;
 }
 #personal_box #per_info .per_info_touxiang img {
@@ -158,7 +156,7 @@ body::-webkit-scrollbar {
   color: #333;
 }
 #personal_box #per_num .num_box .num_event {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #999;
   padding-top: .5rem;
 }
@@ -185,7 +183,7 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 #personal_box #per_state .state .state_info {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #4d4d4d;
   padding-top: .2rem;
 }

@@ -102,15 +102,15 @@ body::-webkit-scrollbar {
   border-left: 3px solid #14c177;
   border-bottom: 3px solid #14c177;
 }
-.content-box {
+.content_box {
   position: relative;
   z-index: 1;
 }
-.content-box #caseapply_box {
+.content_box #caseapply_box {
   /*是否受理*/
 }
-.content-box #caseapply_box .ca_case,
-.content-box #caseapply_box .ca_other {
+.content_box #caseapply_box .ca_case,
+.content_box #caseapply_box .ca_other {
   padding: 1rem;
   margin: 1rem;
   background-color: #fff;
@@ -118,25 +118,25 @@ body::-webkit-scrollbar {
   font-size: 1.3rem;
   color: #808080;
 }
-.content-box #caseapply_box .ca_case p,
-.content-box #caseapply_box .ca_other p {
+.content_box #caseapply_box .ca_case p,
+.content_box #caseapply_box .ca_other p {
   margin: .5rem 0;
   line-height: 2rem;
 }
-.content-box #caseapply_box .ca_case p span,
-.content-box #caseapply_box .ca_other p span {
+.content_box #caseapply_box .ca_case p span,
+.content_box #caseapply_box .ca_other p span {
   color: #333;
 }
-.content-box #caseapply_box .ca_case p:not(:last-child) {
+.content_box #caseapply_box .ca_case p:not(:last-child) {
   width: 50%;
 }
-.content-box #caseapply_box .ca_apply {
+.content_box #caseapply_box .ca_apply {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
-.content-box #caseapply_box .ca_apply .ma_apply_accept,
-.content-box #caseapply_box .ca_apply .ma_apply_refuse {
+.content_box #caseapply_box .ca_apply .ca_apply_accept,
+.content_box #caseapply_box .ca_apply .ca_apply_refuse {
   display: flex;
   flex: 1;
   justify-content: center;
@@ -146,10 +146,10 @@ body::-webkit-scrollbar {
   color: #fff;
   border-radius: 1rem;
 }
-.content-box #caseapply_box .ca_apply .ma_apply_accept {
+.content_box #caseapply_box .ca_apply .ca_apply_accept {
   background-color: #60c89b;
 }
-.content-box #caseapply_box .ca_apply .ma_apply_refuse {
+.content_box #caseapply_box .ca_apply .ca_apply_refuse {
   background-color: #ccc;
 }
 /*弹出模态框*/

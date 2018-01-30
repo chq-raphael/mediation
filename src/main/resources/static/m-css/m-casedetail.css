@@ -102,12 +102,11 @@ body::-webkit-scrollbar {
   border-left: 3px solid #14c177;
   border-bottom: 3px solid #14c177;
 }
-#content_box {
+/*#content_box{
   position: relative;
-  z-index: 1;
-}
-#content_box #caseapply_box .ca_case,
-#content_box #caseapply_box .ca_other {
+  z-index:1;*/
+#casedetail_box .ca_case,
+#casedetail_box .ca_other {
   padding: 1rem;
   margin: 1rem;
   background-color: #fff;
@@ -115,39 +114,39 @@ body::-webkit-scrollbar {
   font-size: 1.3rem;
   color: #808080;
 }
-#content_box #caseapply_box .ca_case p,
-#content_box #caseapply_box .ca_other p {
+#casedetail_box .ca_case p,
+#casedetail_box .ca_other p {
   margin: .5rem 0;
   line-height: 2rem;
 }
-#content_box #caseapply_box .ca_case p span,
-#content_box #caseapply_box .ca_other p span {
+#casedetail_box .ca_case p span,
+#casedetail_box .ca_other p span {
   color: #333;
 }
-#content_box #caseapply_box .ca_case p:not(:last-child) {
+#casedetail_box .ca_case p:not(:last-child) {
   width: 50%;
 }
-#content_box #caseapply_box .ca_detail {
+#casedetail_box .ca_detail {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
-#content_box #caseapply_box .ca_detail a {
+#casedetail_box .ca_detail a {
   display: flex;
   flex: 1;
   justify-content: center;
 }
-#content_box #caseapply_box .ca_detail a .ca_detail_diary,
-#content_box #caseapply_box .ca_detail a .ma_detail_result {
+#casedetail_box .ca_detail a .ca_detail_diary,
+#casedetail_box .ca_detail a .ca_detail_result {
   margin: 2rem;
   padding: .7rem 3rem;
   font-size: 1.4rem;
   color: #fff;
   border-radius: 1rem;
 }
-#content_box #caseapply_box .ca_detail a .ca_detail_diary {
+#casedetail_box .ca_detail a .ca_detail_diary {
   background-color: #ccc;
 }
-#content_box #caseapply_box .ca_detail a .ca_detail_result {
+#casedetail_box .ca_detail a .ca_detail_result {
   background-color: #60c89b;
 }
