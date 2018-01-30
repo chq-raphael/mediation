@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
-import com.xcjaas.mediation.service.MediatorService;
+import com.xcjaas.mediation.service.MediatorManagerService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -29,14 +28,14 @@ import java.util.List;
 public class MediatorManagerController {
 
     @Autowired
-    private MediatorService mediatorService;
+    private MediatorManagerService mediatorManagerService;
 
     /*
     链接跳转index.html
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "/mediator/index";
+        return "/mediator_mangaer/index";
     }
 
     /*
@@ -49,7 +48,7 @@ public class MediatorManagerController {
         pageNo = pageNo == null ? 1 : pageNo;
         MediatorsResult mediatorsResult = new MediatorsResult();
         Page page = PageHelper.startPage(pageNo, 5);
-        List<Mediator> mediators = mediatorService.selectMediatorsByPage(search);
+        List<Mediator> mediators = mediatorManagerService.selectMediatorsByPage(search);
 
         mediatorsResult.setMediators(mediators);
         mediatorsResult.setPageNo(pageNo);
@@ -64,7 +63,7 @@ public class MediatorManagerController {
        */
     @RequestMapping(value = "/addMediatorHtml", method = RequestMethod.GET)
     public String addMediatorHtml() {
-        return "/mediator/addMediator";
+        return "/mediator_mangaer/addMediator";
     }
 
     @RequestMapping(value = "/addMediator", method = RequestMethod.POST)
@@ -82,12 +81,12 @@ public class MediatorManagerController {
                 String filename = "\\webapp\\img-mediator\\" + mediator.getName() + ".jpg";
                 mediator.setPicture(filename);
                 System.out.println(mediator);
-                mediatorService.addMediator(mediator);
+                mediatorManagerService.addMediator(mediator);
             } catch (Exception e) {
                 e.printStackTrace();
                 return e.getMessage();
             }
-            return "/mediator/index";
+            return "/mediator_mangaer/index";
         } else {
             return "上传失败，文件为空！";
         }
@@ -98,7 +97,7 @@ public class MediatorManagerController {
      */
     @RequestMapping(value = "/editor", method = RequestMethod.GET)
     public String modify() {
-        return "/mediator/editor";
+        return "/mediator_mangaer/editor";
     }
 
     /*
@@ -107,7 +106,7 @@ public class MediatorManagerController {
     @RequestMapping(value = "/selectMediatorById", method = RequestMethod.POST)
     @ResponseBody
     public Mediator selectMediatorById(int id) {
-        Mediator mediator = mediatorService.selectMediatorById(id);
+        Mediator mediator = mediatorManagerService.selectMediatorById(id);
         return mediator;
     }
 
@@ -116,8 +115,8 @@ public class MediatorManagerController {
      */
     @RequestMapping(value = "/modifyMediator", method = RequestMethod.POST)
     public String modifyMediator(Mediator mediator) {
-        mediatorService.modifyMediator(mediator);
-        return "/mediator/index";
+        mediatorManagerService.modifyMediator(mediator);
+        return "/mediator_mangaer/index";
     }
 
     /*
@@ -125,8 +124,8 @@ public class MediatorManagerController {
      */
     @RequestMapping(value = "/deleteMediatorById", method = RequestMethod.GET)
     public String deleteMediatorById(@Param("id") int id) {
-        mediatorService.deleteMediator(id);
-        return "/mediator/index";
+        mediatorManagerService.deleteMediator(id);
+        return "/mediator_mangaer/index";
     }
 
     /*
@@ -137,11 +136,11 @@ public class MediatorManagerController {
 
         if (mediator.getState() == 0) {
             //0启用状态
-            mediatorService.disable(mediator);
+            mediatorManagerService.disable(mediator);
         } else {
             //1停用状态
-            mediatorService.enable(mediator);
+            mediatorManagerService.enable(mediator);
         }
-        return "/mediator/index";
+        return "/mediator_mangaer/index";
     }
 }
