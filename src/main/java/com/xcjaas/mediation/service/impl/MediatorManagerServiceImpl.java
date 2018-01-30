@@ -1,8 +1,8 @@
 package com.xcjaas.mediation.service.impl;
 
 import com.xcjaas.mediation.entity.Mediator;
-import com.xcjaas.mediation.mapper.MediatorMapper;
-import com.xcjaas.mediation.service.MediatorService;
+import com.xcjaas.mediation.mapper.MediatorManagerMapper;
+import com.xcjaas.mediation.service.MediatorManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,43 +12,43 @@ import java.util.List;
  * Created by Administrator on 2018/1/5.
  */
 @Service
-public class MediatorServiceImpl implements MediatorService {
+public class MediatorManagerServiceImpl implements MediatorManagerService {
 
     @Autowired
-    MediatorMapper mediatorMapper;
+    MediatorManagerMapper mediatorManagerMapper;
 
     @Override
     public void addMediator(Mediator mediator) {
-        mediatorMapper.addMediator(mediator);
+        mediatorManagerMapper.addMediator(mediator);
     }
 
     @Override
     public void deleteMediator(int id) {
-        mediatorMapper.deleteMediator(id);
+        mediatorManagerMapper.deleteMediator(id);
     }
 
     @Override
     public void modifyMediator(Mediator mediator) {
-        mediatorMapper.modifyMediator(mediator);
+        mediatorManagerMapper.modifyMediator(mediator);
     }
 
     @Override
     public Mediator selectMediatorById(int id) {
-        return mediatorMapper.selectMediatorById(id);
+        return mediatorManagerMapper.selectMediatorById(id);
     }
 
     @Override
     public List<Mediator> selectMediatorsByPage(String search) {
-        return mediatorMapper.selectMediatorsByPage(search);
+        return mediatorManagerMapper.selectMediatorsByPage(search);
     }
 
     @Override
     public void enable(Mediator mediator) {
-        mediatorMapper.enable(mediator);
+        mediatorManagerMapper.enable(mediator);
     }
 
     @Override
     public void disable(Mediator mediator) {
-        mediatorMapper.disable(mediator);
+        mediatorManagerMapper.disable(mediator);
     }
 }

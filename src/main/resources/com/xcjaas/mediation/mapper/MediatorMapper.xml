@@ -4,73 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xcjaas.mediation.mapper.MediatorMapper">
 
-    <!--插入-->
-    <insert id="addMediator" parameterType="Mediator">
-        insert into t_mediator(name,
-        phone_num,field,picture,organization,sex,mediating_count,prepare_mediate_count,success_mediated_count,failed_ediated_count,state)
-        values ( #{name},#{phone_num},#{field},#{picture},#{organization},#{sex},0,0,0,0,#{state});
-    </insert>
+
 
     <!--根据id查找-->
     <select id="selectMediatorById" parameterType="int" resultType="Mediator">
         SELECT * FROM t_mediator where id=#{id}
     </select>
 
-    <!--查找所有-->
-    <resultMap type="Mediator" id="MediatorMap">
-
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="phone_num" property="phone_num"/>
-        <result column="field" property="field"/>
-        <result column="organization" property="organization"/>
-        <result column="sex" property="sex"/>
-        <result column="mediating_count" property="mediating_count"/>
-        <result column="prepare_mediate_count" property="prepare_mediate_count"/>
-        <result column="success_mediated_count" property="success_mediated_count"/>
-        <result column="failed_ediated_count" property="failed_ediated_count"/>
-        <result column="state" property="state"/>
-
-    </resultMap>
-
-    <select id="selectMediatorsByPage" parameterType="string" resultMap="MediatorMap">
-        SELECT * FROM t_mediator where 1=1
-        <if test='_parameter!=null and _parameter!=""'>
-            and name like '%${_parameter}%'
-        </if>
-    </select>
-
-    <!--根据id删除-->
-    <delete id="deleteMediator" parameterType="int">
-        delete from t_mediator where id=#{id}
-    </delete>
-
-    <!--修改个人信息-->
-    <update id="modifyMediator" parameterType="Mediator">
-        update t_mediator set
-          name=#{name},
-          phone_num=#{phone_num},
-          field=#{field},
-          organization=#{organization},
-          sex=#{sex}
-        where
-           id=#{id}
-    </update>
-
-    <!--修改状态 启用  -->
-    <update id="enable" parameterType="Mediator">
-        update t_mediator set
-        state=0
-        where
-        id=#{id}
-    </update>
-    <!--修改状态 停用  -->
-    <update id="disable" parameterType="Mediator">
-        update t_mediator set
-        state=1
-        where
-        id=#{id}
-    </update>
 
 </mapper>
 
