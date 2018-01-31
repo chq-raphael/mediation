@@ -10,10 +10,7 @@
     </select>
 
     <!--根据调解员id查找他的所有案例-->
-    <resultMap id="caseResultMap" type="MediatorCaseResult">
-        <result column="type_name" property="type_name"/>
-        <result column="state_name" property="state_name"/>
-        <association property="cas" javaType="Case">
+    <resultMap id="caseResultMap" type="Case">
             <id column="case_id" property="case_id"/>
             <result column="case_type" property="case_type"/>
             <result column="case_state" property="case_state"/>
@@ -23,7 +20,8 @@
             <result column="details" property="details"/>
             <result column="court" property="court"/>
             <result column="create_date" property="create_date"/>
-        </association>
+            <result column="type_name" property="type_name"/>
+            <result column="state_name" property="state_name"/>
     </resultMap>
     <select id="selectMediatorAllCasesById" parameterType="int" resultMap="caseResultMap">
         SELECT * FROM

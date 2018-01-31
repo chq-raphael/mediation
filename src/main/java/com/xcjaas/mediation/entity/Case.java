@@ -16,6 +16,8 @@ public class Case {
     private String details;//案件详情
     private String court;//隶属法院
     private String create_date;//案件创建时间
+    private String type_name;//案件类型名字
+    private String state_name;//案件状态名字
 
     @Override
     public String toString() {
@@ -28,7 +30,9 @@ public class Case {
                 ", user_judged='" + user_judged + '\'' +
                 ", details='" + details + '\'' +
                 ", court='" + court + '\'' +
-                ", create_date=" + create_date +
+                ", create_date='" + create_date + '\'' +
+                ", type_name='" + type_name + '\'' +
+                ", state_name='" + state_name + '\'' +
                 '}';
     }
 
@@ -102,5 +106,21 @@ public class Case {
 
     public void setCreate_date(String create_date) {
         this.create_date = create_date;
+    }
+
+    public String getType_name() {
+        return type_name;
+    }
+
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
+    }
+
+    public String getState_name() {
+        return state_name;
+    }
+
+    public void setState_name(String state_name) {
+        this.state_name = state_name;
     }
 }
