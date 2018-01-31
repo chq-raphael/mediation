@@ -1,6 +1,6 @@
 package com.xcjaas.mediation.entity;
 
-import java.util.Date;
+
 
 /**
  * Created by Administrator on 2018/1/16.
@@ -12,7 +12,7 @@ public class Case {
     private int case_state;//0准备状态，1正在调解，2调解成功，3调解失败
     private int case_user_id;//关联用户id
     private int case_mediator_id;//关联一个调解员id
-    private String user_judged;//case_state=2,3的情况下，用户评价
+    private int judged_state;//用户是否评价，0未评价，1已评价（judged_state=1只有case_state=2或者3的情况下）
     private String details;//案件详情
     private String court;//隶属法院
     private String create_date;//案件创建时间
@@ -27,7 +27,7 @@ public class Case {
                 ", case_state=" + case_state +
                 ", case_user_id=" + case_user_id +
                 ", case_mediator_id=" + case_mediator_id +
-                ", user_judged='" + user_judged + '\'' +
+                ", judged_state=" + judged_state +
                 ", details='" + details + '\'' +
                 ", court='" + court + '\'' +
                 ", create_date='" + create_date + '\'' +
@@ -35,6 +35,8 @@ public class Case {
                 ", state_name='" + state_name + '\'' +
                 '}';
     }
+
+
 
     public int getCase_id() {
         return case_id;
@@ -76,12 +78,12 @@ public class Case {
         this.case_mediator_id = case_mediator_id;
     }
 
-    public String getUser_judged() {
-        return user_judged;
+    public int getJudged_state() {
+        return judged_state;
     }
 
-    public void setUser_judged(String user_judged) {
-        this.user_judged = user_judged;
+    public void setJudged_state(int judged_state) {
+        this.judged_state = judged_state;
     }
 
     public String getDetails() {
