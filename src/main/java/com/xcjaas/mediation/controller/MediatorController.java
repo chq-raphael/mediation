@@ -2,6 +2,7 @@ package com.xcjaas.mediation.controller;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
+import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,12 +69,18 @@ public class MediatorController {
     public int stateNum() {
         return stateNum;
     }
-    //返回页面stateNum
+
     @RequestMapping(value = "/mediatorCaseInfo", method = RequestMethod.GET)
     @ResponseBody
-    public List<Case> mediatorCase() {
-       List<Case> cases=mediatorService.selectMediatorCaseById(2);
-        return cases;
+    public List<MediatorsResult> mediatorCase() {
+        try {
+            List<MediatorsResult> mediatorsResults=mediatorService.selectMediatorAllCasesById(2);
+            return mediatorsResults;
+        }finally {
+           //.....释放
+
+        }
+
     }
 
     /*
@@ -97,4 +104,5 @@ public class MediatorController {
      public void saveNum(int state_num){
         stateNum=state_num;
     }
+
 }

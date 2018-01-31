@@ -2,6 +2,7 @@ package com.xcjaas.mediation.mapper;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
+import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,5 @@ import java.util.List;
 public interface MediatorMapper {
     Mediator selectMediatorById(int id);
 
-    List<Case> selectMediatorCaseById(int id);
+    List<MediatorsResult> selectMediatorAllCasesById(int mediatorId);
 }

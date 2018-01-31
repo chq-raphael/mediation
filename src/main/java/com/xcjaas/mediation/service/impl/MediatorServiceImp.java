@@ -2,6 +2,7 @@ package com.xcjaas.mediation.service.impl;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
+import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.mapper.MediatorMapper;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ public class MediatorServiceImp implements MediatorService {
     }
 
     @Override
-    public List<Case> selectMediatorCaseById(int id) {
-        return mediatorMapper.selectMediatorCaseById(id);
+    public List<MediatorsResult> selectMediatorAllCasesById(int mediatorId) {
+        return mediatorMapper.selectMediatorAllCasesById(mediatorId);
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.xcjaas.mediation.service;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
+import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 public interface MediatorService {
     Mediator selectMediatorById(int id);
 
-    List<Case> selectMediatorCaseById(int id);
+    List<MediatorsResult> selectMediatorAllCasesById(int mediatorId);
 }
