@@ -13,7 +13,7 @@
 <body>
     <!--顶部标题-->
     <div id="head">
-        <a href="./m-personal.html" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
+        <a href="m-personal.html" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
         <p class="head_title">我的调解</p>
     </div>
     <div id="mm_box">
@@ -86,21 +86,37 @@
         new Vue({
             el:'#mm_box',
             data:{
-                caseList:''
+                caseReadyList:'',
+                caseBeingList:'',
+                caseFinishList:''
             },
             mounted:function () {
+                var _that = this;
                 this.$nextTick(function () {
                     $.ajax({
-                        url:'/mediator/stateNum',
+                        url:'/mediator/mediatorCaseInfo',
                         type:'get',
                         datatype:'json',
-                        success:function (result,state) {
+                        success:function (result) {
                             console.log(result);
+
+
                         },
                         error:function (err) {
-                            console.log('错误'+err);
+                            console.log(err);
                         }
                     })
+//                    $.ajax({
+//                        url:'/mediator/stateNum',
+//                        type:'get',
+//                        datatype:'json',
+//                        success:function (result,state) {
+//                            console.log(result);
+//                        },
+//                        error:function (err) {
+//                            console.log('错误'+err);
+//                        }
+//                    })
                 })
             },
             methods:{

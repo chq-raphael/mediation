@@ -132,6 +132,8 @@ body::-webkit-scrollbar {
 }
 #personal_box #per_info .per_info_touxiang {
   width: 25%;
+  height: 25%;
+  border-radius: 50%;
 }
 #personal_box #per_info .per_info_touxiang img {
   width: 100%;
