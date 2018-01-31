@@ -10,29 +10,28 @@
     </select>
 
     <!--根据调解员id查找他的所有案例-->
-
-    <resultMap id="caseResult" type="MediatorCaseResult">
-        <id column="case_id" property="case_id"/>
-        <!--<result column="case_type" property="case_type"/>-->
-        <!--<result column="case_state" property="case_state"/>-->
-        <!--<result column="case_user_id" property="case_user_id"/>-->
-        <!--<result column="case_mediator_id" property="case_mediator_id"/>-->
-        <!--<result column="type_name" property="type_name"/>-->
+    <resultMap id="caseResultMap" type="MediatorCaseResult">
+        <result column="type_name" property="type_name"/>
+        <result column="state_name" property="state_name"/>
+        <association property="cas" javaType="Case">
+            <id column="case_id" property="case_id"/>
+            <result column="case_type" property="case_type"/>
+            <result column="case_state" property="case_state"/>
+            <result column="case_user_id" property="case_user_id"/>
+            <result column="case_mediator_id" property="case_mediator_id"/>
+            <result column="user_judged" property="user_judged"/>
+            <result column="details" property="details"/>
+            <result column="court" property="court"/>
+            <result column="create_date" property="create_date"/>
+        </association>
     </resultMap>
-    <select id="selectMediatorAllCasesById" parameterType="int" resultMap="caseResult">
-SELECT
-	t_case.case_id,
-	t_case.case_mediator_id,
-	t_case.case_type,
-	t_case.case_user_id,
-	t_case.case_state,
-	t_case_type.type_name
-FROM
-	t_case join t_case_type
-WHERE
-	t_case.case_type = t_case_type.case_type
-
-AND t_case.case_mediator_id= #{mediatorId}
+    <select id="selectMediatorAllCasesById" parameterType="int" resultMap="caseResultMap">
+        SELECT * FROM
+        t_case
+        JOIN t_case_type ON t_case.case_type = t_case_type.case_type
+        join t_case_state on t_case.case_state=t_case_state.case_state
+        WHERE
+        t_case.case_mediator_id = #{mediatorId}
     </select>
 
 
