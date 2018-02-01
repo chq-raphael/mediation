@@ -172,6 +172,12 @@ public class UserController {
     public List<Case> myCases() {
         return userService.selectCasesByUserId(270);
     }
+    //根据caseId查找案件
+    @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
+    @ResponseBody
+    public Case oneCase() {
+        return userService.seleceOneByCaseId(9);
+    }
 
     /*
     页面跳转7：跳转至评价界面，pingjia.html

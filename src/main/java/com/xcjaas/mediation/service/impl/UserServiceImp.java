@@ -54,4 +54,9 @@ public class UserServiceImp implements UserService {
     public List<Case> selectCasesByUserId(int userId) {
         return userMapper.selectCasesByUserId(userId);
     }
+
+    @Override
+    public Case seleceOneByCaseId(int caseId) {
+        return userMapper.seleceOneByCaseId(caseId);
+    }
 }

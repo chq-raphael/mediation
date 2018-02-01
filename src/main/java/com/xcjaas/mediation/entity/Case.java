@@ -19,6 +19,7 @@ public class Case {
     private Date create_date;//案件创建时间
     private String type_name;//案件类型名字
     private String state_name;//案件状态名字
+    private String judged_detail;//judged_state=1下评价详情
 
     @Override
     public String toString() {
@@ -31,13 +32,12 @@ public class Case {
                 ", judged_state=" + judged_state +
                 ", details='" + details + '\'' +
                 ", court='" + court + '\'' +
-                ", create_date='" + create_date + '\'' +
+                ", create_date=" + create_date +
                 ", type_name='" + type_name + '\'' +
                 ", state_name='" + state_name + '\'' +
+                ", judged_detail='" + judged_detail + '\'' +
                 '}';
     }
-
-
 
     public int getCase_id() {
         return case_id;
@@ -125,5 +125,13 @@ public class Case {
 
     public void setState_name(String state_name) {
         this.state_name = state_name;
+    }
+
+    public String getJudged_detail() {
+        return judged_detail;
+    }
+
+    public void setJudged_detail(String judged_detail) {
+        this.judged_detail = judged_detail;
     }
 }

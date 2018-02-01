@@ -37,7 +37,7 @@
     <!--挑选备用的两个调解员-->
     <insert id="insertTwoMediators" parameterType="ArrayList" useGeneratedKeys="true" keyProperty="state_0_id">
         insert into t_case_state_prepare(state_0_user_id,state_0_case_id,state_0_mediator_id)
-        VALUES 
+        VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.state_0_user_id},#{item.state_0_case_id},#{item.state_0_mediator_id})
         </foreach>
@@ -48,7 +48,7 @@
     </select>
 
 
-    <!--choice-mediate.html中查到3个调解员返回给页面-->
+    <!--根据id查找个人所有案件-->
     <resultMap id="allCasesMap" type="Case">
         <id column="case_id" property="case_id"/>
         <result column="case_type" property="case_type"/>
@@ -68,6 +68,14 @@
         JOIN t_case_type ON t_case.case_type = t_case_type.case_type
         join t_case_state on t_case.case_state=t_case_state.case_state
         where case_user_id=#{userId};
+    </select>
+    <!--根据案件id查找一个案件-->
+    <select id="seleceOneByCaseId" parameterType="int" resultType="Case">
+       SELECT * FROM t_case
+       JOIN t_case_judged on t_case.case_id=t_case_judged.case_id
+        JOIN t_case_type ON t_case.case_type = t_case_type.case_type
+        join t_case_state on t_case.case_state=t_case_state.case_state
+        where t_case.case_id=#{caseId};
     </select>
 
 </mapper>
