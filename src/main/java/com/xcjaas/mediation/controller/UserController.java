@@ -175,8 +175,8 @@ public class UserController {
     //根据caseId查找案件
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
-    public Case oneCase() {
-        return userService.seleceOneByCaseId(9);
+    public Case oneCase(@RequestParam("case_id") int caseId) {
+        return userService.seleceOneByCaseId(caseId);
     }
 
     /*
