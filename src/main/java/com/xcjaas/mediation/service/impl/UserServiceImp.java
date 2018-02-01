@@ -49,4 +49,9 @@ public class UserServiceImp implements UserService {
     public void insertDsr(List<Dsr> dsrs) {
         userMapper.insertDsr(dsrs);
     }
+
+    @Override
+    public List<Case> selectCasesByUserId(int userId) {
+        return userMapper.selectCasesByUserId(userId);
+    }
 }

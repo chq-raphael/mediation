@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.entity;
 
 
+import java.sql.Date;
 
 /**
  * Created by Administrator on 2018/1/16.
@@ -15,7 +16,7 @@ public class Case {
     private int judged_state;//用户是否评价，0未评价，1已评价（judged_state=1只有case_state=2或者3的情况下）
     private String details;//案件详情
     private String court;//隶属法院
-    private String create_date;//案件创建时间
+    private Date create_date;//案件创建时间
     private String type_name;//案件类型名字
     private String state_name;//案件状态名字
 
@@ -102,11 +103,11 @@ public class Case {
         this.court = court;
     }
 
-    public String getCreate_date() {
+    public Date getCreate_date() {
         return create_date;
     }
 
-    public void setCreate_date(String create_date) {
+    public void setCreate_date(Date create_date) {
         this.create_date = create_date;
     }
 

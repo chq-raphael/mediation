@@ -1,11 +1,12 @@
 package com.xcjaas.mediation.controller;
 
-import com.xcjaas.mediation.entity.Case;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,6 +104,16 @@ public class MediatorController {
     @ResponseBody
      public void saveNum(int state_num){
         stateNum=state_num;
+    }
+
+    @RequestMapping(value="/test",method =RequestMethod.GET)
+    @ResponseBody
+    @Transactional
+    public void test(){
+        System.out.println("---------------1");
+        int i=2/0;
+        System.out.println("...............2");
+
     }
 
 }

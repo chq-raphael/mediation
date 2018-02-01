@@ -18,4 +18,5 @@ public interface UserService {
     void insertCase(Case cas);
     User selectOne(int userId);
     void insertDsr(List<Dsr> dsrs);
+    List<Case> selectCasesByUserId(int userId);
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class UserController {
         cas.setCase_state(0);
         //设置调解发起人id
         cas.setCase_user_id(userId);
+        //设置案件为未评价状态
+        cas.setJudged_state(0);
+
         userService.insertCase(cas);
         casId = cas.getCase_id();
         return "/user/other-dsr";
@@ -141,22 +145,14 @@ public class UserController {
     }
 
 
-    //增加案例
-    @RequestMapping(value = "/addCase", method = RequestMethod.GET)
-    public String addCase(Case cas) {
-        cas.setCase_user_id(100);
-        userService.insertCase(cas);
-        return "/user/other-dsr";
-    }
-
     /*
-    跳转至个人主页, personal.html
+    页面跳转5：跳转至个人主页, personal.html
      */
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public String to_Personal_Html() {
         return "/user/personal";
     }
-
+    //返回个人信息
     @RequestMapping(value = "/personal", method = RequestMethod.POST)
     @ResponseBody
     public User showOne() {
@@ -164,15 +160,21 @@ public class UserController {
     }
 
     /*
-    跳转至我的调解,my-mediate.html
+    页面跳转6：跳转至我的调解,my-mediate.html
      */
     @RequestMapping(value = "/my-mediate", method = RequestMethod.GET)
     public String to_My_Mediate_Html() {
         return "/user/my-mediate";
     }
+    //查找用户所有案件
+    @RequestMapping(value = "/allCases", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Case> myCases() {
+        return userService.selectCasesByUserId(270);
+    }
 
     /*
-    跳转至评价界面，pingjia.html
+    页面跳转7：跳转至评价界面，pingjia.html
      */
     @RequestMapping(value = "/pingjia", method = RequestMethod.GET)
     public String to_Pingjia_Html() {
