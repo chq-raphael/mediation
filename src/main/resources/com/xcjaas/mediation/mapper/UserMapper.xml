@@ -81,5 +81,11 @@
         where t_case.case_id=#{caseId};
     </select>
 
+    <!---->
+    <select id="selectJudgedDetailByCaseId" parameterType="int" resultType="CaseJudgedDetail">
+        SELECT case_id,judged_detail FROM t_case
+        where t_case.case_id=#{caseId};
+    </select>
+
 </mapper>
 

@@ -34,4 +34,6 @@ public interface UserMapper {
     List<Case> selectCasesByUserId(int userId);
 
     Case seleceOneByCaseId(int caseId);
+
+    CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
 }

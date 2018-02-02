@@ -198,8 +198,10 @@ public class UserController {
     }
    //
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
-    public String pingjiaDetail() {
-        return "/user/pingjia";
+    @ResponseBody
+    public CaseJudgedDetail pingjiaDetail(@RequestParam("case_id") int caseId) {
+        CaseJudgedDetail caseJudgedDetail=userService.selectJudgedDetailByCaseId(caseId);
+        return caseJudgedDetail;
     }
 
 
