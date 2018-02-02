@@ -65,10 +65,10 @@ new Vue({
                 console.log(_that.judged_detail);
                 var _that = this;
                 var caseJudgedDetail={
-                     judgedDetail:JSON.stringify(_that.judged_detail)
+                    judged_detail:_that.judged_detail
                  };
 //                console.log(caseJudgedDetail);
-                 judgedDetail=JSON.stringify(_that.judged_detail);
+                 judged_detail=JSON.stringify(_that.judged_detail);
                 $.ajax({
                     url:'/user/addJudged',
                     type:'get',

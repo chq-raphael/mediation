@@ -205,6 +205,7 @@ public class UserController {
     @ResponseBody
     public void insertJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
         caseJudgedDetail.setCase_id(casId);
+        System.out.println(caseJudgedDetail);
         userService.updateCaseJudgedDetail(caseJudgedDetail);
     }
 
