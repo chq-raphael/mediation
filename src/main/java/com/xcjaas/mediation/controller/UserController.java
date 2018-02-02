@@ -4,6 +4,7 @@ package com.xcjaas.mediation.controller;
 import com.xcjaas.mediation.constant.Constant;
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.service.UserService;
@@ -77,8 +78,14 @@ public class UserController {
         //设置案件为未评价状态
         cas.setJudged_state(0);
 
+        //数据库创建案件
         userService.insertCase(cas);
         casId = cas.getCase_id();
+
+        CaseJudgedDetail cjd = new CaseJudgedDetail();
+        cjd.setCase_id(casId);
+        //数据库创建案件评价表
+        userService.insertCaseJudgedDetail(cjd);
         return "/user/other-dsr";
     }
 
@@ -152,6 +159,7 @@ public class UserController {
     public String to_Personal_Html() {
         return "/user/personal";
     }
+
     //返回个人信息
     @RequestMapping(value = "/personal", method = RequestMethod.POST)
     @ResponseBody
@@ -166,12 +174,14 @@ public class UserController {
     public String to_My_Mediate_Html() {
         return "/user/my-mediate";
     }
+
     //查找用户所有案件
     @RequestMapping(value = "/allCases", method = RequestMethod.GET)
     @ResponseBody
     public List<Case> myCases() {
         return userService.selectCasesByUserId(270);
     }
+
     //根据caseId查找案件
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
@@ -186,5 +196,11 @@ public class UserController {
     public String to_Pingjia_Html() {
         return "/user/pingjia";
     }
+   //
+    @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
+    public String pingjiaDetail() {
+        return "/user/pingjia";
+    }
+
 
 }

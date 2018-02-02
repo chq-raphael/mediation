@@ -21,6 +21,7 @@ public class Case {
     private String state_name;//案件状态名字
     private String judged_detail;//judged_state=1下评价详情
 
+
     @Override
     public String toString() {
         return "Case{" +

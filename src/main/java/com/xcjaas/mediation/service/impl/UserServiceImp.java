@@ -3,6 +3,7 @@ package com.xcjaas.mediation.service.impl;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import com.xcjaas.mediation.mapper.UserMapper;
@@ -38,6 +39,11 @@ public class UserServiceImp implements UserService {
     @Override
     public void insertCase(Case cas) {
         userMapper.insertCase(cas);
+    }
+
+    @Override
+    public void insertCaseJudgedDetail(CaseJudgedDetail judgedDetail) {
+        userMapper.insertCaseJudgedDetail(judgedDetail);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.xcjaas.mediation.mapper;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,6 +24,8 @@ public interface UserMapper {
     void insertTwoMediators(List<State_Zero> state_Zeros);
 
     void insertCase(Case cas);
+
+    void insertCaseJudgedDetail(CaseJudgedDetail judgedDetail);
 
     User selectOne(int userId);
 
