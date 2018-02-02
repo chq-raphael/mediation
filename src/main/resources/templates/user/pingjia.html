@@ -67,16 +67,17 @@ new Vue({
                 var caseJudgedDetail={
                      judgedDetail:JSON.stringify(_that.judged_detail)
                  };
-                console.log(caseJudgedDetail);
+//                console.log(caseJudgedDetail);
+                 judgedDetail=JSON.stringify(_that.judged_detail);
                 $.ajax({
-                    url:'/user/addjudged',
+                    url:'/user/addJudged',
                     type:'get',
                     contentType : 'application/json;charset=utf-8',
                     data:caseJudgedDetail,
                     datatype:'json',
                     success:function (result) {
                         console.log(result);
-                        window.location.href = '/user/my-mediate'
+                        window.location.href = '/user/my-mediate';
                     },
                     error:function (err) {
                         console.log(err);
