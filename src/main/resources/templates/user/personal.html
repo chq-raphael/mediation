@@ -26,7 +26,7 @@
     </div>
     <!--我的调解-->
     <div id="per_state">
-        <a href="my-mediate.html"  class="state">
+        <a href="my-mediate.html"  class="state" >
             <p class="state_img"><img src="/chqimage/icon-qingqiu.png" alt=""></p>
             <p class="state_info">我的调解</p>
         </a>
@@ -41,8 +41,12 @@
         },
         mounted:function () {
             var _that = this;
+            //缓存取出用户名
+            var user = localStorage.getItem("localUser");
+            user = JSON.parse(user);
+            var user_id = user.userId;
             $.ajax({
-                url:'/user/personal',
+                url:'/user/personal?user_id'+user_id,
                 type:'post',
                 datatype:'json',
                 contentType : 'application/json;charset=utf-8',
@@ -55,6 +59,22 @@
                 }
             })
         }
+//        ,
+//        methods:{
+//            usermediate:function () {
+//
+//                $.ajax({
+//                    url:'?user_id'+user_id,
+//                    type:'get',
+//                    success:function (result) {
+//                        console.log(result);
+//                    },
+//                    error:function (err) {
+//                        console.log(err);
+//                    }
+//                })
+//            }
+//        }
     })
 </script>
 </body>

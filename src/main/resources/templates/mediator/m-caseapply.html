@@ -82,6 +82,28 @@
             $('.modal_box').css('visibility','hidden')
         }
     });
+    new Vue({
+        el:'#content_box',
+        data:{
+
+        },
+        mounted:function () {
+            $.ajax({
+                url:'',
+                type:'get',
+                datatype:'json',
+                success:function (result) {
+                    console.log(result);
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            })
+        },
+        methods:{
+
+        }
+    })
 </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,7 +19,7 @@
 </div>
 <div id="pingjia_box">
         <div class="pingjia_content">
-            <textarea v-model="message" name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
+            <textarea v-model="pjContent" name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
         </div>
         <div class="tongyi">
             <div>是否认可调解结果</div>
@@ -27,24 +28,44 @@
                 <label for="checkbox" class="labelbox"></label>
             </div>
         </div>
-        <div class="pingjia_tijiao next_step" @click="pingjia">提交</div>
+        <div class="pingjia_tijiao next_step" @click="pingjia" v-show="message!=''">提交</div>
 </div>
 <script>
 new Vue({
     el:'#pingjia_box',
     data:{
-        message:''
+        pjContent:'',
+        isable:'true'
+    },
+    mounted:function () {
+        $.ajax({
+//            url:'/uset/pjDetail',
+            type:'get',
+            datatype:'json',
+            success:function (result) {
+                console.log(result);
+                if(!result.judged_detial){
+                    _that.pjContent = '';
+
+                }
+
+            },
+            error:function (err) {
+                console.log(err);
+            }
+        })
     },
     methods:{
         pingjia:function () {
             if($('#checkbox').is(':checked')){
-                console.log(this.message);
+                console.log(this.pjContent);
+
                 var _that = this;
-           /*     $.ajax({
+                $.ajax({
                     url:'',
                     type:'get',
                     contentType : 'application/json;charset=utf-8',
-                    data:JSON.stringify(_that.message),
+                    data:JSON.stringify(_that.pjContent),
                     datatype:'json',
                     success:function (result) {
                         console.log(result);
@@ -53,7 +74,7 @@ new Vue({
                         console.log('错误'+err);
 
                     }
-                });*/
+                });
             }else{
                 return false;
             }

@@ -19,15 +19,15 @@
     <div id="mm_box">
         <!--调解状态-->
         <ul class="mm_stateList">
-            <li  class="mm_state state_active" id="state" @click="showCase(0)">
+            <li  class="mm_state state_active" id="state" @click="changeState(0)">
                 <span>待受理</span>
                 <img src="/m-image/hengx.png" alt="" class="hengx_img" style="display: block">
             </li>
-            <li class="mm_state" id="state1" @click="showCase(1)">
+            <li class="mm_state" id="state1" @click="changeState(1)">
                 <span>正在调解</span>
                 <img src="/m-image/hengx.png" alt="" class="hengx_img" >
             </li>
-            <li class="mm_state" id="state2" @click="showCase(2)">
+            <li class="mm_state" id="state2" @click="changeState(2)">
                 <span>历史调解</span>
                 <img src="/m-image/hengx.png" alt="" class="hengx_img" >
             </li>
@@ -35,48 +35,42 @@
         <!--事件-->
         <!--待受理-->
         <ul class="case_list" style="display: block">
-            <li class="case"  @click="caseInfo">
+            <li class="case"  v-for="caseReady in caseReadyList" @click.self="caseInfo(caseReady.case_id)">
                 <div class="case_title">
-                    <span class="float_left title">离婚纠纷调解</span><span class="float_right time">2017-12-25</span>
+                    <span class="float_left title">{{caseReady.type_name}}</span><span class="float_right time">{{caseReady.create_date}}</span>
                 </div>
-                <div class="case_content">
-                    待受理，待受理，待受理，待受理
-                </div>
+                <div class="case_content">{{caseReady.details}}</div>
                 <div class="case_other">
-                    <div class="fayuan float_left">崇州市人民法院</div>
-                    <div class="zhuangtai float_left">待受理</div>
+                    <div class="fayuan float_left">{{caseReady.court}}</div>
+                    <div class="zhuangtai float_left">{{caseReady.case_state}}</div>
                 </div>
             </li>
         </ul>
         <!--正在调解-->
         <ul class="case_list">
-            <li class="case"   @click="caseInfo">
+            <li class="case"   v-for="caseBeing in caseBeingList" @click.self="caseInfo(caseBeing.case_id)">
                 <div class="case_title">
-                    <span class="float_left title">离婚纠纷调解</span><span class="float_right time">2017-12-25</span>
+                    <span class="float_left title">{{caseBeing.type_name}}</span><span class="float_right time">{{caseBeing.create_date}}</span>
                 </div>
-                <div class="case_content">
-                    正在调解，正在调解，正在调解，正在调解，正在调解，正在调解
-                </div>
+                <div class="case_content">{{caseBeing.details}}</div>
                 <div class="case_other">
-                    <div class="fayuan float_left">崇州市人民法院</div>
-                    <div class="zhuangtai float_left">正在调解</div>
+                    <div class="fayuan float_left">{{caseBeing.court}}</div>
+                    <div class="zhuangtai float_left">{{caseBeing.case_state}}</div>
                     <div class="diary float_right">记录调解日志</div>
                 </div>
             </li>
         </ul>
         <!--历史调解-->
         <ul class="case_list">
-            <li class="case"  @click="caseInfo">
+            <li class="case"   v-for="caseFinish in caseFinishList" @click.self="caseInfo(caseFinish.case_id)">
                 <div class="case_title">
-                    <span class="float_left title">离婚纠纷调解</span><span class="float_right time">2017-12-25</span>
+                    <span class="float_left title">{{caseFinish.type_name}}</span><span class="float_right time">{{caseFinish.create_date}}</span>
                 </div>
-                <div class="case_content">
-                    历史调解，历史调解，历史调解，历史调解
-                </div>
+                <div class="case_content">{{caseFinish.details}}</div>
                 <div class="case_other">
-                    <div class="fayuan float_left">崇州市人民法院</div>
-                    <div class="zhuangtai float_left">调解成功</div>
-                    <div class="pingjia float_right">未评价</div>
+                    <div class="fayuan float_left">{{caseFinish.court}}</div>
+                    <div class="zhuangtai float_left">{{caseFinish.case_state}}</div>
+                    <div class="pingjia float_right"  @click="showPingjia(caseFinish.case_id)">{{caseFinish.judged_state}}</div>
                 </div>
             </li>
         </ul>
@@ -86,63 +80,78 @@
         new Vue({
             el:'#mm_box',
             data:{
-                caseReadyList:'',
-                caseBeingList:'',
-                caseFinishList:''
+                caseReadyList:[],
+                caseBeingList:[],
+                caseFinishList:[]
             },
             mounted:function () {
                 var _that = this;
-                this.$nextTick(function () {
-                    $.ajax({
-                        url:'/mediator/mediatorCaseInfo',
-                        type:'get',
-                        datatype:'json',
-                        success:function (result) {
-                            console.log(result);
-
-
-                        },
-                        error:function (err) {
-                            console.log(err);
-                        }
-                    })
-//                    $.ajax({
-//                        url:'/mediator/stateNum',
-//                        type:'get',
-//                        datatype:'json',
-//                        success:function (result,state) {
-//                            console.log(result);
-//                        },
-//                        error:function (err) {
-//                            console.log('错误'+err);
-//                        }
-//                    })
-                })
+                $.ajax({
+                    url:'/mediator/mediatorCaseInfo',
+                    type:'get',
+                    datatype:'json',
+                    success:function (result) {
+                        result.forEach(function (obj,i) {
+                            if(obj.judged_state == 0){
+                                obj.judged_state = '未评价';
+                            }
+                            if(obj.judged_state == 1){
+                                obj.judged_state = '查看评价';
+                            }
+                            if (obj.case_state != 0) {
+                                if (obj.case_state == 1) {
+                                    obj.case_state = '正在调解';
+                                    _that.caseBeingList.push(obj);
+                                } else if (obj.case_state == 2) {
+                                    obj.case_state = '调解成功';
+                                    _that.caseFinishList.push(obj);
+                                } else {
+                                    obj.case_state = '调解失败';
+                                    _that.caseFinishList.push(obj);
+                                }
+                            } else {
+                                obj.case_state = '待受理';
+                                _that.caseReadyList.push(obj);
+                            }
+                        });
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                });
             },
             methods:{
-                showCase:function (case_num) {
+                changeState:function (case_num) {
                     $('.mm_state').eq(case_num).addClass('state_active').siblings().removeClass('state_active');
-                    $('.hengx_img').hide().eq(case_num).show();
-                    $('.case_list').hide().eq(case_num).show();
+                     $('.hengx_img').hide().eq(case_num).show();
+                     $('.case_list').hide().eq(case_num).show();
+                },
+                caseInfo:function (case_id) {
+                    console.log(case_id);
+                    var _that = this;
                     $.ajax({
-                        url:'/mediator/mediatorCaseInfo',
+                        url:'?case_id='+case_id,
                         type:'get',
-                        datatype:'json',
                         success:function (result) {
                             console.log(result);
-
-
+                            if(_that.case_state == '待受理'){
+                                window.location.href = '/mediator/m-caseapply';
+                            }else{
+                                window.location.href = '/mediator/m-casedetail';
+                            }
                         },
                         error:function (err) {
                             console.log(err);
                         }
+
                     })
                 },
-                caseInfo:function () {
-
+                showPingjia:function (case_id) {
+                    console.log('评价'+case_id);
                 }
             }
         })
     </script>
 </body>
+
 </html>

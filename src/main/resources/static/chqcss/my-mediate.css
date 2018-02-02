@@ -60,6 +60,7 @@
 }
 .case_list .case .case_other .fayuan,
 .case_list .case .case_other .zhuangtai,
+.case_list .case .case_other .diary,
 .case_list .case .case_other .pingjia {
   height: 1.8rem;
   line-height: 1.6rem;
@@ -75,6 +76,11 @@
 .case_list .case .case_other .pingjia {
   color: #14c177;
   border: 1px solid #14c177;
+}
+.case_list .case .case_other .diary {
+  border-radius: 1rem ;
+  background-color: #60c89b;
+  color: #fff;
 }
 .case_list .case .case_other:after {
   content: "";

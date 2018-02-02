@@ -76,13 +76,13 @@
                         url:'/mediator/showMediatorInfo',
                         type:'get',
                         datatype:'json',
-                        success:function (result,state) {
+                        success:function (result) {
                             _that.mediator = result;
                             var rate = parseFloat((result.success_mediated_count) * 100 / (result.success_mediated_count + result.failed_ediated_count));
                             _that.mediate_rate = rate.toFixed(2);//计算调解率，取小数点后两位
                         },
-                        error:function (err,state) {
-                            console.log('error:'+err);
+                        error:function (err) {
+                            console.log(err);
                         }
                     })
                 })
