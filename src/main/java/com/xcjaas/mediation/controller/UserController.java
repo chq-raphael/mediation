@@ -157,9 +157,9 @@ public class UserController {
     }
 
     //返回个人信息
-    @RequestMapping(value = "/personal", method = RequestMethod.POST)
+    @RequestMapping(value = "/personalInfo", method = RequestMethod.GET)
     @ResponseBody
-    public User showOne() {
+    public User showOne(@RequestParam("user_id") int userId) {
         return userService.selectOne(userId);
     }
 

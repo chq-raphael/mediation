@@ -56,7 +56,6 @@
             <div class="case_other">
                 <div class="fayuan float_left">{{caseBeing.court}}</div>
                 <div class="zhuangtai float_left">{{caseBeing.case_state}}</div>
-                <div class="diary float_right">记录调解日志</div>
             </div>
         </li>
     </ul>
@@ -137,7 +136,7 @@
             showPingjia:function (case_id) {
                 console.log(case_id);
                 $.ajax({
-                    url:'oneCase?case_id'+case_id,
+                    url:'oneCase?case_id='+case_id,
                     type:'get',
                     success:function (result) {
                         console.log(result);
