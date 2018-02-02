@@ -67,4 +67,9 @@ public class UserServiceImp implements UserService {
     public CaseJudgedDetail selectJudgedDetailByCaseId(int caseId) {
         return userMapper.selectJudgedDetailByCaseId(caseId);
     }
+
+    @Override
+    public void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
+        userMapper.updateCaseJudgedDetail(caseJudgedDetail);
+    }
 }

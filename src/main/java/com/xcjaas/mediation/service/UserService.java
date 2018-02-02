@@ -23,4 +23,7 @@ public interface UserService {
     List<Case> selectCasesByUserId(int userId);
     Case seleceOneByCaseId(int caseId);
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
+
+    void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
+
 }

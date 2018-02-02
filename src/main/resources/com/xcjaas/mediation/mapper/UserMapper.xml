@@ -78,11 +78,17 @@
         where t_case.case_id=#{caseId};
     </select>
 
-    <!---->
+    <!--根据案件id查找一个案件的评价-->
     <select id="selectJudgedDetailByCaseId" parameterType="int" resultType="CaseJudgedDetail">
         SELECT case_id,judged_detail FROM t_case
         where t_case.case_id=#{caseId};
     </select>
+
+    <!--插入评价-->
+    <update id="updateCaseJudgedDetail" parameterType="CaseJudgedDetail">
+       update t_case set judged_state=1,judged_detail=#{judged_detail} WHERE case_id=#{case_id}
+    </update>
+
 
 </mapper>
 

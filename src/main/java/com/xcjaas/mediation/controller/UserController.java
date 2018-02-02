@@ -201,5 +201,9 @@ public class UserController {
         return caseJudgedDetail;
     }
 
+    @RequestMapping(value = "/addJudged", method = RequestMethod.GET)
+    public void insertJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
+        userService.updateCaseJudgedDetail(caseJudgedDetail);
+    }
 
 }

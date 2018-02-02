@@ -25,8 +25,6 @@ public interface UserMapper {
 
     void insertCase(Case cas);
 
-
-
     User selectOne(int userId);
 
     void insertDsr(List<Dsr> dsrs);
@@ -36,4 +34,7 @@ public interface UserMapper {
     Case seleceOneByCaseId(int caseId);
 
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
+
+    void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
+
 }
