@@ -182,6 +182,7 @@ public class UserController {
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
     public Case oneCase(@RequestParam("case_id") int caseId) {
+        casId=caseId;
         return userService.seleceOneByCaseId(caseId);
     }
 
@@ -195,8 +196,8 @@ public class UserController {
    //
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
     @ResponseBody
-    public CaseJudgedDetail pingjiaDetail(@RequestParam("case_id") int caseId) {
-        CaseJudgedDetail caseJudgedDetail=userService.selectJudgedDetailByCaseId(caseId);
+    public CaseJudgedDetail pingjiaDetail() {
+        CaseJudgedDetail caseJudgedDetail=userService.selectJudgedDetailByCaseId(casId);
         return caseJudgedDetail;
     }
 
