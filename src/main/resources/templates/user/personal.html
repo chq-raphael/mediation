@@ -46,7 +46,7 @@
             user = JSON.parse(user);
             var user_id = user.userId;
             $.ajax({
-                url:'/user/personalInfo?user_id='+user_id,
+                url:'/user/personalInfo?user_id='+270,
                 type:'get',
                 datatype:'json',
                 contentType : 'application/json;charset=utf-8',
@@ -59,22 +59,7 @@
                 }
             })
         }
-//        ,
-//        methods:{
-//            usermediate:function () {
-//
-//                $.ajax({
-//                    url:'?user_id'+user_id,
-//                    type:'get',
-//                    success:function (result) {
-//                        console.log(result);
-//                    },
-//                    error:function (err) {
-//                        console.log(err);
-//                    }
-//                })
-//            }
-//        }
+
     })
 </script>
 </body>

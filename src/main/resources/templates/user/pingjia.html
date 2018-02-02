@@ -39,17 +39,18 @@ new Vue({
     },
     mounted:function () {
         $.ajax({
-            url:'/uset/pjDetail',
+            url:'/user/pjDetail',
             type:'get',
             datatype:'json',
             success:function (result) {
                 console.log(result);
-                if(!result.judged_detial){
+                console.log(result.judged_detial)
+     /*           if(!result.judged_detial){
                     _that.isable = true;
 
                 }else{
                     _that.isable = false;
-                }
+                }*/
             },
             error:function (err) {
                 console.log(err);
