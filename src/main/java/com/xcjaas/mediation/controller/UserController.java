@@ -204,6 +204,7 @@ public class UserController {
     @RequestMapping(value = "/addJudged", method = RequestMethod.GET)
     @ResponseBody
     public void insertJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
+        caseJudgedDetail.setCase_id(casId);
         userService.updateCaseJudgedDetail(caseJudgedDetail);
     }
 
