@@ -1,6 +1,5 @@
 package com.xcjaas.mediation.controller;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
@@ -108,10 +107,10 @@ public class MediatorController {
 
     @RequestMapping(value="/test",method =RequestMethod.GET)
     @ResponseBody
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void test(){
         System.out.println("---------------1");
-        int i=2/0;
+
         System.out.println("...............2");
 
     }

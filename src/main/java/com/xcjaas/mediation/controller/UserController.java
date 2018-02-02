@@ -32,14 +32,14 @@ public class UserController {
     public int casId = 0;
 
     /*
-        页面跳转1:跳转到personal-info.html，填写个人信息
+        页面跳转1:跳转到personal.html，填写个人信息
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String to_Person_Info_Html() {
         return "/user/register";
     }
 
-    // 在personal-info.html界面，添加用户信息
+    // 在personal.html界面，添加用户信息
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     @ResponseBody
     public int add(@Param("user") User user) {
@@ -56,7 +56,7 @@ public class UserController {
         return "/user/mediate-guide";
     }
 
-    //返回文本
+    //返回法院通知文本
     @RequestMapping(value = "/text", method = RequestMethod.GET)
     @ResponseBody
     public String show_Text() {
@@ -182,7 +182,7 @@ public class UserController {
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
     public Case oneCase(@RequestParam("case_id") int caseId) {
-        casId=caseId;
+        casId = caseId;
         return userService.seleceOneByCaseId(caseId);
     }
 
@@ -193,20 +193,25 @@ public class UserController {
     public String to_Pingjia_Html() {
         return "/user/pingjia";
     }
-   //
+
+    //judged_state=1情况下，casId存controller返回评价详情
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
     @ResponseBody
     public CaseJudgedDetail pingjiaDetail() {
-        CaseJudgedDetail caseJudgedDetail=userService.selectJudgedDetailByCaseId(casId);
+        CaseJudgedDetail caseJudgedDetail = userService.selectJudgedDetailByCaseId(casId);
         return caseJudgedDetail;
     }
 
+    //judged_state=0状态下添加评价
     @RequestMapping(value = "/addJudged", method = RequestMethod.GET)
     @ResponseBody
-    public void insertJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
-        caseJudgedDetail.setCase_id(casId);
-        System.out.println(caseJudgedDetail);
-        userService.updateCaseJudgedDetail(caseJudgedDetail);
+    public void updateJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
+        //判断否是评价状态等不等于0
+        if (userService.seleceOneByCaseId(casId).getJudged_state() == 0) {
+            caseJudgedDetail.setCase_id(casId);
+            userService.updateCaseJudgedDetail(caseJudgedDetail);
+        }
+
     }
 
 }
