@@ -65,8 +65,9 @@ new Vue({
                 console.log(_that.judged_detail);
                 var _that = this;
                 var caseJudgedDetail={
-                     judgedDetail:_that.judged_detail
+                     judgedDetail:JSON.stringify(_that.judged_detail)
                  };
+                console.log(caseJudgedDetail);
                 $.ajax({
                     url:'/user/addjudged',
                     type:'get',
