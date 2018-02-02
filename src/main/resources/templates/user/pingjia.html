@@ -19,7 +19,7 @@
 </div>
 <div id="pingjia_box">
         <div class="pingjia_content">
-            <textarea v-model="pjContent" name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
+            <textarea v-model="judged_detail" name="pingjia" class="pingjia" placeholder="输入调解评论..."></textarea>
         </div>
         <div class="tongyi">
             <div>是否认可调解结果</div>
@@ -28,29 +28,30 @@
                 <label for="checkbox" class="labelbox"></label>
             </div>
         </div>
-        <div class="pingjia_tijiao next_step" @click="pingjia" :disabled="isable">提交</div>
+        <div class="pingjia_tijiao next_step" @click="addjudged" v-show="isShow">提交</div>
 </div>
 <script>
 new Vue({
     el:'#pingjia_box',
     data:{
-        pjContent:'',
-        isable:'true'
+        judged_detail:'',
+        isShow:'true'
     },
     mounted:function () {
+        var _that = this;
         $.ajax({
             url:'/user/pjDetail',
             type:'get',
             datatype:'json',
             success:function (result) {
                 console.log(result);
-                console.log(result.judged_detial)
-     /*           if(!result.judged_detial){
-                    _that.isable = true;
-
+                console.log(result.judged_detail)
+                if(result.judged_detail !== ''){
+                    _that.judged_detail = result.judged_detail;//显示已评价内容，隐藏提交按钮
+                    _that.isShow = false;
                 }else{
-                    _that.isable = false;
-                }*/
+                    _that.isShow = true;
+                }
             },
             error:function (err) {
                 console.log(err);
@@ -58,22 +59,26 @@ new Vue({
         })
     },
     methods:{
-        pingjia:function () {
-            if($('#checkbox').is(':checked')){
-                console.log(this.pjContent);
+       addjudged:function () {
+           var _that = this;
+             if($('#checkbox').is(':checked')){//认可调解结果，提交评价
+                console.log(_that.judged_detail);
                 var _that = this;
+                var caseJudgedDetail={
+                     judgedDetail:_that.judged_detail
+                 };
                 $.ajax({
-                    url:'',
+                    url:'/user/addjudged',
                     type:'get',
                     contentType : 'application/json;charset=utf-8',
-                    data:JSON.stringify(_that.pjContent),
+                    data:caseJudgedDetail,
                     datatype:'json',
                     success:function (result) {
                         console.log(result);
+                        window.location.href = '/user/my-mediate'
                     },
                     error:function (err) {
-                        console.log('错误'+err);
-
+                        console.log(err);
                     }
                 });
             }else{

@@ -114,9 +114,6 @@
                             _that.caseReadyList.push(obj);
                         }
                     });
-                    console.log(_that.caseReadyList);
-                    console.log(_that.caseBeingList);
-                    console.log(_that.caseFinishList);
                 },
                 error:function (err) {
                     console.log(err);
@@ -134,12 +131,10 @@
 
             },
             showPingjia:function (case_id) {
-                console.log(case_id);
                 $.ajax({
                     url:'oneCase?case_id='+case_id,
                     type:'get',
                     success:function (result) {
-                        console.log(result);
                         window.location.href = '/user/pingjia';
                     },
                     error:function (err) {
