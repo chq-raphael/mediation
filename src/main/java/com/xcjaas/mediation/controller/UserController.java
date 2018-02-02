@@ -82,10 +82,6 @@ public class UserController {
         userService.insertCase(cas);
         casId = cas.getCase_id();
 
-        CaseJudgedDetail cjd = new CaseJudgedDetail();
-        cjd.setCase_id(casId);
-        //数据库创建案件评价表
-        userService.insertCaseJudgedDetail(cjd);
         return "/user/other-dsr";
     }
 

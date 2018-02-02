@@ -41,10 +41,7 @@ public class UserServiceImp implements UserService {
         userMapper.insertCase(cas);
     }
 
-    @Override
-    public void insertCaseJudgedDetail(CaseJudgedDetail judgedDetail) {
-        userMapper.insertCaseJudgedDetail(judgedDetail);
-    }
+
 
     @Override
     public User selectOne(int userId) {

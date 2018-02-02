@@ -25,7 +25,7 @@ public interface UserMapper {
 
     void insertCase(Case cas);
 
-    void insertCaseJudgedDetail(CaseJudgedDetail judgedDetail);
+
 
     User selectOne(int userId);
 
