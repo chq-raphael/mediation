@@ -42,9 +42,9 @@
         mounted:function () {
             var _that = this;
             //缓存取出用户名
-            var user = localStorage.getItem("localUser");
+        /*    var user = localStorage.getItem("localUser");
             user = JSON.parse(user);
-            var user_id = user.userId;
+            var user_id = user.userId;*/
             $.ajax({
                 url:'/user/personalInfo?user_id='+270,
                 type:'get',

@@ -44,7 +44,6 @@ new Vue({
             type:'get',
             datatype:'json',
             success:function (result) {
-                console.log(result);
                 console.log(result.judged_detail)
                 if(result.judged_detail !== ''){
                     _that.judged_detail = result.judged_detail;//显示已评价内容，隐藏提交按钮
@@ -62,7 +61,6 @@ new Vue({
        addjudged:function () {
            var _that = this;
              if($('#checkbox').is(':checked')){//认可调解结果，提交评价
-//                console.log(_that.judged_detail);
                 var _that = this;
                 if(_that.judged_detail != ''){
                     var caseJudgedDetail={
