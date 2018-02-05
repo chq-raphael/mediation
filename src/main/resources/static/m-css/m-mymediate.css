@@ -130,9 +130,6 @@ body::-webkit-scrollbar {
 #mm_box .mm_stateList .state_active {
   color: #60c89b;
 }
-#mm_box .case_list {
-  display: none;
-}
 #mm_box .case_list .case {
   background-color: #fff;
   padding: 1rem;
