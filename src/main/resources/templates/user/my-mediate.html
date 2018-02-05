@@ -21,20 +21,20 @@
     <ul id="mediate_state_list">
         <li class="mediate_state state_active"  @click="showCase(0)">
             <span>待受理</span>
-            <img src="/chqimage/hengx.png" alt="" class="hengx_img" style="display: block">
+            <img src="/chqimage/hengx.png" alt="" class="hengx_img"   v-if="state_num == '0'" >
         </li>
         <li class="mediate_state" @click="showCase(1)">
             <span>正在调解</span>
-            <img src="/chqimage/hengx.png" alt="" class="hengx_img" >
+            <img src="/chqimage/hengx.png" alt="" class="hengx_img"  v-if="state_num == '1'">
         </li>
-        <li class="mediate_state"  @click="showCase(2)">
+        <li class="mediate_state"  @click="showCase(2)" >
             <span>历史调解</span>
-            <img src="/chqimage/hengx.png" alt="" class="hengx_img" >
+            <img src="/chqimage/hengx.png" alt="" class="hengx_img"   v-if="state_num == '2'">
         </li>
     </ul>
     <!--事件-->
     <!--待受理-->
-    <ul class="case_list" style="display: block">
+    <ul class="case_list" v-if="state_num == '0'">
         <li class="case"  v-for="caseReady in caseReadyList" @click.self="caseInfo(caseReady.case_id)">
             <div class="case_title">
                 <span class="float_left title">{{caseReady.type_name}}</span><span class="float_right time">{{caseReady.create_date}}</span>
@@ -47,7 +47,7 @@
         </li>
     </ul>
     <!--正在调解-->
-    <ul class="case_list">
+    <ul class="case_list" v-if="state_num == '1'">
         <li class="case"   v-for="caseBeing in caseBeingList" @click.self="caseInfo(caseBeing.case_id)">
             <div class="case_title">
                 <span class="float_left title">{{caseBeing.type_name}}</span><span class="float_right time">{{caseBeing.create_date}}</span>
@@ -60,7 +60,7 @@
         </li>
     </ul>
     <!--历史调解-->
-    <ul class="case_list">
+    <ul class="case_list" v-if="state_num == '2'">
         <li class="case"   v-for="caseFinish in caseFinishList" @click.self="caseInfo(caseFinish.case_id)">
             <div class="case_title">
                 <span class="float_left title">{{caseFinish.type_name}}</span><span class="float_right time">{{caseFinish.create_date}}</span>
@@ -82,49 +82,57 @@
         data:{
             caseReadyList:[],
             caseBeingList:[],
-            caseFinishList:[]
+            caseFinishList:[],
+            state_num:''
         },
         mounted:function () {
+            //获取URL参数，即当前案件调解状态
+            var location = window.location.href;
+            var href= location+"";
+            var href_part=href.split('?');
+            this.state_num=(href_part[1])*1;
+            console.log(this.state_num);
             var _that = this;
             $.ajax({
-                url:'/user/allCases',
-                type:'get',
-                datatype:'json',
-                success:function (result) {
-                    result.forEach(function (obj,i) {
-                        if(obj.judged_state == 0){
-                            obj.judged_state = '未评价';
-                        }
-                        if(obj.judged_state == 1){
-                            obj.judged_state = '查看评价';
-                        }
-                        if (obj.case_state != 0) {
-                            if (obj.case_state == 1) {
-                                obj.case_state = '正在调解';
-                                _that.caseBeingList.push(obj);
-                            } else if (obj.case_state == 2) {
-                                obj.case_state = '调解成功';
-                                _that.caseFinishList.push(obj);
-                            } else {
-                                obj.case_state = '调解失败';
-                                _that.caseFinishList.push(obj);
-                            }
-                        } else {
-                            obj.case_state = '待受理';
-                            _that.caseReadyList.push(obj);
-                        }
-                    });
-                },
-                error:function (err) {
+                 url:'/user/allCases',
+                 type:'get',
+                 datatype:'json',
+                 success:function (result) {
+                     result.forEach(function (obj,i) {
+                     if(obj.judged_state == 0){
+                        obj.judged_state = '未评价';
+                     }
+                     if(obj.judged_state == 1){
+                        obj.judged_state = '查看评价';
+                     }
+                     if (obj.case_state != 0) {
+                         if (obj.case_state == 1) {
+                             obj.case_state = '正在调解';
+                             _that.caseBeingList.push(obj);
+                         } else if (obj.case_state == 2) {
+                             obj.case_state = '调解成功';
+                             _that.caseFinishList.push(obj);
+                         } else {
+                             obj.case_state = '调解失败';
+                             _that.caseFinishList.push(obj);
+                         }
+                     } else {
+                        obj.case_state = '待受理';
+                         _that.caseReadyList.push(obj);
+                     }
+                     });
+                 },
+                 error:function (err) {
                     console.log(err);
-                }
-            });
+                 }
+             });
         },
         methods:{
             showCase:function (case_num) {
-                $('.mediate_state').eq(case_num).addClass('state_active').siblings().removeClass('state_active');
+             /*   $('.mediate_state').eq(case_num).addClass('state_active').siblings().removeClass('state_active');
                 $('.hengx_img').hide().eq(case_num).show();
-                $('.case_list').hide().eq(case_num).show();
+                $('.case_list').hide().eq(case_num).show();*/
+             this.state_num = case_num;
             },
             caseInfo:function (case_id) {
                 console.log(case_id);
@@ -140,10 +148,8 @@
                     error:function (err) {
                         console.log(err);
                     }
-
                 })
             }
-
         }
     })
 

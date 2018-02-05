@@ -19,13 +19,9 @@
   width: 30%;
   position: absolute;
   bottom: 0;
-  display: none;
 }
 #mediate_state_list .state_active {
   color: #60c89b;
-}
-.case_list {
-  display: none;
 }
 .case_list .case {
   background-color: #fff;
