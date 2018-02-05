@@ -126,6 +126,47 @@ body::-webkit-scrollbar {
   align-items: center;
   align-content: flex-start;
 }
+#cresult_box .result_condition .result_condition1 .isChoice_box {
+  width: 8%;
+  margin-right: .5rem;
+  position: relative;
+}
+#cresult_box .result_condition .result_condition1 .isChoice_box .checkbox {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#cresult_box .result_condition .result_condition1 .isChoice_box .labelbox {
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#cresult_box .result_condition .result_condition1 .isChoice_box .checkbox:checked + .labelbox {
+  border: 1px solid #60c89b;
+}
+#cresult_box .result_condition .result_condition1 .isChoice_box .checkbox:checked + .labelbox:after {
+  content: '';
+  width: 1.4rem;
+  height: .8rem;
+  position: absolute;
+  top: .3rem;
+  left: .3rem;
+  opacity: 1;
+  border-top: none;
+  border-right: none;
+  border-left: 3px solid #60c89b;
+  border-bottom: 3px solid #60c89b;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
 #cresult_box .result_condition .result_condition1 img {
   width: 7%;
   margin-right: .5rem;

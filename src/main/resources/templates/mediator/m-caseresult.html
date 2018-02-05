@@ -20,15 +20,37 @@
     <div id="cresult_box">
         <!--调解结果条件-->
         <div class="result_condition">
-            <p class="result_condition1"><img src="/m-image/duoxuan.png" alt=""><span>双方同意离婚</span></p>
-            <p class="result_condition1"><img src="/m-image/duoxuan.png" alt=""><span>孩子归甲方抚养</span></p>
-            <p class="result_condition1"><img src="/m-image/duoxuan.png" alt=""><span>孩子归乙方抚养</span></p>
-            <p class="result_condition1"><img src="/m-image/duoxuan.png" alt=""><span>孩子抚养费约定，<input type="text">方每月付<input type="text">元抚养费给<input type="text">方</span> </span></p>
+            <p class="result_condition1">
+                <div class="isChoice_box">
+                    <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
+                    <label :for="mediator.id" class="labelbox"></label>
+                </div>
+                <!--<img src="/m-image/duoxuan.png" alt="">-->
+                <span>双方同意离婚</span>
+            </p>
+            <p class="result_condition1">
+                <img src="/m-image/duoxuan.png" alt="">
+                <span>孩子归甲方抚养</span>
+            </p>
+            <p class="result_condition1">
+                <img src="/m-image/duoxuan.png" alt="">
+                <span>孩子归乙方抚养</span>
+            </p>
+            <p class="result_condition1">
+                <img src="/m-image/duoxuan.png" alt="">
+                <span>孩子抚养费约定，<input type="text">方每月付<input type="text">元抚养费给<input type="text">方</span> </span>
+            </p>
         </div>
         <!--调解结果状态-->
         <div class="result_state">
-            <p class="result_state1"><img src="/m-image/danxuan.png" alt=""><span>调解成功</span></p>
-            <p class="result_state1"><img src="/m-image/danxuan.png" alt=""><span>调解失败</span></p>
+            <p class="result_state1">
+                <img src="/m-image/danxuan.png" alt="">
+                <span>调解成功</span>
+            </p>
+            <p class="result_state1">
+                <img src="/m-image/danxuan.png" alt="">
+                <span>调解失败</span>
+            </p>
         </div>
         <!--上传文件-->
         <div class="fileUp"><img src="/m-image/icon-shangchuan.png" alt="">上传文件</div>
