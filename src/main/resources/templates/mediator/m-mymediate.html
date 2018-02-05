@@ -70,7 +70,7 @@
                 <div class="case_other">
                     <div class="fayuan float_left">{{caseFinish.court}}</div>
                     <div class="zhuangtai float_left">{{caseFinish.case_state}}</div>
-                    <div class="pingjia float_right"  @click="showPingjia(caseFinish.case_id)">{{caseFinish.judged_state}}</div>
+                    <div class="pingjia float_right"  @click="showPingjia(caseFinish.case_id,caseFinish.judged_state)">{{caseFinish.judged_state}}</div>
                 </div>
             </li>
         </ul>
@@ -134,14 +134,16 @@
                     console.log(case_id);
                     var _that = this;
                     $.ajax({
-                        url:'?case_id='+case_id,
+                        url:'/mediator/case_page?case_id='+case_id,
                         type:'get',
                         success:function (result) {
                             console.log(result);
                             if(_that.case_state == '待受理'){
                                 window.location.href = '/mediator/m-caseapply';
-                            }else{
+                            }else if(_that.case_state == '正在调解'){
                                 window.location.href = '/mediator/m-casedetail';
+                            }else{
+                                window.location.href = '/mediator/m-caseresult';
                             }
                         },
                         error:function (err) {
@@ -150,8 +152,21 @@
 
                     })
                 },
-                showPingjia:function (case_id) {
-                    console.log('评价'+case_id);
+                showPingjia:function (case_id,judged_state) {
+                    if(judged_state == '已评价'){
+                        $.ajax({
+                            url:'oneCase?case_id='+case_id,
+                            type:'get',
+                            success:function (result) {
+                                window.location.href = '';
+                            },
+                            error:function (err) {
+                                console.log(err);
+                            }
+                        })
+                    }else{
+                        return false;
+                    }
                 }
             }
         })
