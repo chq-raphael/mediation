@@ -104,15 +104,4 @@ public class MediatorController {
      public void saveNum(int state_num){
         stateNum=state_num;
     }
-
-    @RequestMapping(value="/test",method =RequestMethod.GET)
-    @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
-    public void test(){
-        System.out.println("---------------1");
-
-        System.out.println("...............2");
-
-    }
-
 }

@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/1/10.
@@ -28,6 +30,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    private Map<String,Integer> map=new HashMap<>();
+
     public int userId = 0;
     public int casId = 0;
 
@@ -36,6 +40,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String to_Person_Info_Html() {
+
         return "/user/register";
     }
 
@@ -44,7 +49,13 @@ public class UserController {
     @ResponseBody
     public int add(@Param("user") User user) {
         userService.addUser(user);
+
+
+
         userId = user.getUserId();
+        map.put("userId",user.getUserId());
+        System.out.println("userId存入map中的value"+user.getUserId());
+
         return user.getUserId();
     }
 
@@ -74,7 +85,11 @@ public class UserController {
         //设置调解状态为0（准备状态）
         cas.setCase_state(0);
         //设置调解发起人id
+
+
+
         cas.setCase_user_id(userId);
+        cas.setCase_user_id(map.get("userId"));
         //设置案件为未评价状态
         cas.setJudged_state(0);
 
@@ -206,7 +221,7 @@ public class UserController {
     @RequestMapping(value = "/addJudged", method = RequestMethod.GET)
     @ResponseBody
     public void updateJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
-        //判断否是评价状态等不等于0
+        //判断否是评价状态等不等于0,如果等于0，就把评价存入数据库
         if (userService.seleceOneByCaseId(casId).getJudged_state() == 0) {
             caseJudgedDetail.setCase_id(casId);
             userService.updateCaseJudgedDetail(caseJudgedDetail);
