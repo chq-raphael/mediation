@@ -45,7 +45,7 @@ new Vue({
             datatype:'json',
             success:function (result) {
                 console.log(result.judged_detail)
-                if(result.judged_detail !== ''){
+                if( result.judged_detail != '' && result.judged_detail != undefined){
                     _that.judged_detail = result.judged_detail;//显示已评价内容，隐藏提交按钮
                     _that.isShow = false;
                 }else{
@@ -60,33 +60,32 @@ new Vue({
     methods:{
        addjudged:function () {
            var _that = this;
-             if($('#checkbox').is(':checked')){//认可调解结果，提交评价
-                var _that = this;
-                if(_that.judged_detail != ''){
-                    var caseJudgedDetail={
-                        judged_detail:_that.judged_detail
-                    };
-                    judged_detail=JSON.stringify(_that.judged_detail);
-                    $.ajax({
-                        url:'/user/addJudged',
-                        type:'get',
-                        contentType : 'application/json;charset=utf-8',
-                        data:caseJudgedDetail,
-                        datatype:'json',
-                        success:function (result) {
-                            window.location.href = '/user/my-mediate?2';
-                        },
-                        error:function (err) {
-                            console.log(err);
-                        }
-                    });
-                }else{
-                    return false;
-                }
-
-            }else{
-                return false;
-            }
+             if ($('#checkbox').is(':checked')) {//认可调解结果，提交评价
+                 var _that = this;
+                 if (_that.judged_detail.replace(/(^\s*)|(\s*$)/g, '') != '') {
+                     var caseJudgedDetail = {
+                         judged_detail: _that.judged_detail
+                     };
+                     judged_detail = JSON.stringify(_that.judged_detail);
+                     $.ajax({
+                         url: '/user/addJudged',
+                         type: 'get',
+                         contentType: 'application/json;charset=utf-8',
+                         data: caseJudgedDetail,
+                         datatype: 'json',
+                         success: function (result) {
+                             window.location.href = '/user/my-mediate?2';
+                         },
+                         error: function (err) {
+                             console.log(err);
+                         }
+                     });
+                 } else {//去掉前后空格
+                     return false;
+                 }
+             } else {
+                 return false;
+             }
         }
     }
 })
