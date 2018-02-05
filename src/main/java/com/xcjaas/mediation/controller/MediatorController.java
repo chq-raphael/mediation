@@ -31,7 +31,8 @@ public class MediatorController {
     public String toApplyHtml() {
         return "/mediator/m-caseapply";
     }
-    @RequestMapping(value = "/apply", method = RequestMethod.GET)
+    //根据案件id查找案件
+    @RequestMapping(value = "/case_page", method = RequestMethod.GET)
     @ResponseBody
     public Case apply(int caseId) {
         return mediatorService.selectOneByCaseId(caseId);
