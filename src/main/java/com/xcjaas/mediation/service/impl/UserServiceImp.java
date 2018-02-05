@@ -53,23 +53,5 @@ public class UserServiceImp implements UserService {
         userMapper.insertDsr(dsrs);
     }
 
-    @Override
-    public List<Case> selectCasesByUserId(int userId) {
-        return userMapper.selectCasesByUserId(userId);
-    }
 
-    @Override
-    public Case selectOneByCaseId(int caseId) {
-        return userMapper.selectOneByCaseId(caseId);
-    }
-
-    @Override
-    public CaseJudgedDetail selectJudgedDetailByCaseId(int caseId) {
-        return userMapper.selectJudgedDetailByCaseId(caseId);
-    }
-
-    @Override
-    public void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
-        userMapper.updateCaseJudgedDetail(caseJudgedDetail);
-    }
 }

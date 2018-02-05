@@ -7,6 +7,7 @@ import com.xcjaas.mediation.entity.User;
 import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
+import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    CaseService caseService;
 
     private Map<String, Integer> map = new HashMap<>();
 
@@ -180,7 +183,7 @@ public class UserController {
     @RequestMapping(value = "/allCases", method = RequestMethod.GET)
     @ResponseBody
     public List<Case> myCases() {
-        return userService.selectCasesByUserId(270);
+        return caseService.selectCasesByUserId(270);
     }
 
     //根据caseId查找案件
@@ -189,7 +192,7 @@ public class UserController {
     public Case oneCase(@RequestParam("case_id") int caseId) {
 //        casId = caseId;
         map.put("caseId", caseId);
-        return userService.selectOneByCaseId(caseId);
+        return caseService.selectOneByCaseId(caseId);
     }
 
     /*
@@ -204,8 +207,8 @@ public class UserController {
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
     @ResponseBody
     public CaseJudgedDetail pingjiaDetail() {
-        if (userService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 1) {
-            CaseJudgedDetail caseJudgedDetail = userService.selectJudgedDetailByCaseId(map.get("caseId"));
+        if (caseService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 1) {
+            CaseJudgedDetail caseJudgedDetail = caseService.selectJudgedDetailByCaseId(map.get("caseId"));
             return caseJudgedDetail;
         }else {
             return null;
@@ -217,9 +220,9 @@ public class UserController {
     @ResponseBody
     public void updateJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
         //判断否是评价状态等不等于0,如果等于0，就把评价存入数据库
-        if (userService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 0) {
+        if (caseService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 0) {
             caseJudgedDetail.setCase_id(map.get("caseId"));
-            userService.updateCaseJudgedDetail(caseJudgedDetail);
+            caseService.updateCaseJudgedDetail(caseJudgedDetail);
         }
 
     }

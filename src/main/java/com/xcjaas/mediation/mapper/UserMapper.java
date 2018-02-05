@@ -29,12 +29,4 @@ public interface UserMapper {
 
     void insertDsr(List<Dsr> dsrs);
 
-    List<Case> selectCasesByUserId(int userId);
-
-    Case selectOneByCaseId(int caseId);
-
-    CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
-
-    void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
-
 }

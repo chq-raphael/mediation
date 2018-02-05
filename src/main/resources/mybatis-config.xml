@@ -23,5 +23,6 @@
         <mapper resource="com/xcjaas/mediation/mapper/MediatorManagerMapper.xml"/>
         <mapper resource="com/xcjaas/mediation/mapper/MediatorMapper.xml"/>
         <mapper resource="com/xcjaas/mediation/mapper/UserMapper.xml"/>
+        <mapper resource="com/xcjaas/mediation/mapper/CaseMapper.xml"/>
     </mappers>
 </configuration>

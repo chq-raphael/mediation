@@ -3,6 +3,7 @@ package com.xcjaas.mediation.controller;
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
+import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class MediatorController {
 
     @Autowired
     private MediatorService mediatorService;
+    @Autowired
+    private CaseService caseService;
 
     public int stateNum=0;
 
@@ -36,7 +39,7 @@ public class MediatorController {
     @RequestMapping(value = "/case_page", method = RequestMethod.GET)
     @ResponseBody
     public Case apply(@RequestParam("case_id") int caseId) {
-        return mediatorService.selectOneByCaseId(caseId);
+        return caseService.selectOneByCaseId(caseId);
     }
 
     /*
@@ -96,7 +99,6 @@ public class MediatorController {
     @ResponseBody
     public Mediator mediator_personal() {
         Mediator mediator=mediatorService.selectMediatorById(2);
-        System.out.println(mediator);
         return mediator;
     }
     //存储state_num值用来判断跳转至“我的调解”的哪个模块
