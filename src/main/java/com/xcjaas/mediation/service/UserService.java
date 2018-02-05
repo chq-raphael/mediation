@@ -21,7 +21,7 @@ public interface UserService {
     User selectOne(int userId);
     void insertDsr(List<Dsr> dsrs);
     List<Case> selectCasesByUserId(int userId);
-    Case seleceOneByCaseId(int caseId);
+    Case selectOneByCaseId(int caseId);
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
 
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);

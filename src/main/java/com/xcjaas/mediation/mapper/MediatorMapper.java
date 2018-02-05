@@ -17,4 +17,6 @@ public interface MediatorMapper {
     Mediator selectMediatorById(int id);
 
     List<MediatorsResult> selectMediatorAllCasesById(int mediatorId);
+
+    Case selectOneByCaseId(int caseId);
 }

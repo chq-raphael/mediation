@@ -59,8 +59,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Case seleceOneByCaseId(int caseId) {
-        return userMapper.seleceOneByCaseId(caseId);
+    public Case selectOneByCaseId(int caseId) {
+        return userMapper.selectOneByCaseId(caseId);
     }
 
     @Override

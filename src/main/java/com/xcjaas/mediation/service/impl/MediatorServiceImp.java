@@ -28,5 +28,10 @@ public class MediatorServiceImp implements MediatorService {
         return mediatorMapper.selectMediatorAllCasesById(mediatorId);
     }
 
+    @Override
+    public Case selectOneByCaseId(int caseId) {
+        return mediatorMapper.selectOneByCaseId(caseId);
+    }
+
 
 }

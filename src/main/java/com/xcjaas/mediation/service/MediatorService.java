@@ -13,4 +13,6 @@ public interface MediatorService {
     Mediator selectMediatorById(int id);
 
     List<MediatorsResult> selectMediatorAllCasesById(int mediatorId);
+
+    Case selectOneByCaseId(int caseId);
 }

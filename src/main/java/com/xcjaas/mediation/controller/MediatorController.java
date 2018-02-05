@@ -1,11 +1,11 @@
 package com.xcjaas.mediation.controller;
 
+import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.MediatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +30,11 @@ public class MediatorController {
     @RequestMapping(value = "/to_apply", method = RequestMethod.GET)
     public String toApplyHtml() {
         return "/mediator/m-caseapply";
+    }
+    @RequestMapping(value = "/apply", method = RequestMethod.GET)
+    @ResponseBody
+    public Case apply(int caseId) {
+        return mediatorService.selectOneByCaseId(caseId);
     }
 
     /*
@@ -69,18 +74,12 @@ public class MediatorController {
     public int stateNum() {
         return stateNum;
     }
-
+    //根据mediatorId返回所有的案件
     @RequestMapping(value = "/mediatorCaseInfo", method = RequestMethod.GET)
     @ResponseBody
     public List<MediatorsResult> mediatorCase() {
-        try {
             List<MediatorsResult> mediatorsResults=mediatorService.selectMediatorAllCasesById(2);
             return mediatorsResults;
-        }finally {
-           //.....释放
-
-        }
-
     }
 
     /*

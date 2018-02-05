@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,17 +29,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    private Map<String,Integer> map=new HashMap<>();
-
-    public int userId = 0;
-    public int casId = 0;
+    private Map<String, Integer> map = new HashMap<>();
 
     /*
         页面跳转1:跳转到personal.html，填写个人信息
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String to_Person_Info_Html() {
-
         return "/user/register";
     }
 
@@ -49,13 +44,8 @@ public class UserController {
     @ResponseBody
     public int add(@Param("user") User user) {
         userService.addUser(user);
-
-
-
-        userId = user.getUserId();
-        map.put("userId",user.getUserId());
-        System.out.println("userId存入map中的value"+user.getUserId());
-
+        //给map中userId属性赋值
+        map.put("userId", user.getUserId());
         return user.getUserId();
     }
 
@@ -85,18 +75,14 @@ public class UserController {
         //设置调解状态为0（准备状态）
         cas.setCase_state(0);
         //设置调解发起人id
-
-
-
-        cas.setCase_user_id(userId);
         cas.setCase_user_id(map.get("userId"));
         //设置案件为未评价状态
         cas.setJudged_state(0);
 
         //数据库创建案件
         userService.insertCase(cas);
-        casId = cas.getCase_id();
-
+        //给map中userId属性赋值
+        map.put("casId", cas.getCase_id());
         return "/user/other-dsr";
     }
 
@@ -108,7 +94,7 @@ public class UserController {
         List<Dsr> dsrs = new ArrayList<>();
         for (int i = 0; i < dsrInfo.size(); i++) {
             Dsr dsr = new Dsr();
-            dsr.setCaseId(casId);
+            dsr.setCaseId(map.get("casId"));
             dsr.setDsrState(0);
             dsr.setTeId(0);
             dsr.setDsrName(dsrInfo.get(i).getDsrName());
@@ -147,12 +133,15 @@ public class UserController {
         List<State_Zero> state_Zeros = new ArrayList<>();
         for (int i = 0; i < choiceM.size(); i++) {
             State_Zero sz = new State_Zero();
-            sz.setState_0_user_id(userId);
+            sz.setState_0_user_id(map.get("userId"));
             sz.setState_0_mediator_id(choiceM.get(i));
-            sz.setState_0_case_id(casId);
+            sz.setState_0_case_id(map.get("casId"));
             state_Zeros.add(sz);
         }
         userService.insertTwoMediators(state_Zeros);
+
+        //移除map中userId和casId属性
+        map.clear();
 
         //如果插入成功返回自增长id，返回0表示插入成功；否则，1表示失败
         if (state_Zeros.get(0).getState_0_id() != 0) {
@@ -175,6 +164,7 @@ public class UserController {
     @RequestMapping(value = "/personalInfo", method = RequestMethod.GET)
     @ResponseBody
     public User showOne(@RequestParam("user_id") int userId) {
+        map.put("userId", userId);
         return userService.selectOne(userId);
     }
 
@@ -197,8 +187,9 @@ public class UserController {
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
     public Case oneCase(@RequestParam("case_id") int caseId) {
-        casId = caseId;
-        return userService.seleceOneByCaseId(caseId);
+//        casId = caseId;
+        map.put("caseId", caseId);
+        return userService.selectOneByCaseId(caseId);
     }
 
     /*
@@ -209,12 +200,16 @@ public class UserController {
         return "/user/pingjia";
     }
 
-    //judged_state=1情况下，casId存controller返回评价详情
+    //judged_state=1情况下，根据caseId返回评价详情
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
     @ResponseBody
     public CaseJudgedDetail pingjiaDetail() {
-        CaseJudgedDetail caseJudgedDetail = userService.selectJudgedDetailByCaseId(casId);
-        return caseJudgedDetail;
+        if (userService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 1) {
+            CaseJudgedDetail caseJudgedDetail = userService.selectJudgedDetailByCaseId(map.get("caseId"));
+            return caseJudgedDetail;
+        }else {
+            return null;
+        }
     }
 
     //judged_state=0状态下添加评价
@@ -222,8 +217,8 @@ public class UserController {
     @ResponseBody
     public void updateJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
         //判断否是评价状态等不等于0,如果等于0，就把评价存入数据库
-        if (userService.seleceOneByCaseId(casId).getJudged_state() == 0) {
-            caseJudgedDetail.setCase_id(casId);
+        if (userService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 0) {
+            caseJudgedDetail.setCase_id(map.get("caseId"));
             userService.updateCaseJudgedDetail(caseJudgedDetail);
         }
 
