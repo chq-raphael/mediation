@@ -19,22 +19,22 @@
     <div id="mm_box">
         <!--调解状态-->
         <ul class="mm_stateList">
-            <li  class="mm_state state_active" id="state" @click="changeState(0)">
+            <li  class="mm_state"  @click="changeState(0)" :class="{'state_active':state_num == '0'}">
                 <span>待受理</span>
-                <img src="/m-image/hengx.png" alt="" class="hengx_img" style="display: block">
+                <img src="/m-image/hengx.png" alt="" class="hengx_img" v-if="state_num == '0'">
             </li>
-            <li class="mm_state" id="state1" @click="changeState(1)">
+            <li class="mm_state" id="state1" @click="changeState(1)" :class="{'state_active':state_num == '1'}">
                 <span>正在调解</span>
-                <img src="/m-image/hengx.png" alt="" class="hengx_img" >
+                <img src="/m-image/hengx.png" alt="" class="hengx_img"  v-if="state_num == '1'">
             </li>
-            <li class="mm_state" id="state2" @click="changeState(2)">
+            <li class="mm_state" id="state2" @click="changeState(2)" :class="{'state_active':state_num == '2'}">
                 <span>历史调解</span>
-                <img src="/m-image/hengx.png" alt="" class="hengx_img" >
+                <img src="/m-image/hengx.png" alt="" class="hengx_img"  v-if="state_num == '2'">
             </li>
         </ul>
         <!--事件-->
         <!--待受理-->
-        <ul class="case_list" style="display: block">
+        <ul class="case_list" v-if="state_num == '0'">
             <li class="case"  v-for="caseReady in caseReadyList" @click.self="caseInfo(caseReady.case_id)">
                 <div class="case_title">
                     <span class="float_left title">{{caseReady.type_name}}</span><span class="float_right time">{{caseReady.create_date}}</span>
@@ -47,7 +47,7 @@
             </li>
         </ul>
         <!--正在调解-->
-        <ul class="case_list">
+        <ul class="case_list" v-if="state_num == '1'">
             <li class="case"   v-for="caseBeing in caseBeingList" @click.self="caseInfo(caseBeing.case_id)">
                 <div class="case_title">
                     <span class="float_left title">{{caseBeing.type_name}}</span><span class="float_right time">{{caseBeing.create_date}}</span>
@@ -61,7 +61,7 @@
             </li>
         </ul>
         <!--历史调解-->
-        <ul class="case_list">
+        <ul class="case_list" v-if="state_num == '2'">
             <li class="case"   v-for="caseFinish in caseFinishList" @click.self="caseInfo(caseFinish.case_id)">
                 <div class="case_title">
                     <span class="float_left title">{{caseFinish.type_name}}</span><span class="float_right time">{{caseFinish.create_date}}</span>
@@ -82,9 +82,15 @@
             data:{
                 caseReadyList:[],
                 caseBeingList:[],
-                caseFinishList:[]
+                caseFinishList:[],
+                state_num:''
             },
             mounted:function () {
+                //获取URL参数，即当前案件调解状态
+                var location = window.location.href;
+                var href= location+"";
+                var href_part=href.split('?');
+                this.state_num=(href_part[1])*1;
                 var _that = this;
                 $.ajax({
                     url:'/mediator/mediatorCaseInfo',
@@ -122,9 +128,7 @@
             },
             methods:{
                 changeState:function (case_num) {
-                    $('.mm_state').eq(case_num).addClass('state_active').siblings().removeClass('state_active');
-                     $('.hengx_img').hide().eq(case_num).show();
-                     $('.case_list').hide().eq(case_num).show();
+                    this.state_num = case_num;
                 },
                 caseInfo:function (case_id) {
                     console.log(case_id);

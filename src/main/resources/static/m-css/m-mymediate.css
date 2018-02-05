@@ -126,7 +126,6 @@ body::-webkit-scrollbar {
   width: 30%;
   position: absolute;
   bottom: 0;
-  display: none;
 }
 #mm_box .mm_stateList .state_active {
   color: #60c89b;

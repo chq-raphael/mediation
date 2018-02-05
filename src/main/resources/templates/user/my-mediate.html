@@ -19,15 +19,15 @@
 <div id="my_mediate">
     <!--调解状态-->
     <ul id="mediate_state_list">
-        <li class="mediate_state"   @click="showCase(0)" :class="{'state_active':state_num == '0'}">
+        <li class="mediate_state"   @click="changeState(0)" :class="{'state_active':state_num == '0'}">
             <span>待受理</span>
             <img src="/chqimage/hengx.png" alt="" class="hengx_img"   v-if="state_num == '0'" >
         </li>
-        <li class="mediate_state" @click="showCase(1)" :class="{'state_active':state_num == '1'}">
+        <li class="mediate_state" @click="changeState(1)" :class="{'state_active':state_num == '1'}">
             <span>正在调解</span>
             <img src="/chqimage/hengx.png" alt="" class="hengx_img"  v-if="state_num == '1'">
         </li>
-        <li class="mediate_state"  @click="showCase(2)"  :class="{'state_active':state_num == '2'}">
+        <li class="mediate_state"  @click="changeState(2)"  :class="{'state_active':state_num == '2'}">
             <span>历史调解</span>
             <img src="/chqimage/hengx.png" alt="" class="hengx_img"   v-if="state_num == '2'">
         </li>
@@ -127,7 +127,7 @@
              });
         },
         methods:{
-            showCase:function (case_num) {
+            changeState:function (case_num) {
                  this.state_num = case_num;
             },
             caseInfo:function (case_id) {

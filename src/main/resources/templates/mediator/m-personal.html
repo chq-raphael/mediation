@@ -41,15 +41,15 @@
         </div>
         <!--调解状态-->
         <div id="per_state">
-            <div  class="state" @click="mymediate(1)">
+            <div class="state" @click="mymediate(0)">
                     <p class="state_img"><img src="/m-image/icon-qingqiu.png" alt=""></p>
                     <p class="state_info">调解请求</p>
             </div>
-            <div class="state"  @click="mymediate(2)">
+            <div class="state"  @click="mymediate(1)">
                     <p class="state_img"><img src="/m-image/icon-zhengzai.png" alt=""></p>
                     <p class="state_info">正在调解</p>
             </div>
-            <div  class="state"  @click="mymediate(3)">
+            <div  class="state"  @click="mymediate(2)">
                     <p class="state_img"><img src="/m-image/icon-lishi.png" alt=""></p>
                     <p class="state_info">历史调解</p>
             </div>
@@ -57,12 +57,6 @@
     </div>
 
     <script>
-//        点击调解状态跳转,并选中相应状态列表
-//        $('.state').on('click',function(){
-//            var index=$(this).index();
-//            console.log(index);
-//            window.location.href='/m-mymediate.html?'+index;
-//        });
         new Vue({
             el:'#personal_box',
             data:{
@@ -78,6 +72,7 @@
                         datatype:'json',
                         success:function (result) {
                             _that.mediator = result;
+                            console.log(_that.mediator);
                             var rate = parseFloat((result.success_mediated_count) * 100 / (result.success_mediated_count + result.failed_ediated_count));
                             _that.mediate_rate = rate.toFixed(2);//计算调解率，取小数点后两位
                         },
@@ -89,17 +84,8 @@
             },
             methods:{
                 mymediate:function (state_num) {
-                    $.ajax({
-                        url:'/mediator/saveNum?state_num='+state_num,
-                        type:'get',
-                        datatype:'json',
-                        success:function (result,state) {
-                            window.location.href = '/mediator/to_mymediate';
-                        },
-                        error:function (err) {
-                            console.log(err);
-                        }
-                    })
+                    window.location.href = '/mediator/to_mymediate?'+state_num;
+
                 }
             }
         })
