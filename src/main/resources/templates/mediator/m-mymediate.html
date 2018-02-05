@@ -35,7 +35,7 @@
         <!--事件-->
         <!--待受理-->
         <ul class="case_list" v-if="state_num == '0'">
-            <li class="case"  v-for="caseReady in caseReadyList" @click.self="caseInfo(caseReady.case_id)">
+            <li class="case"  v-for="caseReady in caseReadyList" @click="caseInfo(caseReady.case_id,caseReady.case_state)">
                 <div class="case_title">
                     <span class="float_left title">{{caseReady.type_name}}</span><span class="float_right time">{{caseReady.create_date}}</span>
                 </div>
@@ -48,7 +48,7 @@
         </ul>
         <!--正在调解-->
         <ul class="case_list" v-if="state_num == '1'">
-            <li class="case"   v-for="caseBeing in caseBeingList" @click.self="caseInfo(caseBeing.case_id)">
+            <li class="case"   v-for="caseBeing in caseBeingList" @click="caseInfo(caseBeing.case_id,caseBeing.case_state)">
                 <div class="case_title">
                     <span class="float_left title">{{caseBeing.type_name}}</span><span class="float_right time">{{caseBeing.create_date}}</span>
                 </div>
@@ -62,7 +62,7 @@
         </ul>
         <!--历史调解-->
         <ul class="case_list" v-if="state_num == '2'">
-            <li class="case"   v-for="caseFinish in caseFinishList" @click.self="caseInfo(caseFinish.case_id)">
+            <li class="case"   v-for="caseFinish in caseFinishList" @click="caseInfo(caseFinish.case_id,caseFinish.case_state)">
                 <div class="case_title">
                     <span class="float_left title">{{caseFinish.type_name}}</span><span class="float_right time">{{caseFinish.create_date}}</span>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="case_other">
                     <div class="fayuan float_left">{{caseFinish.court}}</div>
                     <div class="zhuangtai float_left">{{caseFinish.case_state}}</div>
-                    <div class="pingjia float_right"  @click="showPingjia(caseFinish.case_id,caseFinish.judged_state)">{{caseFinish.judged_state}}</div>
+                    <div class="pingjia float_right"  @click.self="showPingjia(caseFinish.case_id,caseFinish.judged_state)">{{caseFinish.judged_state}}</div>
                 </div>
             </li>
         </ul>
@@ -130,20 +130,17 @@
                 changeState:function (case_num) {
                     this.state_num = case_num;
                 },
-                caseInfo:function (case_id) {
-                    console.log(case_id);
-                    var _that = this;
+                caseInfo:function (case_id,case_state) {
                     $.ajax({
                         url:'/mediator/case_page?case_id='+case_id,
                         type:'get',
                         success:function (result) {
-                            console.log(result);
-                            if(_that.case_state == '待受理'){
-                                window.location.href = '/mediator/m-caseapply';
-                            }else if(_that.case_state == '正在调解'){
-                                window.location.href = '/mediator/m-casedetail';
+                            if(case_state == '待受理'){
+                                window.location.href = '/mediator/to_apply';
+                            }else if(case_state == '正在调解'){
+                                window.location.href = '/mediator/to_detail';
                             }else{
-                                window.location.href = '/mediator/m-caseresult';
+                                window.location.href = '/mediator/to_result';
                             }
                         },
                         error:function (err) {
