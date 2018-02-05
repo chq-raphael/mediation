@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class MediatorController {
     //根据案件id查找案件
     @RequestMapping(value = "/case_page", method = RequestMethod.GET)
     @ResponseBody
-    public Case apply(int caseId) {
+    public Case apply(@RequestParam("case_id") int caseId) {
         return mediatorService.selectOneByCaseId(caseId);
     }
 
