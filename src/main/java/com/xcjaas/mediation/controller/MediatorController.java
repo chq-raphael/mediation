@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -81,6 +80,7 @@ public class MediatorController {
     public int addLog(CaseLog caseLog) {
         caseLog.setLog_date(DateUtil.getDate());
         caseService.addLog(caseLog);
+        //根据返回的log_id再执行查询语句，如果有数据，返回1表示成功，否则返回0
         if (caseService.selectLogById(caseLog.getLog_id()).getLog_case_id() != 0 && caseService.selectLogById(caseLog.getLog_id()).getLog_detail() != null) {
             return 1;
         } else {
