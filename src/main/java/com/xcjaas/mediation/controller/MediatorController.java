@@ -37,6 +37,7 @@ public class MediatorController {
     public String toApplyHtml() {
         return "/mediator/m-caseapply";
     }
+
     //根据案件id查找案件
     @RequestMapping(value = "/case_page", method = RequestMethod.GET)
     @ResponseBody
@@ -51,6 +52,7 @@ public class MediatorController {
     public String toDetailHtml() {
         return "/mediator/m-casedetail";
     }
+
     //根据caseId返回单个案件的调解详情
     @RequestMapping(value = "/caseDetail", method = RequestMethod.GET)
     @ResponseBody
@@ -65,23 +67,26 @@ public class MediatorController {
     public String toDiaryHtml() {
         return "/mediator/m-casediary";
     }
+
     //根据caseId返回所有的案件日志
     @RequestMapping(value = "/showDiary", method = RequestMethod.GET)
     @ResponseBody
     public List<CaseLog> showLogs(@RequestParam("case_id") int caseId) {
         return caseService.selectLogsByCaseId(caseId);
     }
+
     //添加日志
     @RequestMapping(value = "/addDiary", method = RequestMethod.GET)
     @ResponseBody
-    public int addLog() {
-
-        CaseLog caseLog=new CaseLog();
-        caseLog.setLog_case_id(20);
-        caseLog.setLog_detail("2018.2.6线下达成调解");
+    public int addLog(CaseLog caseLog) {
         caseLog.setLog_date(DateUtil.getDate());
         caseService.addLog(caseLog);
-        return 1;
+        if (caseService.selectLogById(caseLog.getLog_id()).getLog_case_id() != 0 && caseService.selectLogById(caseLog.getLog_id()).getLog_detail() != null) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
     /*
@@ -104,8 +109,8 @@ public class MediatorController {
     @RequestMapping(value = "/mediatorCaseInfo", method = RequestMethod.GET)
     @ResponseBody
     public List<MediatorsResult> mediatorCase() {
-            List<MediatorsResult> mediatorsResults=mediatorService.selectMediatorAllCasesById(2);
-            return mediatorsResults;
+        List<MediatorsResult> mediatorsResults = mediatorService.selectMediatorAllCasesById(2);
+        return mediatorsResults;
     }
 
     /*
@@ -115,11 +120,12 @@ public class MediatorController {
     public String toPersonalHtml() {
         return "/mediator/m-personal";
     }
+
     //在调解员个人主页上展示个人信息
     @RequestMapping(value = "/showMediatorInfo", method = RequestMethod.GET)
     @ResponseBody
     public Mediator mediator_personal() {
-        Mediator mediator=mediatorService.selectMediatorById(2);
+        Mediator mediator = mediatorService.selectMediatorById(2);
         return mediator;
     }
 

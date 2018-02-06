@@ -7,9 +7,9 @@ import java.sql.Date;
  */
 public class CaseLog {
     private int log_id;
-    private int log_case_id;
-    private Date log_date;
-    private String log_detail;
+    private int log_case_id;//案件id
+    private Date log_date;//日志时间
+    private String log_detail;//日志详情
 
     public int getLog_id() {
         return log_id;

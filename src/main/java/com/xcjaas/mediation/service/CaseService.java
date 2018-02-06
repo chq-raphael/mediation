@@ -17,10 +17,18 @@ import java.util.List;
 public interface CaseService {
 
     List<Case> selectCasesByUserId(int userId);
+
     Case selectOneByCaseId(int caseId);
+
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
+
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
+
     CaseDetailResult selectCaseDetailByCaseId(int caseId);
+
     List<CaseLog> selectLogsByCaseId(int caseId);
+
     void addLog(CaseLog caseLog);
+
+    CaseLog selectLogById(int logId);
 }

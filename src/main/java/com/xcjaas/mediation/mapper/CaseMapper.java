@@ -28,4 +28,6 @@ public interface CaseMapper {
     List<CaseLog> selectLogsByCaseId(int caseId);
 
     void addLog(CaseLog caseLog);
+
+    CaseLog selectLogById(int logId);
 }

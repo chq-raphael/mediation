@@ -53,4 +53,9 @@ public class CaseServiceImp implements CaseService {
     public void addLog(CaseLog caseLog) {
         caseMapper.addLog(caseLog);
     }
+
+    @Override
+    public CaseLog selectLogById(int logId) {
+        return caseMapper.selectLogById(logId);
+    }
 }

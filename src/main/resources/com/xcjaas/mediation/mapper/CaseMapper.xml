@@ -82,7 +82,7 @@
       SELECT * from t_case_log WHERE log_case_id=#{caseId}
     </select>
 
-    <insert id="addLog" parameterType="CaseLog">
+    <insert id="addLog" parameterType="CaseLog" useGeneratedKeys="true" keyProperty="log_id">
       INSERT INTO t_case_log (
       	log_case_id,
       	log_date,
@@ -91,5 +91,9 @@
         VALUES
 	    (#{log_case_id}, #{log_date}, #{log_detail});
     </insert>
+
+    <select id="selectLogById" parameterType="int" resultType="CaseLog">
+        SELECT * FROM t_case_log WHERE log_id=#{logId}
+    </select>
 </mapper>
 
