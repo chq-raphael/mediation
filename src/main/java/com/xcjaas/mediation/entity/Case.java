@@ -1,7 +1,7 @@
 package com.xcjaas.mediation.entity;
 
 
-import com.alibaba.fastjson.annotation.JSONField;
+
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 
 import java.io.Serializable;

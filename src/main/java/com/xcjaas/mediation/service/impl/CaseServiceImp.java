@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.service.impl;
 
 import com.xcjaas.mediation.entity.Case;
+import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.mapper.CaseMapper;
 import com.xcjaas.mediation.service.CaseService;
@@ -38,7 +39,7 @@ public class CaseServiceImp implements CaseService {
     }
 
     @Override
-    public Case selectCaseDetailByCaseId(int caseId) {
+    public CaseDetailResult selectCaseDetailByCaseId(int caseId) {
         return caseMapper.selectCaseDetailByCaseId(caseId);
     }
 }

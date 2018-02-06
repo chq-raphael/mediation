@@ -3,6 +3,7 @@ package com.xcjaas.mediation.service;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.User;
+import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 import com.xcjaas.mediation.entity.encapsulation.State_Zero;
@@ -18,5 +19,5 @@ public interface CaseService {
     Case selectOneByCaseId(int caseId);
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
-    Case selectCaseDetailByCaseId(int caseId);
+    CaseDetailResult selectCaseDetailByCaseId(int caseId);
 }

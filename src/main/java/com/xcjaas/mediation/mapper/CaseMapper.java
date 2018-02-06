@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.mapper;
 
 import com.xcjaas.mediation.entity.Case;
+import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,5 @@ public interface CaseMapper {
 
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
 
-    Case selectCaseDetailByCaseId(int caseId);
+    CaseDetailResult selectCaseDetailByCaseId(int caseId);
 }

@@ -2,6 +2,7 @@ package com.xcjaas.mediation.controller;
 
 import com.xcjaas.mediation.entity.Case;
 import com.xcjaas.mediation.entity.Mediator;
+import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
@@ -51,7 +52,7 @@ public class MediatorController {
     //根据caseId返回单个案件的调解详情
     @RequestMapping(value = "/caseDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Case selectCaseDetailByCaseId(@RequestParam("case_id") int caseId) {
+    public CaseDetailResult selectCaseDetailByCaseId(@RequestParam("case_id") int caseId) {
         return caseService.selectCaseDetailByCaseId(caseId);
     }
 
