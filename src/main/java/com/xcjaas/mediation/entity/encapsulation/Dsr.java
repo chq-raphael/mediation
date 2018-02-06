@@ -5,11 +5,11 @@ package com.xcjaas.mediation.entity.encapsulation;
  */
 public class Dsr {
     private int dsrId;
-    private String dsrName;
-    private String dsrTel;
+    private String dsrName;//当事人名字
+    private String dsrTel;//当事人电话
     private int dsrState;
     private int teId;
-    private int caseId;
+    private int caseId;//关联案件id
 
     public int getTeId() {
         return teId;

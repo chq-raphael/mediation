@@ -20,26 +20,32 @@
     <div id="cresult_box">
         <!--调解结果条件-->
         <div class="result_condition">
-            <p class="result_condition1">
-                <div class="isChoice_box">
+            <div class="result_condition1">
+                <!--<div class="isChoice_box">-->
                     <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
                     <label :for="mediator.id" class="labelbox"></label>
-                </div>
+                <!--</div>-->
                 <!--<img src="/m-image/duoxuan.png" alt="">-->
                 <span>双方同意离婚</span>
-            </p>
-            <p class="result_condition1">
-                <img src="/m-image/duoxuan.png" alt="">
+            </div>
+            <div class="result_condition1">
+                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
+                <label :for="mediator.id" class="labelbox"></label>
+             <!--   <img src="/m-image/duoxuan.png" alt="">-->
                 <span>孩子归甲方抚养</span>
-            </p>
-            <p class="result_condition1">
-                <img src="/m-image/duoxuan.png" alt="">
+            </div>
+            <div class="result_condition1">
+                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
+                <label :for="mediator.id" class="labelbox"></label>
+              <!--  <img src="/m-image/duoxuan.png" alt="">-->
                 <span>孩子归乙方抚养</span>
-            </p>
-            <p class="result_condition1">
-                <img src="/m-image/duoxuan.png" alt="">
+            </div>
+            <div class="result_condition1">
+                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
+                <label :for="mediator.id" class="labelbox"></label>
+                <!--<img src="/m-image/duoxuan.png" alt="">-->
                 <span>孩子抚养费约定，<input type="text">方每月付<input type="text">元抚养费给<input type="text">方</span> </span>
-            </p>
+            </div>
         </div>
         <!--调解结果状态-->
         <div class="result_state">
@@ -60,6 +66,7 @@
 
     <script>
         /*选中调解结果条件，改变选中图片*/
+/*
         var rc1 = $('.result_condition1');//所有调解结果条件
         var rs1 = $('.result_state1');//所有调解结果状态
         rc1.on('click',function(){//点击条件行
@@ -70,14 +77,8 @@
                 $(this).children().eq(0).attr('src','/m-image/duoxuan.png');
             }
         });
-        rs1.on('click',function(){//点击条件行
-            //var i = $(this).index();
-            if($(this).children().eq(0).attr('src') === '/m-image/danxuan.png'){//判断图标src
-                $(this).children().eq(0).attr('src','/m-image/danxuany.png');
-            }else{
-                $(this).children().eq(0).attr('src','/m-image/danxuan.png');
-            }
-        });
+*/
+
     </script>
 </body>
 </html>
