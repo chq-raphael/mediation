@@ -1,8 +1,10 @@
 package com.xcjaas.mediation.entity;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.xcjaas.mediation.entity.encapsulation.Dsr;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/16.
  * 案件关联用户和调解员
  */
-public class Case {
+public class Case implements Serializable{
     private int case_id;//案件id
     private int case_type;//案件类型
     private int case_state;//0准备状态，1正在调解，2调解成功，3调解失败
@@ -26,6 +28,7 @@ public class Case {
     private String state_name;//案件状态名字
     private String judged_detail;//judged_state=1下评价详情
     private List<Dsr> dsrs;//其他当事人
+    private User user;
 
     @Override
     public String toString() {
@@ -45,6 +48,7 @@ public class Case {
                 ", state_name='" + state_name + '\'' +
                 ", judged_detail='" + judged_detail + '\'' +
                 ", dsrs=" + dsrs +
+                ", user=" + user +
                 '}';
     }
 
@@ -166,5 +170,13 @@ public class Case {
 
     public void setFinish_date(Date finish_date) {
         this.finish_date = finish_date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

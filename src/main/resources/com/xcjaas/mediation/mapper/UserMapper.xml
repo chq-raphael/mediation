@@ -49,46 +49,5 @@
     </select>
 
 
-    <!--根据id查找个人所有案件-->
-    <resultMap id="allCasesMap" type="Case">
-        <id column="case_id" property="case_id"/>
-        <result column="case_type" property="case_type"/>
-        <result column="case_state" property="case_state"/>
-        <result column="case_user_id" property="case_user_id"/>
-        <result column="case_mediator_id" property="case_mediator_id"/>
-        <result column="user_judged" property="user_judged"/>
-        <result column="details" property="details"/>
-        <result column="court" property="court"/>
-        <result column="create_date" property="create_date"/>
-        <result column="type_name" property="type_name"/>
-        <result column="state_name" property="state_name"/>
-    </resultMap>
-    <select id="selectCasesByUserId" parameterType="int" resultMap="allCasesMap">
-       SELECT * FROM
-        t_case
-        JOIN t_case_type ON t_case.case_type = t_case_type.case_type
-        join t_case_state on t_case.case_state=t_case_state.case_state
-        where case_user_id=#{userId};
-    </select>
-    <!--根据案件id查找一个案件-->
-    <select id="selectOneByCaseId" parameterType="int" resultType="Case">
-       SELECT * FROM t_case
-        JOIN t_case_type ON t_case.case_type = t_case_type.case_type
-        join t_case_state on t_case.case_state=t_case_state.case_state
-        where t_case.case_id=#{caseId};
-    </select>
-
-    <!--根据案件id查找一个案件的评价-->
-    <select id="selectJudgedDetailByCaseId" parameterType="int" resultType="CaseJudgedDetail">
-        SELECT case_id,judged_detail FROM t_case
-        where t_case.case_id=#{caseId};
-    </select>
-
-    <!--插入评价-->
-    <update id="updateCaseJudgedDetail" parameterType="CaseJudgedDetail">
-       update t_case set judged_state=1,judged_detail=#{judged_detail} WHERE case_id=#{case_id}
-    </update>
-
-
 </mapper>
 

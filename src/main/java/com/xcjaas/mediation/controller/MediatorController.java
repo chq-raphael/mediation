@@ -5,6 +5,7 @@ import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
+import com.xcjaas.mediation.service.impl.CaseServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,8 +51,8 @@ public class MediatorController {
     //根据caseId返回单个案件的调解详情
     @RequestMapping(value = "/caseDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Case selectCaseDetailByCaseId(@RequestParam("case_id") int caseId) {
-        return caseService.selectCaseDetailByCaseId(caseId);
+    public Case selectCaseDetailByCaseId() {
+        return caseService.selectCaseDetailByCaseId(1);
     }
 
     /*
