@@ -26,8 +26,6 @@ public class MediatorController {
     @Autowired
     private CaseService caseService;
 
-    public int stateNum=0;
-
     /*
     跳转至“调解申请”页面
      */
@@ -48,6 +46,12 @@ public class MediatorController {
     @RequestMapping(value = "/to_detail", method = RequestMethod.GET)
     public String toDetailHtml() {
         return "/mediator/m-casedetail";
+    }
+    //根据caseId返回单个案件的调解详情
+    @RequestMapping(value = "/caseDetail", method = RequestMethod.GET)
+    @ResponseBody
+    public Case selectCaseDetailByCaseId(@RequestParam("case_id") int caseId) {
+        return caseService.selectCaseDetailByCaseId(caseId);
     }
 
     /*
@@ -73,12 +77,7 @@ public class MediatorController {
     public String toMyMdeaiateHtml() {
         return "/mediator/m-mymediate";
     }
-    //返回页面stateNum
-    @RequestMapping(value = "/stateNum", method = RequestMethod.GET)
-    @ResponseBody
-    public int stateNum() {
-        return stateNum;
-    }
+
     //根据mediatorId返回所有的案件
     @RequestMapping(value = "/mediatorCaseInfo", method = RequestMethod.GET)
     @ResponseBody
@@ -101,10 +100,5 @@ public class MediatorController {
         Mediator mediator=mediatorService.selectMediatorById(2);
         return mediator;
     }
-    //存储state_num值用来判断跳转至“我的调解”的哪个模块
-    @RequestMapping(value="/saveNum",method =RequestMethod.GET)
-    @ResponseBody
-     public void saveNum(int state_num){
-        stateNum=state_num;
-    }
+
 }

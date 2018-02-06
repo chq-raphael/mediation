@@ -18,5 +18,5 @@ public interface CaseService {
     Case selectOneByCaseId(int caseId);
     CaseJudgedDetail selectJudgedDetailByCaseId(int caseId);
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
-
+    Case selectCaseDetailByCaseId(int caseId);
 }

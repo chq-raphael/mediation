@@ -36,4 +36,9 @@ public class CaseServiceImp implements CaseService {
     public void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
             caseMapper.updateCaseJudgedDetail(caseJudgedDetail);
     }
+
+    @Override
+    public Case selectCaseDetailByCaseId(int caseId) {
+        return caseMapper.selectCaseDetailByCaseId(caseId);
+    }
 }

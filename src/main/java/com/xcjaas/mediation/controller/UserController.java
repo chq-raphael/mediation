@@ -114,25 +114,24 @@ public class UserController {
     }
 
     /*
-       页面跳转4: 确认条款后，前台并跳转至choice-mediate.html选择调解员
+       页面跳转4: 确认条款后，前端跳转至choice-mediate.html选择调解员
      */
     @RequestMapping(value = "/choice-mediate", method = RequestMethod.GET)
     public String to_Choice_Mediate_Html() {
         return "/user/choice-mediate";
     }
 
-    //返回3个调解员
+    //返回供选调解员
     @RequestMapping(value = "/mediators3", method = RequestMethod.GET)
     @ResponseBody
     public List<User> show_3Mediators() {
         return userService.selectThreeMediators();
     }
 
-    //存储2个调解员
+    //存储用户选择的调解员
     @RequestMapping(value = "/mediators2", method = RequestMethod.POST)
     @ResponseBody
     public int insert_2Mediators(@RequestBody List<Integer> choiceM) {
-
         List<State_Zero> state_Zeros = new ArrayList<>();
         for (int i = 0; i < choiceM.size(); i++) {
             State_Zero sz = new State_Zero();
@@ -142,10 +141,8 @@ public class UserController {
             state_Zeros.add(sz);
         }
         userService.insertTwoMediators(state_Zeros);
-
         //移除map中userId和casId属性
         map.clear();
-
         //如果插入成功返回自增长id，返回0表示插入成功；否则，1表示失败
         if (state_Zeros.get(0).getState_0_id() != 0) {
             return 0;
@@ -154,16 +151,15 @@ public class UserController {
         }
     }
 
-
     /*
-    页面跳转5：跳转至个人主页, personal.html
+    页面跳转5：跳转至用户个人主页, personal.html
      */
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public String to_Personal_Html() {
         return "/user/personal";
     }
 
-    //返回个人信息
+    //根据userId查找个人信息
     @RequestMapping(value = "/personalInfo", method = RequestMethod.GET)
     @ResponseBody
     public User showOne(@RequestParam("user_id") int userId) {
@@ -179,18 +175,17 @@ public class UserController {
         return "/user/my-mediate";
     }
 
-    //查找用户所有案件
+    //根据userId查找用户所有案件
     @RequestMapping(value = "/allCases", method = RequestMethod.GET)
     @ResponseBody
     public List<Case> myCases() {
         return caseService.selectCasesByUserId(270);
     }
 
-    //根据caseId查找案件
+    //根据caseId查找个案
     @RequestMapping(value = "/oneCase", method = RequestMethod.GET)
     @ResponseBody
     public Case oneCase(@RequestParam("case_id") int caseId) {
-//        casId = caseId;
         map.put("caseId", caseId);
         return caseService.selectOneByCaseId(caseId);
     }
@@ -203,19 +198,19 @@ public class UserController {
         return "/user/pingjia";
     }
 
-    //judged_state=1情况下，根据caseId返回评价详情
+    //judged_state=1（评价状态）情况下，根据caseId返回评价详情
     @RequestMapping(value = "/pjDetail", method = RequestMethod.GET)
     @ResponseBody
     public CaseJudgedDetail pingjiaDetail() {
         if (caseService.selectOneByCaseId(map.get("caseId")).getJudged_state() == 1) {
             CaseJudgedDetail caseJudgedDetail = caseService.selectJudgedDetailByCaseId(map.get("caseId"));
             return caseJudgedDetail;
-        }else {
+        } else {
             return null;
         }
     }
 
-    //judged_state=0状态下添加评价
+    //judged_state=0（未评价状态）状态下添加评价
     @RequestMapping(value = "/addJudged", method = RequestMethod.GET)
     @ResponseBody
     public void updateJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
@@ -224,7 +219,5 @@ public class UserController {
             caseJudgedDetail.setCase_id(map.get("caseId"));
             caseService.updateCaseJudgedDetail(caseJudgedDetail);
         }
-
     }
-
 }

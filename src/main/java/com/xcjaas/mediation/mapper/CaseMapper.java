@@ -21,4 +21,5 @@ public interface CaseMapper {
 
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
 
+    Case selectCaseDetailByCaseId(int caseId);
 }

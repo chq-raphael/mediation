@@ -1,7 +1,10 @@
 package com.xcjaas.mediation.entity;
 
 
+import com.xcjaas.mediation.entity.encapsulation.Dsr;
+
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/16.
@@ -16,11 +19,13 @@ public class Case {
     private int judged_state;//用户是否评价，0未评价，1已评价（judged_state=1只有case_state=2或者3的情况下）
     private String details;//案件详情
     private String court;//隶属法院
-    private Date create_date;//案件创建时间
+    private Date create_date;//调解创建时间
+    private Date accept_date;//调解受理时间
+    private Date finish_date;//调解完成时间
     private String type_name;//案件类型名字
     private String state_name;//案件状态名字
     private String judged_detail;//judged_state=1下评价详情
-
+    private List<Dsr> dsrs;//其他当事人
 
     @Override
     public String toString() {
@@ -34,9 +39,12 @@ public class Case {
                 ", details='" + details + '\'' +
                 ", court='" + court + '\'' +
                 ", create_date=" + create_date +
+                ", accept_date=" + accept_date +
+                ", finish_date=" + finish_date +
                 ", type_name='" + type_name + '\'' +
                 ", state_name='" + state_name + '\'' +
                 ", judged_detail='" + judged_detail + '\'' +
+                ", dsrs=" + dsrs +
                 '}';
     }
 
@@ -134,5 +142,29 @@ public class Case {
 
     public void setJudged_detail(String judged_detail) {
         this.judged_detail = judged_detail;
+    }
+
+    public List<Dsr> getDsrs() {
+        return dsrs;
+    }
+
+    public void setDsrs(List<Dsr> dsrs) {
+        this.dsrs = dsrs;
+    }
+
+    public Date getAccept_date() {
+        return accept_date;
+    }
+
+    public void setAccept_date(Date accept_date) {
+        this.accept_date = accept_date;
+    }
+
+    public Date getFinish_date() {
+        return finish_date;
+    }
+
+    public void setFinish_date(Date finish_date) {
+        this.finish_date = finish_date;
     }
 }

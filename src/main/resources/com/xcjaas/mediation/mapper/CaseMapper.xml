@@ -45,5 +45,38 @@
     </update>
 
 
+
+    <resultMap id="selectCaseDetailByCaseIdMap" type="Case">
+        <id column="case_id" property="case_id"/>
+        <result column="case_type" property="case_type"/>
+        <result column="case_state" property="case_state"/>
+        <result column="case_user_id" property="case_user_id"/>
+        <result column="case_mediator_id" property="case_mediator_id"/>
+        <result column="user_judged" property="user_judged"/>
+        <result column="details" property="details"/>
+        <result column="court" property="court"/>
+        <result column="create_date" property="create_date"/>
+        <result column="accept_date" property="accept_date"/>
+        <result column="finish_date" property="finish_date"/>
+        <result column="type_name" property="type_name"/>
+        <result column="state_name" property="state_name"/>
+        <collection property="dsrs" ofType="Dsr">
+            <id column="dsrId" property="dsrId"/>
+            <result column="dsrName" property="dsrName"/>
+            <result column="dsrTel" property="dsrTel"/>
+            <result column="dsrState" property="dsrState"/>
+            <result column="teId" property="teId"/>
+        </collection>
+    </resultMap>
+    <select id="selectCaseDetailByCaseId" parameterType="int" resultMap="selectCaseDetailByCaseIdMap">
+      SELECT
+	t_case.*, t_dsr.*
+  FROM
+	t_case
+INNER JOIN t_dsr ON t_case.case_id = t_dsr.caseId
+WHERE
+	case_id =#{case_id}
+    </select>
+
 </mapper>
 
