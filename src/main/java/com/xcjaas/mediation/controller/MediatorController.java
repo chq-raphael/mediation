@@ -51,8 +51,8 @@ public class MediatorController {
     //根据caseId返回单个案件的调解详情
     @RequestMapping(value = "/caseDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Case selectCaseDetailByCaseId() {
-        return caseService.selectCaseDetailByCaseId(1);
+    public Case selectCaseDetailByCaseId(@RequestParam("case_id") int caseId) {
+        return caseService.selectCaseDetailByCaseId(caseId);
     }
 
     /*

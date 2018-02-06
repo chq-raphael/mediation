@@ -48,49 +48,49 @@
 
     <resultMap id="selectCaseDetailByCaseIdMap" type="Case">
         <id column="case_id" property="case_id"/>
-        <!--<result column="case_type" property="case_type"/>-->
-        <!--<result column="case_state" property="case_state"/>-->
-        <!--<result column="case_user_id" property="case_user_id"/>-->
-        <!--<result column="case_mediator_id" property="case_mediator_id"/>-->
-        <!--<result column="user_judged" property="user_judged"/>-->
+        <result column="case_type" property="case_type"/>
+        <result column="case_state" property="case_state"/>
+        <result column="case_user_id" property="case_user_id"/>
+        <result column="case_mediator_id" property="case_mediator_id"/>
+        <result column="user_judged" property="user_judged"/>
         <result column="details" property="details"/>
-        <!--<result column="court" property="court"/>-->
+        <result column="court" property="court"/>
         <result column="create_date" property="create_date"/>
         <result column="accept_date" property="accept_date"/>
-        <!--<result column="finish_date" property="finish_date"/>-->
-        <!--<result column="type_name" property="type_name"/>-->
-        <!--<result column="state_name" property="state_name"/>-->
+        <result column="finish_date" property="finish_date"/>
+        <result column="type_name" property="type_name"/>
+        <result column="state_name" property="state_name"/>
         <association property="user" javaType="User">
-            <!--<id column="userId" property="userId"></id>-->
-            <!--<result column="wx_id" property="wx_id"></result>-->
+            <id column="userId" property="userId"></id>
+            <result column="wx_id" property="wx_id"></result>
             <result column="userName" property="userName"></result>
-            <!--<result column="userSex" property="userSex"></result>-->
-            <!--<result column="userBirth" property="userBirth"></result>-->
-            <!--<result column="userCardId" property="userCardId"></result>-->
-            <!--<result column="userJig" property="userJig"></result>-->
+            <result column="userSex" property="userSex"></result>
+            <result column="userBirth" property="userBirth"></result>
+            <result column="userCardId" property="userCardId"></result>
+            <result column="userJig" property="userJig"></result>
             <result column="userTel" property="userTel"></result>
-            <!--<result column="userMinz" property="userMinz"></result>-->
-            <!--<result column="userAddr" property="userAddr"></result>-->
+            <result column="userMinz" property="userMinz"></result>
+            <result column="userAddr" property="userAddr"></result>
         </association>
         <collection property="dsrs" ofType="Dsr">
-            <!--<id column="dsrId" property="dsrId"/>-->
+            <id column="dsrId" property="dsrId"/>
             <result column="dsrName" property="dsrName"/>
             <result column="dsrTel" property="dsrTel"/>
-            <!--<result column="dsrState" property="dsrState"/>-->
-            <!--<result column="teId" property="teId"/>-->
+            <result column="dsrState" property="dsrState"/>
+            <result column="teId" property="teId"/>
         </collection>
     </resultMap>
     <select id="selectCaseDetailByCaseId" parameterType="int" resultMap="selectCaseDetailByCaseIdMap">
       SELECT
-	t_case.case_id,t_case.details,t_case.create_date,t_case.accept_date,
-	t_user.userName,t_user.userTel,
-	t_dsr.dsrName,t_dsr.dsrTel
+	t_case.*,
+	t_user.*,
+	t_dsr.*
   FROM
 	t_case
 INNER JOIN t_dsr ON t_case.case_id = t_dsr.caseId
 INNER JOIN t_user on t_case.case_user_id=t_user.userId
 WHERE
-	case_id =9
+	case_id =#{caseId}
     </select>
 
 </mapper>
