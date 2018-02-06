@@ -16,6 +16,7 @@ public class CaseDetailResult {
     private List<CaseDetail_Dsr> dsrs;//其他当事人
     private String userName;//用户名字
     private String userTel;//用户电话
+    private String from_where;//申请来源
 
     public int getCase_Id() {
         return case_Id;
@@ -71,5 +72,14 @@ public class CaseDetailResult {
 
     public void setUserTel(String userTel) {
         this.userTel = userTel;
+    }
+
+    public String getFrom_where() {
+
+        return from_where;
+    }
+
+    public void setFrom_where(String from_where) {
+        this.from_where = from_where;
     }
 }

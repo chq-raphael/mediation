@@ -51,6 +51,7 @@
         <result column="accept_date" property="accept_date"/>
         <result column="userName" property="userName"/>
         <result column="userTel" property="userTel"/>
+        <result column="from_where" property="from_where"/>
         <collection property="dsrs" ofType="CaseDetail_Dsr">
             <result column="dsrName" property="dsrName"/>
             <result column="dsrTel" property="dsrTel"/>
@@ -58,7 +59,7 @@
     </resultMap>
     <select id="selectCaseDetailByCaseId" parameterType="int" resultMap="selectCaseDetailByCaseIdMap">
       SELECT
-	t_case.case_id,t_case.details,t_case.create_date,t_case.accept_date,
+	t_case.case_id,t_case.details,t_case.create_date,t_case.accept_date,t_case.from_where,
 	t_user.userName,t_user.userTel,
 	t_dsr.dsrName,t_dsr.dsrTel
   FROM
