@@ -136,11 +136,11 @@
                         type:'get',
                         success:function (result) {
                             if(case_state == '待受理'){
-                                window.location.href = '/mediator/to_apply';
+                                window.location.href = '/mediator/to_apply?'+case_id;
                             }else if(case_state == '正在调解'){
-                                window.location.href = '/mediator/to_detail';
+                                window.location.href = '/mediator/to_detail?'+case_id;
                             }else{
-                                window.location.href = '/mediator/to_result';
+                                window.location.href = '/mediator/to_result?'+case_id;
                             }
                         },
                         error:function (err) {

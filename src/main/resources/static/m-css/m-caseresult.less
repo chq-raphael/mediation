@@ -16,71 +16,60 @@
       display: flex;
       align-items: center;
       align-content: flex-start;
-      //width:8%;
       margin-right:.5rem;
       position: relative;
-      //.isChoice_box{
-
-        .checkbox{
-          width:2rem;
-          height:2rem;
-          display: none;
-        }
-        .labelbox{
-          width:2rem;
-          height:2rem;
-          background-color:#fff;
-          border:1px solid #ccc;
-          border-radius:20%;
-          position:absolute;
-          top:0;
-          left: 0;
-        }
-        .checkbox:checked + .labelbox{
-          border:1px solid #60c89b;
-        }
-        .checkbox:checked + .labelbox:after{
-          content:'';
-          width:1.4rem;
-          height:.8rem;
-          position: absolute;
-          top:.3rem;
-          left:.3rem;
-          opacity: 1;
-          border-top:none;
-          border-right:none;
-          border-left:3px solid #60c89b;
-          border-bottom:3px solid #60c89b;
-          -webkit-transform: rotate(-45deg);
-          -moz-transform: rotate(-45deg) ;
-          -ms-transform: rotate(-45deg) ;
-          -o-transform: rotate(-45deg) ;
-          transform: rotate(-45deg) ;
-        }
-        &:after{
-          content:'';
-          clear: both;
-          display: block;
-          visibility: hidden;
-        }
-      //}
-      img{
-        width:7%;
-        margin-right:.5rem;
+      .checkbox{
+        width:1.6rem;
+        height:1.6rem;
+        display: none;
       }
-      span{
-        padding-left:2.5rem;
+      .labelbox{
+        width:1.6rem;
+        height:1.6rem;
+        background-color:#fff;
+        border:1px solid #ccc;
+        border-radius:20%;
+        position:absolute;
+        top:0;
+        left: 0;
+      }
+      .checkbox:checked + .labelbox{
+        border:1px solid #60c89b;
+      }
+      .checkbox:checked + .labelbox:after{
+        content:'';
+        width:1.2rem;
+        height:.7rem;
+        position: absolute;
+        top:.2rem;
+        left:.2rem;
+        border-top:none;
+        border-right:none;
+        border-left:3px solid #60c89b;
+        border-bottom:3px solid #60c89b;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg) ;
+        -ms-transform: rotate(-45deg) ;
+        -o-transform: rotate(-45deg) ;
+        transform: rotate(-45deg) ;
+      }
+      .labelInfo{
+        padding-left:2rem;
+        .input_add{
+          border-width: 0 0 1px 0;
+          border-bottom:1px solid #ccc;
+          width: 2rem;
+          padding:0 .5rem;
+          font-size:1.3rem;
+          outline: none;
+          color:#14c177;
+        }
+      }
+      &:after{
+        content:'';
+        clear: both;
         display: block;
-      }
-      input[type='text']{
-        border-width: 0 0 1px 0;
-        border-bottom:1px solid #ccc;
-        width: 2rem;
-        /*height:2rem;*/
-        padding:0 .5rem;
-        font-size:1.3rem;
-        outline: none;
-        color:#14c177;
+        visibility: hidden;
       }
     }
   }
@@ -91,6 +80,62 @@
       flex: 1;
       display: flex;
       align-items: center;
+      position: relative;
+      .checkbox{
+        width:1.6rem;
+        height:1.6rem;
+        display: none;
+      }
+      .labelbox{
+        width:1.6rem;
+        height:1.6rem;
+        background-color:#fff;
+        border:1px solid #ccc;
+        border-radius:50%;
+        position:absolute;
+        top:0;
+        left: 0;
+      }
+      .checkbox:checked + .labelbox{
+        border:1px solid #60c89b;
+      }
+      .checkbox:checked + .labelbox:after{
+        content:'';
+        width:1.4rem;
+        height:1.4rem;
+        border-radius: 50%;
+        background-color:#60c89b;
+        position: absolute;
+        top:.2rem;
+        left:.2rem;
+        //border-top:none;
+        //border-right:none;
+        //border-left:3px solid #60c89b;
+        //border-bottom:3px solid #60c89b;
+        //-webkit-transform: rotate(-45deg);
+        //-moz-transform: rotate(-45deg) ;
+        //-ms-transform: rotate(-45deg) ;
+        //-o-transform: rotate(-45deg) ;
+        //transform: rotate(-45deg) ;
+      }
+      .labelInfo{
+        padding-left:2rem;
+        .input_add{
+          border-width: 0 0 1px 0;
+          border-bottom:1px solid #ccc;
+          width: 2rem;
+          padding:0 .5rem;
+          font-size:1.3rem;
+          outline: none;
+          color:#14c177;
+        }
+      }
+      &:after{
+        content:'';
+        clear: both;
+        display: block;
+        visibility: hidden;
+      }
       img{
         width:15%;
         margin-right:.5rem;

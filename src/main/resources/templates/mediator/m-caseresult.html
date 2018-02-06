@@ -21,41 +21,41 @@
         <!--调解结果条件-->
         <div class="result_condition">
             <div class="result_condition1">
-                <!--<div class="isChoice_box">-->
-                    <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
-                    <label :for="mediator.id" class="labelbox"></label>
-                <!--</div>-->
-                <!--<img src="/m-image/duoxuan.png" alt="">-->
-                <span>双方同意离婚</span>
+                <input type="checkbox" id="result1" name="check_result_info" class="checkbox">
+                <label for="result1" class="labelbox"></label>
+                 <label for="result1" class="labelInfo">双方同意离婚</label>
             </div>
             <div class="result_condition1">
-                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
-                <label :for="mediator.id" class="labelbox"></label>
-             <!--   <img src="/m-image/duoxuan.png" alt="">-->
-                <span>孩子归甲方抚养</span>
+                <input type="checkbox" id="result2" name="check_result_info" class="checkbox">
+                <label for="result2" class="labelbox"></label>
+                <label for="result2"  class="labelInfo">孩子归甲方抚养</label>
             </div>
             <div class="result_condition1">
-                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
-                <label :for="mediator.id" class="labelbox"></label>
-              <!--  <img src="/m-image/duoxuan.png" alt="">-->
-                <span>孩子归乙方抚养</span>
+                <input type="checkbox" id="result3" name="check_result_info" class="checkbox">
+                <label for="result3" class="labelbox"></label>
+                <label for="result3"  class="labelInfo">孩子归乙方抚养</label>
             </div>
             <div class="result_condition1">
-                <input type="checkbox" :id="mediator.id" name="check" class="checkbox">
-                <label :for="mediator.id" class="labelbox"></label>
-                <!--<img src="/m-image/duoxuan.png" alt="">-->
-                <span>孩子抚养费约定，<input type="text">方每月付<input type="text">元抚养费给<input type="text">方</span> </span>
+                <input type="checkbox" id="result4" name="check_result_info" class="checkbox">
+                <label for="result4" class="labelbox"></label>
+                <label for="result4"  class="labelInfo">孩子抚养费约定，<input type="text" class="input_add">方每月付<input type="text" class="input_add">元抚养费给<input type="text" class="input_add">方</span></label>
             </div>
         </div>
         <!--调解结果状态-->
         <div class="result_state">
             <p class="result_state1">
-                <img src="/m-image/danxuan.png" alt="">
-                <span>调解成功</span>
+                <input type="radio" id="result5" name="check_result" class="checkbox">
+                <label for="result5" class="labelbox"></label>
+                <label for="result5" class="labelInfo">调解成功</label>
+                <!--<img src="/m-image/danxuan.png" alt="">-->
+                <!--<span>调解成功</span>-->
             </p>
             <p class="result_state1">
-                <img src="/m-image/danxuan.png" alt="">
-                <span>调解失败</span>
+                <input type="radio" id="result6" name="check_result" class="checkbox">
+                <label for="result6" class="labelbox"></label>
+                <label for="result6" class="labelInfo">调解失败</label>
+                <!--<img src="/m-image/danxuan.png" alt="">-->
+                <!--<span>调解失败</span>-->
             </p>
         </div>
         <!--上传文件-->

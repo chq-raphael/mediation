@@ -118,17 +118,44 @@ body::-webkit-scrollbar {
   font-size: 1.3rem;
   color: #808080;
 }
-.content_box #caseapply_box .ca_case p,
-.content_box #caseapply_box .ca_other p {
-  margin: .5rem 0;
+.content_box #caseapply_box .ca_case .user,
+.content_box #caseapply_box .ca_other .user,
+.content_box #caseapply_box .ca_case .dsr,
+.content_box #caseapply_box .ca_other .dsr {
+  content: '';
+  clear: both;
+  display: block;
+}
+.content_box #caseapply_box .ca_case .user p,
+.content_box #caseapply_box .ca_other .user p,
+.content_box #caseapply_box .ca_case .dsr p,
+.content_box #caseapply_box .ca_other .dsr p {
+  width: 50%;
+  margin: .2rem 0;
   line-height: 2rem;
 }
-.content_box #caseapply_box .ca_case p span,
-.content_box #caseapply_box .ca_other p span {
+.content_box #caseapply_box .ca_case .user p span,
+.content_box #caseapply_box .ca_other .user p span,
+.content_box #caseapply_box .ca_case .dsr p span,
+.content_box #caseapply_box .ca_other .dsr p span {
   color: #333;
 }
-.content_box #caseapply_box .ca_case p:not(:last-child) {
-  width: 50%;
+.content_box #caseapply_box .ca_case .jfcontent,
+.content_box #caseapply_box .ca_other .jfcontent {
+  width: 100%;
+  margin: .2rem 0;
+  line-height: 2rem;
+}
+.content_box #caseapply_box .ca_case .jfcontent span,
+.content_box #caseapply_box .ca_other .jfcontent span {
+  color: #333;
+}
+.content_box #caseapply_box .ca_other p {
+  margin: .2rem 0;
+  line-height: 2rem;
+}
+.content_box #caseapply_box .ca_other p span {
+  color: #333;
 }
 .content_box #caseapply_box .ca_apply {
   display: flex;
@@ -144,6 +171,7 @@ body::-webkit-scrollbar {
   padding: .7rem 1rem;
   font-size: 1.4rem;
   color: #fff;
+  letter-spacing: .5rem;
   border-radius: 1rem;
 }
 .content_box #caseapply_box .ca_apply .ca_apply_accept {
@@ -168,6 +196,7 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 .modal_box .modal_content {
+  visibility: hidden;
   font-size: 1.3rem;
   color: #333;
   width: 80%;
@@ -175,6 +204,7 @@ body::-webkit-scrollbar {
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
+  position: absolute;
   /*拒绝原因表单*/
 }
 .modal_box .modal_content .prompt {

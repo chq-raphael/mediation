@@ -10,18 +10,39 @@
       border-radius: .5rem;
       font-size:1.3rem;
       color:#808080;
-      p{
-        margin:.5rem 0;
+      .user,.dsr{
+        p{
+          width:50%;
+          margin:.2rem 0;
+          line-height:2rem;
+          span{
+            color:#333;
+          }
+        }
+        &{
+          content:'';
+          clear:both;
+          display:block;
+        }
+      }
+      .jfcontent{
+        width:100%;
+        margin:.2rem 0;
         line-height:2rem;
         span{
           color:#333;
         }
       }
     }
-    .ca_case{
-      p:not(:last-child){
-        width: 50%;
+    .ca_other{
+      p{
+        margin:.2rem 0;
+        line-height:2rem;
+        span{
+          color: #333;
+        }
       }
+
     }
     /*是否受理*/
     .ca_apply{
@@ -36,6 +57,7 @@
         padding:.7rem 1rem;
         font-size:1.4rem;
         color:#fff;
+        letter-spacing: .5rem;
         border-radius:1rem;
       }
       .ca_apply_accept{
@@ -62,6 +84,7 @@
   justify-content: center;
   align-items: center;
   .modal_content{
+    visibility: hidden;
     font-size:1.3rem;
     color:#333;
     width:80%;
@@ -69,6 +92,7 @@
     background-color: #fff;
     border-radius: 1rem;
     padding:1rem;
+    position: absolute;
     .prompt{
       text-align: center;
       font-weight: bold;

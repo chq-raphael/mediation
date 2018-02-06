@@ -19,22 +19,19 @@
 <div id="casedetail_box">
     <!--纠纷事项-->
     <div class="ca_case">
-        <p class="float_left">原告：<span class="ca_ygName">张三</span></p>
-        <p class="float_left">手机号码：<span class="ca_ygTel">111111111111</span></p>
+        <p class="float_left">原告：<span class="ca_ygName">{{case_detail.userName}}</span></p>
+        <p class="float_left">手机号码：<span class="ca_ygTel">{{case_detail.userTel}}</span></p>
         <p class="float_left">被告：<span class="ca_bgName">李四</span></p>
         <p class="float_left">手机号码：<span class="ca_bgTel">111111111111</span></p>
         <p>纠纷事项：
-            <span class="ca_jfcase">
-            纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项
-         纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事项纠纷事
-            </span>
+            <span class="ca_jfcase">{{case_detail.details}}</span>
         </p>
     </div>
     <!--申请相关-->
     <div class="ca_other">
-        <p>申请人：<span>张三</span></p>
-        <p>申请时间：<span>2017-12-25</span></p>
-        <p>申请来源：<span>通过崇州市人名法院诉讼法务厅，小崇机器人申请</span></p>
+        <p>申请人：<span>{{case_detail.userName}}</span></p>
+        <p>申请时间：<span>{{case_detail.create_date}}</span></p>
+        <p>申请来源：<span>{{case_detail.from_where}}</span></p>
         <p>受理时间：<span>2017-12-18</span></p>
     </div>
     <!--调解结果-->
@@ -44,7 +41,35 @@
     </div>
 </div>
 <script>
+    new Vue({
+        el:'#casedetail_box',
+        data:{
+            case_detail:{}
+        },
+        mounted:function () {
+            //获取URL参数，即 当前案件调解状态
+            var location = window.location.href;
+            var href= location+"";
+            var href_part=href.split('?');
+            var case_id=(href_part[1])*1;
+            var _that = this;
+            $.ajax({
+                url:'/mediator/caseDetail?case_id='+case_id,
+                type:'get',
+                datatype:'json',
+                success:function (result) {
+                    _that.case_detail = result;
+                    console.log(_that.case_detail);
+                },
+                error:function (err) {
+                    console.log(err);
+                }
+            })
+        },
+        methods:{
 
+        }
+    })
 </script>
 
 </body>
