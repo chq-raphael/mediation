@@ -7,6 +7,7 @@ import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
+import com.xcjaas.mediation.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,7 +79,7 @@ public class MediatorController {
         CaseLog caseLog=new CaseLog();
         caseLog.setLog_case_id(20);
         caseLog.setLog_detail("2018.2.6线下达成调解");
-//        caseLog.setLog_date();
+        caseLog.setLog_date(DateUtil.getDate());
         caseService.addLog(caseLog);
         return 1;
     }

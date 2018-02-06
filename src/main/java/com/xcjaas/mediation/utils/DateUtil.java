@@ -1,7 +1,6 @@
 package com.xcjaas.mediation.utils;
 
 
-
 import java.util.Date;
 
 /**
@@ -9,16 +8,16 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private java.sql.Date date;
+    private static java.sql.Date date;
 
     private DateUtil() {
     }
-    public static void getDate(){
 
+    public static java.sql.Date getDate() {
+        if (date == null) {
+            date = new java.sql.Date(new Date().getTime());
+        }
+        return date;
     }
 
-    public static void main(String[] args) {
-        java.sql.Date time= new java.sql.Date(new Date().getTime());
-        System.out.println(time);
-    }
 }
