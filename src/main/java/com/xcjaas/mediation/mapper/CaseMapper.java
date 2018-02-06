@@ -1,6 +1,7 @@
 package com.xcjaas.mediation.mapper;
 
 import com.xcjaas.mediation.entity.Case;
+import com.xcjaas.mediation.entity.CaseLog;
 import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.CaseJudgedDetail;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,8 @@ public interface CaseMapper {
     void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail);
 
     CaseDetailResult selectCaseDetailByCaseId(int caseId);
+
+    List<CaseLog> selectLogsByCaseId(int caseId);
+
+    void addLog(CaseLog caseLog);
 }

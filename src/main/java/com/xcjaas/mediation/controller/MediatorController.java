@@ -1,12 +1,12 @@
 package com.xcjaas.mediation.controller;
 
 import com.xcjaas.mediation.entity.Case;
+import com.xcjaas.mediation.entity.CaseLog;
 import com.xcjaas.mediation.entity.Mediator;
 import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
-import com.xcjaas.mediation.service.impl.CaseServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -62,6 +63,24 @@ public class MediatorController {
     @RequestMapping(value = "/to_diary", method = RequestMethod.GET)
     public String toDiaryHtml() {
         return "/mediator/m-casediary";
+    }
+    //根据caseId返回所有的案件日志
+    @RequestMapping(value = "/showDiary", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CaseLog> showLogs(@RequestParam("case_id") int caseId) {
+        return caseService.selectLogsByCaseId(caseId);
+    }
+    //添加日志
+    @RequestMapping(value = "/addDiary", method = RequestMethod.GET)
+    @ResponseBody
+    public int addLog() {
+
+        CaseLog caseLog=new CaseLog();
+        caseLog.setLog_case_id(20);
+        caseLog.setLog_detail("2018.2.6线下达成调解");
+//        caseLog.setLog_date();
+        caseService.addLog(caseLog);
+        return 1;
     }
 
     /*
