@@ -36,7 +36,7 @@ public class CaseServiceImp implements CaseService {
 
     @Override
     public void updateCaseJudgedDetail(CaseJudgedDetail caseJudgedDetail) {
-            caseMapper.updateCaseJudgedDetail(caseJudgedDetail);
+        caseMapper.updateCaseJudgedDetail(caseJudgedDetail);
     }
 
     @Override

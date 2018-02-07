@@ -82,6 +82,7 @@
       SELECT * from t_case_log WHERE log_case_id=#{caseId}
     </select>
 
+    <!--添加日志-->
     <insert id="addLog" parameterType="CaseLog" useGeneratedKeys="true" keyProperty="log_id">
       INSERT INTO t_case_log (
       	log_case_id,
@@ -91,7 +92,7 @@
         VALUES
 	    (#{log_case_id}, #{log_date}, #{log_detail});
     </insert>
-
+    <!--根据caseId查找日志-->
     <select id="selectLogById" parameterType="int" resultType="CaseLog">
         SELECT * FROM t_case_log WHERE log_id=#{logId}
     </select>

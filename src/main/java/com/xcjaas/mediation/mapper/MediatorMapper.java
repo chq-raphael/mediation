@@ -14,8 +14,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface MediatorMapper {
+    //根据id查找调解员
     Mediator selectMediatorById(int id);
-
+    //根据id查找调解员所有的调解案件
     List<MediatorsResult> selectMediatorAllCasesById(int mediatorId);
 
 }
