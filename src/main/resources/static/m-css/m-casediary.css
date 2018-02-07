@@ -141,14 +141,12 @@ body::-webkit-scrollbar {
 }
 /*弹出模态框*/
 .modal_box {
-  visibility: hidden;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   z-index: 10;
-  background-color: #333;
   background: rgba(51, 51, 51, 0.5);
   display: flex;
   justify-content: center;
@@ -163,17 +161,16 @@ body::-webkit-scrollbar {
   border-radius: 1rem;
   padding: 1rem;
 }
-.modal_box .modal_content .prompt {
+.modal_box .modal_content p.prompt {
   text-align: center;
   font-weight: bold;
-  margin-bottom: 1rem;
 }
-.modal_box .modal_content .choice_time {
+.modal_box .modal_content p.choice_time {
   width: 100%;
   height: 3rem;
   margin-bottom: 1rem;
 }
-.modal_box .modal_content .choice_time input {
+.modal_box .modal_content p.choice_time input {
   width: 100%;
   height: 2.8rem;
   padding: .5rem 1rem;
@@ -181,17 +178,7 @@ body::-webkit-scrollbar {
   border: 1px solid #cccccc;
   border-radius: .5rem;
 }
-.modal_box .modal_content .choice_time p .diary_content {
-  width: 100%;
-  /*height:10rem;*/
-  resize: none;
-  outline: none;
-  border: 1px solid #ccc;
-  border-radius: .5rem;
-  padding: .5rem 1rem;
-  margin-bottom: 1rem;
-}
-.modal_box .modal_content .choice_time p .diary_tijiao {
+.modal_box .modal_content p.diary_tijiao {
   background-color: #14c177;
   font-size: 1.4rem;
   color: #fff;
@@ -201,6 +188,12 @@ body::-webkit-scrollbar {
   border: none;
   outline: none;
 }
-.modal_box .modal_content .choice_time p:last-child {
-  text-align: center;
+.modal_box .modal_content p .diary_content {
+  width: 100%;
+  resize: none;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  padding: .5rem 1rem;
+  margin-bottom: 1rem;
 }

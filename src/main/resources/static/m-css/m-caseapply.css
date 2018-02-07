@@ -182,7 +182,6 @@ body::-webkit-scrollbar {
 }
 /*弹出模态框*/
 .modal_box {
-  visibility: hidden;
   position: fixed;
   left: 0;
   top: 0;
@@ -196,7 +195,6 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 .modal_box .modal_content {
-  visibility: hidden;
   font-size: 1.3rem;
   color: #333;
   width: 80%;

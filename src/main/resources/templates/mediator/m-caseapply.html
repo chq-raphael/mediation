@@ -11,75 +11,63 @@
     <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
 </head>
 <body>
-<!--顶部标题-->
-<div class="content_box">
-    <div id="head">
-        <a href="#" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
-        <p class="head_title">调解申请</p>
+<div class="big_box">
+    <!--顶部标题-->
+    <div class="content_box">
+        <div id="head">
+            <a href="#" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
+            <p class="head_title">调解申请</p>
+        </div>
+        <div id="caseapply_box">
+            <!--纠纷事项-->
+            <div class="ca_case">
+                <div class="user">
+                    <p class="float_left">原告：<span class="ca_ygName">{{case_detail.userName}}</span></p>
+                    <p class="float_left">手机号码：<span class="ca_ygTel">{{case_detail.userTel}}</span></p>
+                </div>
+                <div class="dsr" v-for="dsr in dsrs">
+                    <p class="float_left">被告：<span class="ca_bgName">{{dsr.dsrName }}</span></p>
+                    <p class="float_left">手机号码：<span class="ca_bgTel">{{dsr.dsrTel}}</span></p>
+                </div>
+                <div class="jfcontent">纠纷事项：
+                    <span class="ca_jfcase">{{case_detail.details}}</span>
+                </div>
+            </div>
+            <!--申请相关-->
+            <div class="ca_other">
+                <p>申请人：<span>{{case_detail.userName}}</span></p>
+                <p>申请时间：<span>{{case_detail.create_date}}</span></p>
+                <p>申请来源：<span>{{case_detail.from_where}}</span></p>
+            </div>
+            <!--是否受理-->
+            <div class="ca_apply">
+                <div class="ca_apply_accept" @click="showModal(1)">确认受理</div>
+                <div class="ca_apply_refuse" @click="showModal(2)">拒绝申请</div>
+            </div>
+        </div>
+
     </div>
-    <div id="caseapply_box">
-        <!--纠纷事项-->
-        <div class="ca_case">
-            <div class="user">
-                <p class="float_left">原告：<span class="ca_ygName">{{case_detail.userName}}</span></p>
-                <p class="float_left">手机号码：<span class="ca_ygTel">{{case_detail.userTel}}</span></p>
-            </div>
-            <div class="dsr" v-for="dsr in dsrs">
-                <p class="float_left">被告：<span class="ca_bgName">{{dsr.dsrName }}</span></p>
-                <p class="float_left">手机号码：<span class="ca_bgTel">{{dsr.dsrTel}}</span></p>
-            </div>
-            <div class="jfcontent">纠纷事项：
-                <span class="ca_jfcase">{{case_detail.details}}</span>
-            </div>
+    <!--弹出模态框-->
+    <div class="modal_box" v-show="modalShow == 1 || modalShow == 2">
+        <!--接受调解-->
+        <div class="modal_content" v-show="modalShow == 1">你已确认受理了本次纠纷案件的调解申请，请及时联系当事人，说明调解相关的事项，约定调解时间的地点。<br />
+            在调解期间，请做好调解日志。
         </div>
-        <!--申请相关-->
-        <div class="ca_other">
-            <p>申请人：<span>{{case_detail.userName}}</span></p>
-            <p>申请时间：<span>{{case_detail.create_date}}</span></p>
-            <p>申请来源：<span>{{case_detail.from_where}}</span></p>
-        </div>
-        <!--是否受理-->
-        <div class="ca_apply">
-            <div class="ca_apply_accept" @click="caseAccept">确认受理</div>
-            <div class="ca_apply_refuse" @click="caseRefuse">拒绝申请</div>
+        <!--拒绝调解-->
+        <div class="modal_content"  v-show="modalShow == 2">
+            <p class="prompt">请选择拒绝理由</p>
+            <form action="#" method="get" id="refuseReason">
+                <p><label><input type="checkbox" name="refuseReason" />不是我擅长的领域</label></p>
+                <p><label><input type="checkbox" name="refuseReason" />最近因事外出，无法参与调解</label></p>
+                <p><label><input type="checkbox" name="refuseReason" />不与当事人有关系，需要回避</label></p>
+                <p><label><input type="checkbox" name="refuseReason" />其他原因</label></p>
+                <p><textarea  name="otherReason" rows="5" cols="30"  placeholder="请在此处填写你拒绝本次纠纷调解的详细原因" ></textarea></p>
+                <p><input type="button" value="提交" class="refuse_tijiao"></p>
+            </form>
         </div>
     </div>
 
 </div>
-<!--弹出模态框-->
-
-<div class="modal_box">
-    <!--接受调解-->
-    <div class="modal_content">你已确认受理了本次纠纷案件的调解申请，请及时联系当事人，说明调解相关的事项，约定调解时间的地点。<br />
-        在调解期间，请做好调解日志。
-    </div>
-    <!--拒绝调解-->
-    <div class="modal_content">
-        <p class="prompt">请选择拒绝理由</p>
-        <form action="#" method="get" id="refuseReason">
-            <p><label><input type="checkbox" name="refuseReason" />不是我擅长的领域</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />最近因事外出，无法参与调解</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />不与当事人有关系，需要回避</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />其他原因</label></p>
-            <p><textarea  name="otherReason" rows="5" cols="30"  placeholder="请在此处填写你拒绝本次纠纷调解的详细原因" ></textarea></p>
-            <p><input type="button" value="提交" class="refuse_tijiao"></p>
-        </form>
-    </div>
-</div>
-
-<!--<div class="modal_box">
-    <div class="modal_content">
-        <p class="prompt">请选择拒绝理由</p>
-        <form action="#" method="get" id="refuseReason">
-            <p><label><input type="checkbox" name="refuseReason" />不是我擅长的领域</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />最近因事外出，无法参与调解</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />不与当事人有关系，需要回避</label></p>
-            <p><label><input type="checkbox" name="refuseReason" />其他原因</label></p>
-            <p><textarea  name="otherReason" rows="5" cols="30"  placeholder="请在此处填写你拒绝本次纠纷调解的详细原因" ></textarea></p>
-            <p><input type="button" value="提交" class="refuse_tijiao"></p>
-        </form>
-    </div>
-</div>-->
 
 <script>
     //确认受理弹出模态框
@@ -97,12 +85,12 @@
 //            $('.modal_box').css('visibility','hidden')
 //        }
 //    });
-    new Vue({
-        el:'#caseapply_box',
+ var app1 =  new Vue({
+        el:'.big_box',
         data:{
             case_detail:{},
             dsrs:{},
-            modelShow:''
+            modalShow:''
         },
         mounted:function () {
             //获取URL参数，即 当前案件调解状态
@@ -118,9 +106,6 @@
                 success:function (result) {
                     _that.case_detail = result;
                     _that.dsrs = result.dsrs;
-
-                    console.log(_that.case_detail);
-                    console.log(result.dsrs);
                 },
                 error:function (err) {
                     console.log(err);
@@ -128,14 +113,10 @@
             })
         },
         methods:{
-            caseAccept:function () {
-                $('.modal_box').css('visibility','visible');
-                $('.modal_content').eq(0).css('visibility','visible');
-            },
-            caseRefuse:function () {
-                $('.modal_box').css('visibility','visible');
-                $('.modal_content').eq(1).css('visibility','visible');
+            showModal:function (i) {
+                this.modelShow = i;
             }
+
         }
     })
 </script>

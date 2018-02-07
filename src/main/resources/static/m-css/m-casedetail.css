@@ -102,9 +102,6 @@ body::-webkit-scrollbar {
   border-left: 3px solid #14c177;
   border-bottom: 3px solid #14c177;
 }
-/*#content_box{
-  position: relative;
-  z-index:1;*/
 #casedetail_box .ca_case,
 #casedetail_box .ca_other {
   padding: 1rem;
@@ -114,39 +111,62 @@ body::-webkit-scrollbar {
   font-size: 1.3rem;
   color: #808080;
 }
-#casedetail_box .ca_case p,
-#casedetail_box .ca_other p {
-  margin: .5rem 0;
+#casedetail_box .ca_case .user,
+#casedetail_box .ca_other .user,
+#casedetail_box .ca_case .dsr,
+#casedetail_box .ca_other .dsr {
+  content: '';
+  clear: both;
+  display: block;
+}
+#casedetail_box .ca_case .user p,
+#casedetail_box .ca_other .user p,
+#casedetail_box .ca_case .dsr p,
+#casedetail_box .ca_other .dsr p {
+  width: 50%;
+  margin: .2rem 0;
   line-height: 2rem;
 }
-#casedetail_box .ca_case p span,
-#casedetail_box .ca_other p span {
+#casedetail_box .ca_case .user p span,
+#casedetail_box .ca_other .user p span,
+#casedetail_box .ca_case .dsr p span,
+#casedetail_box .ca_other .dsr p span {
   color: #333;
 }
-#casedetail_box .ca_case p:not(:last-child) {
-  width: 50%;
+#casedetail_box .ca_case .jfcontent,
+#casedetail_box .ca_other .jfcontent {
+  width: 100%;
+  margin: .2rem 0;
+  line-height: 2rem;
+}
+#casedetail_box .ca_case .jfcontent span,
+#casedetail_box .ca_other .jfcontent span {
+  color: #333;
+}
+#casedetail_box .ca_other p {
+  margin: .2rem 0;
+  line-height: 2rem;
+}
+#casedetail_box .ca_other p span {
+  color: #333;
 }
 #casedetail_box .ca_detail {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
-}
-#casedetail_box .ca_detail a {
-  display: flex;
   flex: 1;
-  justify-content: center;
 }
-#casedetail_box .ca_detail a .ca_detail_diary,
-#casedetail_box .ca_detail a .ca_detail_result {
+#casedetail_box .ca_detail .ca_detail_diary,
+#casedetail_box .ca_detail .ca_detail_result {
   margin: 2rem;
   padding: .7rem 3rem;
   font-size: 1.4rem;
   color: #fff;
   border-radius: 1rem;
 }
-#casedetail_box .ca_detail a .ca_detail_diary {
+#casedetail_box .ca_detail .ca_detail_diary {
   background-color: #ccc;
 }
-#casedetail_box .ca_detail a .ca_detail_result {
+#casedetail_box .ca_detail .ca_detail_result {
   background-color: #60c89b;
 }

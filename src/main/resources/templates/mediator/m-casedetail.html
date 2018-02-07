@@ -19,13 +19,17 @@
 <div id="casedetail_box">
     <!--纠纷事项-->
     <div class="ca_case">
-        <p class="float_left">原告：<span class="ca_ygName">{{case_detail.userName}}</span></p>
-        <p class="float_left">手机号码：<span class="ca_ygTel">{{case_detail.userTel}}</span></p>
-        <p class="float_left">被告：<span class="ca_bgName">李四</span></p>
-        <p class="float_left">手机号码：<span class="ca_bgTel">111111111111</span></p>
-        <p>纠纷事项：
+        <div class="user">
+            <p class="float_left">原告：<span class="ca_ygName">{{case_detail.userName}}</span></p>
+            <p class="float_left">手机号码：<span class="ca_ygTel">{{case_detail.userTel}}</span></p>
+        </div>
+        <div class="dsr" v-for="dsr in dsrs">
+            <p class="float_left">被告：<span class="ca_bgName">{{dsr.dsrName }}</span></p>
+            <p class="float_left">手机号码：<span class="ca_bgTel">{{dsr.dsrTel}}</span></p>
+        </div>
+        <div class="jfcontent">纠纷事项：
             <span class="ca_jfcase">{{case_detail.details}}</span>
-        </p>
+        </div>
     </div>
     <!--申请相关-->
     <div class="ca_other">
@@ -36,18 +40,19 @@
     </div>
     <!--调解结果-->
     <div class="ca_detail">
-        <a href="m-casediary.html"><div class="ca_detail_diary">调解日志</div></a>
-        <a href="m-caseresult.html"><div class="ca_detail_result">调解结果</div></a>
+        <div class="ca_detail_diary" @click="toPage(0)">调解日志</div>
+        <div class="ca_detail_result" @click="toPage(1)">调解结果</div>
     </div>
 </div>
 <script>
     new Vue({
         el:'#casedetail_box',
         data:{
-            case_detail:{}
+            case_detail:{},
+            dsrs:{}
         },
         mounted:function () {
-            //获取URL参数，即 当前案件调解状态
+            //获取URL参数，即 当前按键id
             var location = window.location.href;
             var href= location+"";
             var href_part=href.split('?');
@@ -59,6 +64,7 @@
                 datatype:'json',
                 success:function (result) {
                     _that.case_detail = result;
+                    _that.dsrs = result.dsrs;
                     console.log(_that.case_detail);
                 },
                 error:function (err) {
@@ -67,7 +73,15 @@
             })
         },
         methods:{
-
+            toPage:function (i) {
+               var case_id = this.case_detail.case_Id;
+               console.log(case_id);
+               if(i == 0){
+                   window.location.href = '/mediator/to_diary?'+case_id;
+               }else{
+                    window.location.href = '/mediator/to_result?'+case_id;
+                }
+            }
         }
     })
 </script>

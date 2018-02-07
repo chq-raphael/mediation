@@ -11,6 +11,7 @@
     <script type="text/javascript" th:src="@{/chqjs/vue.min.js}"></script>
 </head>
 <body>
+<div class="big_box">
     <div class="content_box">
         <div id="head">
             <a href="#" class="return_img float_left"><img src="/m-image/icon-fanhui.png" alt=""></a>
@@ -18,45 +19,97 @@
         </div>
         <div id="casediary_box">
             <!--日志列表-->
-            <ul class="cdiaryList">
+            <ul class="cdiaryList" v-for="diary in diaryList">
                 <li class="cdiary">
-                    <p class="cdiary_time">2017-12-12</p>
-                    <p class="cdiary_content">今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，
-                        今天去见了当事人，
-                    </p>
-                </li>
-                <li class="cdiary">
-                    <p class="cdiary_time">2017-12-12</p>
-                    <p class="cdiary_content">今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，今天去见了当事人，
-                        今天去见了当事人，
-                    </p>
+                    <p class="cdiary_time">{{diary.log_date}}</p>
+                    <p class="cdiary_content">{{diary.log_detail}}</p>
                 </li>
             </ul>
-            <div class="add_diary"><img src="/m-image/icon-tianjia.png" alt=""> <span>添加日志</span></div>
+            <div class="add_diary" @click="addmenu"><img src="/m-image/icon-tianjia.png"> <span>添加日志</span></div>
         </div>
     </div>
     <!--添加日志弹出框-->
-    <div class="modal_box">
+    <div class="modal_box" v-show="showModal">
         <div class="modal_content">
             <p class="prompt">添加日志</p>
-            <p class="choice_time"><input type="text" placeholder="选择日期" class="jcDateIco"></p>
-            <p><textarea name="diary_content" class="diary_content" rows="5" placeholder="填写日志内容"></textarea></p>
-            <p><input type="button" value="提交" class="diary_tijiao"></p>
+            <p class="choice_time"><input type="text"class="jcDateIco" v-model="CaseLog.log_date" placeholder="选择日期" ></p>
+            <p><textarea name="diary_content" class="diary_content" v-model="CaseLog.log_detail" rows="5" placeholder="填写日志内容"></textarea></p>
+            <p class="diary_tijiao" @click="addDiary">提交</p>
         </div>
     </div>
 
+</div>
+
     <script>
-        //确认受理弹出模态框
-        $('.add_diary').on('click',function(){
-            $('.modal_box').eq(0).css('visibility','visible');
-        });
-        //点击空白部分退出模态框
-        $('.modal_box').on('click',function(e){
-            var modalContent=$('.modal_content');//目标对象
-            if(!modalContent.is(e.target) && modalContent.has(e.target).length === 0  ){//判断当前事件不是有目标对象及其子元素触发
-                $('.modal_box').css('visibility','hidden')
+//        //确认受理弹出模态框
+//        $('.add_diary').on('click',function(){
+//            $('.modal_box').eq(0).css('visibility','visible');
+//        });
+//        //点击空白部分退出模态框
+//        $('.modal_box').on('click',function(e){
+//            var modalContent=$('.modal_content');//目标对象
+//            if(!modalContent.is(e.target) && modalContent.has(e.target).length === 0  ){//判断当前事件不是有目标对象及其子元素触发
+//                $('.modal_box').css('visibility','hidden');
+//            }
+//        });
+        
+        new Vue({
+            el:'.big_box',
+            data:{
+                case_id:'',
+                diaryList:{},
+                showModal:false,
+                CaseLog:{
+                    'log_date':'',
+                    'log_detail':''
+                }
+            },
+            mounted:function () {
+                //获取URL参数，即 当前按键id
+                var location = window.location.href;
+                var href= location+"";
+                var href_part=href.split('?');
+               this.case_id=(href_part[1])*1;
+                var _that = this;
+                $.ajax({
+                    url:'/mediator/showDiary?case_id='+_that.case_id,
+                    type:'get',
+                    success:function (result) {
+                        _that.diaryList = result;
+                        console.log(_that.diaryList);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
+            },
+            methods:{
+                addmenu:function () {
+                    this.showModal = true;
+                },
+                addDiary:function () {
+                    this.CaseLog.case_id = this.case_id;
+                    var _that = this;
+                    if(this.CaseLog.log_date != '' &&  this.CaseLog.log_detail != ''){
+                        $.ajax({
+                            url:'/mediator/addDiary',
+                            type:'get',
+                            data:_that.CaseLog,
+                            success:function (result) {
+                                console.log(result);
+                                _that.showModal = false;
+                            },
+                            error:function (err) {
+                                console.log(err);
+                            }
+                        })
+                    }else{
+                        return false;
+                    }
+
+                }
             }
-        });
+        })
     </script>
 
 </body>

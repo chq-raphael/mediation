@@ -1,39 +1,51 @@
 @import "common";
-/*#content_box{
-  position: relative;
-  z-index:1;*/
-body *{
-
-}
   #casedetail_box {
-    .ca_case, .ca_other {
-      padding: 1rem;
-      margin: 1rem;
-      background-color: #fff;
+    .ca_case,.ca_other{
+      padding:1rem;
+      margin:1rem;
+      background-color:#fff;
       border-radius: .5rem;
-      font-size: 1.3rem;
-      color: #808080;
-      p {
-        margin: .5rem 0;
-        line-height: 2rem;
-        span {
-          color: #333;
+      font-size:1.3rem;
+      color:#808080;
+      .user,.dsr{
+        p{
+          width:50%;
+          margin:.2rem 0;
+          line-height:2rem;
+          span{
+            color:#333;
+          }
+        }
+        &{
+          content:'';
+          clear:both;
+          display:block;
+        }
+      }
+      .jfcontent{
+        width:100%;
+        margin:.2rem 0;
+        line-height:2rem;
+        span{
+          color:#333;
         }
       }
     }
-    .ca_case {
-      p:not(:last-child) {
-        width: 50%;
+    .ca_other{
+      p{
+        margin:.2rem 0;
+        line-height:2rem;
+        span{
+          color: #333;
+        }
       }
+
     }
     .ca_detail{
       display: flex;
       justify-content: center;
       margin-top:5rem;
-      a{
-        display: flex;
         flex:1;
-        justify-content: center;
         .ca_detail_diary,.ca_detail_result{
           margin:2rem;
           padding:.7rem 3rem;
@@ -47,7 +59,5 @@ body *{
         .ca_detail_result{
           background-color:#60c89b;
         }
-      }
     }
   }
-//}
