@@ -42,4 +42,14 @@ public class CaseLog {
     public void setLog_detail(String log_detail) {
         this.log_detail = log_detail;
     }
+
+    @Override
+    public String toString() {
+        return "CaseLog{" +
+                "log_id=" + log_id +
+                ", log_case_id=" + log_case_id +
+                ", log_date=" + log_date +
+                ", log_detail='" + log_detail + '\'' +
+                '}';
+    }
 }

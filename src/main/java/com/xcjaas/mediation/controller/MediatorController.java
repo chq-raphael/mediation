@@ -7,7 +7,6 @@ import com.xcjaas.mediation.entity.encapsulation.CaseDetailResult;
 import com.xcjaas.mediation.entity.encapsulation.MediatorsResult;
 import com.xcjaas.mediation.service.CaseService;
 import com.xcjaas.mediation.service.MediatorService;
-import com.xcjaas.mediation.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,7 +77,8 @@ public class MediatorController {
     @RequestMapping(value = "/addDiary", method = RequestMethod.GET)
     @ResponseBody
     public int addLog(CaseLog caseLog) {
-        caseLog.setLog_date(DateUtil.getDate());
+//        caseLog.setLog_date(DateUtil.getDate());
+        System.out.println(caseLog);
         caseService.addLog(caseLog);
         //根据返回的log_id再执行查询语句，如果有数据，返回1表示成功，否则返回0
         if (caseService.selectLogById(caseLog.getLog_id()).getLog_case_id() != 0 && caseService.selectLogById(caseLog.getLog_id()).getLog_detail() != null) {
