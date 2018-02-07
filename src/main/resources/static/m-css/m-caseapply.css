@@ -102,15 +102,18 @@ body::-webkit-scrollbar {
   border-left: 3px solid #14c177;
   border-bottom: 3px solid #14c177;
 }
-.content_box {
+.big_box {
+  /*弹出模态框*/
+}
+.big_box .content_box {
   position: relative;
   z-index: 1;
 }
-.content_box #caseapply_box {
+.big_box .content_box #caseapply_box {
   /*是否受理*/
 }
-.content_box #caseapply_box .ca_case,
-.content_box #caseapply_box .ca_other {
+.big_box .content_box #caseapply_box .ca_case,
+.big_box .content_box #caseapply_box .ca_other {
   padding: 1rem;
   margin: 1rem;
   background-color: #fff;
@@ -118,52 +121,52 @@ body::-webkit-scrollbar {
   font-size: 1.3rem;
   color: #808080;
 }
-.content_box #caseapply_box .ca_case .user,
-.content_box #caseapply_box .ca_other .user,
-.content_box #caseapply_box .ca_case .dsr,
-.content_box #caseapply_box .ca_other .dsr {
+.big_box .content_box #caseapply_box .ca_case .user,
+.big_box .content_box #caseapply_box .ca_other .user,
+.big_box .content_box #caseapply_box .ca_case .dsr,
+.big_box .content_box #caseapply_box .ca_other .dsr {
   content: '';
   clear: both;
   display: block;
 }
-.content_box #caseapply_box .ca_case .user p,
-.content_box #caseapply_box .ca_other .user p,
-.content_box #caseapply_box .ca_case .dsr p,
-.content_box #caseapply_box .ca_other .dsr p {
+.big_box .content_box #caseapply_box .ca_case .user p,
+.big_box .content_box #caseapply_box .ca_other .user p,
+.big_box .content_box #caseapply_box .ca_case .dsr p,
+.big_box .content_box #caseapply_box .ca_other .dsr p {
   width: 50%;
   margin: .2rem 0;
   line-height: 2rem;
 }
-.content_box #caseapply_box .ca_case .user p span,
-.content_box #caseapply_box .ca_other .user p span,
-.content_box #caseapply_box .ca_case .dsr p span,
-.content_box #caseapply_box .ca_other .dsr p span {
+.big_box .content_box #caseapply_box .ca_case .user p span,
+.big_box .content_box #caseapply_box .ca_other .user p span,
+.big_box .content_box #caseapply_box .ca_case .dsr p span,
+.big_box .content_box #caseapply_box .ca_other .dsr p span {
   color: #333;
 }
-.content_box #caseapply_box .ca_case .jfcontent,
-.content_box #caseapply_box .ca_other .jfcontent {
+.big_box .content_box #caseapply_box .ca_case .jfcontent,
+.big_box .content_box #caseapply_box .ca_other .jfcontent {
   width: 100%;
   margin: .2rem 0;
   line-height: 2rem;
 }
-.content_box #caseapply_box .ca_case .jfcontent span,
-.content_box #caseapply_box .ca_other .jfcontent span {
+.big_box .content_box #caseapply_box .ca_case .jfcontent span,
+.big_box .content_box #caseapply_box .ca_other .jfcontent span {
   color: #333;
 }
-.content_box #caseapply_box .ca_other p {
+.big_box .content_box #caseapply_box .ca_other p {
   margin: .2rem 0;
   line-height: 2rem;
 }
-.content_box #caseapply_box .ca_other p span {
+.big_box .content_box #caseapply_box .ca_other p span {
   color: #333;
 }
-.content_box #caseapply_box .ca_apply {
+.big_box .content_box #caseapply_box .ca_apply {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
-.content_box #caseapply_box .ca_apply .ca_apply_accept,
-.content_box #caseapply_box .ca_apply .ca_apply_refuse {
+.big_box .content_box #caseapply_box .ca_apply .ca_apply_accept,
+.big_box .content_box #caseapply_box .ca_apply .ca_apply_refuse {
   display: flex;
   flex: 1;
   justify-content: center;
@@ -174,14 +177,13 @@ body::-webkit-scrollbar {
   letter-spacing: .5rem;
   border-radius: 1rem;
 }
-.content_box #caseapply_box .ca_apply .ca_apply_accept {
+.big_box .content_box #caseapply_box .ca_apply .ca_apply_accept {
   background-color: #60c89b;
 }
-.content_box #caseapply_box .ca_apply .ca_apply_refuse {
+.big_box .content_box #caseapply_box .ca_apply .ca_apply_refuse {
   background-color: #ccc;
 }
-/*弹出模态框*/
-.modal_box {
+.big_box .modal_box {
   position: fixed;
   left: 0;
   top: 0;
@@ -194,7 +196,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
 }
-.modal_box .modal_content {
+.big_box .modal_box .modal_content {
   font-size: 1.3rem;
   color: #333;
   width: 80%;
@@ -205,24 +207,24 @@ body::-webkit-scrollbar {
   position: absolute;
   /*拒绝原因表单*/
 }
-.modal_box .modal_content .prompt {
+.big_box .modal_box .modal_content .prompt {
   text-align: center;
   font-weight: bold;
   margin-bottom: 1rem;
 }
-.modal_box .modal_content #refuseReason {
+.big_box .modal_box .modal_content #refuseReason {
   color: #808080;
   line-height: 2rem;
 }
-.modal_box .modal_content #refuseReason p input:focus {
+.big_box .modal_box .modal_content #refuseReason p input:focus {
   outline: none;
 }
-.modal_box .modal_content #refuseReason p input[type=checkbox] {
+.big_box .modal_box .modal_content #refuseReason p input[type=checkbox] {
   width: 1rem;
   height: 1rem;
   margin-right: .5rem;
 }
-.modal_box .modal_content #refuseReason p textarea {
+.big_box .modal_box .modal_content #refuseReason p textarea {
   width: 100%;
   font-size: 1.3rem;
   line-height: 1.6rem;
@@ -232,7 +234,7 @@ body::-webkit-scrollbar {
   outline: none;
   resize: none;
 }
-.modal_box .modal_content #refuseReason p .refuse_tijiao {
+.big_box .modal_box .modal_content #refuseReason p .refuse_tijiao {
   background-color: #14c177;
   font-size: 1.4rem;
   color: #fff;
@@ -241,7 +243,7 @@ body::-webkit-scrollbar {
   text-align: center;
   border: none;
 }
-.modal_box .modal_content #refuseReason p:last-child {
+.big_box .modal_box .modal_content #refuseReason p:last-child {
   text-align: center;
   margin-top: 1rem;
 }

@@ -210,13 +210,13 @@ body::-webkit-scrollbar {
 }
 #cresult_box .result_state .result_state1 .checkbox:checked + .labelbox:after {
   content: '';
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 50%;
   background-color: #60c89b;
   position: absolute;
-  top: .2rem;
-  left: .2rem;
+  top: .1rem;
+  left: .1rem;
 }
 #cresult_box .result_state .result_state1 .labelInfo {
   padding-left: 2rem;
