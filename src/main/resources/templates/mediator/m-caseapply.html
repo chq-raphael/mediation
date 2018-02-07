@@ -48,13 +48,13 @@
 
     </div>
     <!--弹出模态框-->
-    <div class="modal_box" v-show="modalShow == 1 || modalShow == 2">
+    <div class="modal_box" v-show="modalShow != '0'">
         <!--接受调解-->
-        <div class="modal_content" v-show="modalShow == 1">你已确认受理了本次纠纷案件的调解申请，请及时联系当事人，说明调解相关的事项，约定调解时间的地点。<br />
+        <div class="modal_content" v-show="modalShow == '1'">你已确认受理了本次纠纷案件的调解申请，请及时联系当事人，说明调解相关的事项，约定调解时间的地点。<br />
             在调解期间，请做好调解日志。
         </div>
         <!--拒绝调解-->
-        <div class="modal_content"  v-show="modalShow == 2">
+        <div class="modal_content"  v-show="modalShow == '2'">
             <p class="prompt">请选择拒绝理由</p>
             <form action="#" method="get" id="refuseReason">
                 <p><label><input type="checkbox" name="refuseReason" />不是我擅长的领域</label></p>
@@ -90,7 +90,7 @@
         data:{
             case_detail:{},
             dsrs:{},
-            modalShow:''
+            modalShow:0
         },
         mounted:function () {
             //获取URL参数，即 当前案件调解状态

@@ -32,8 +32,8 @@
     <div class="modal_box" v-show="showModal">
         <div class="modal_content">
             <p class="prompt">添加日志</p>
-            <p class="choice_time"><input type="text"class="jcDateIco" v-model="CaseLog.log_date" placeholder="选择日期" ></p>
-            <p><textarea name="diary_content" class="diary_content" v-model="CaseLog.log_detail" rows="5" placeholder="填写日志内容"></textarea></p>
+            <p class="choice_time"><input type="text"class="jcDateIco" v-model="caseLog.log_date" placeholder="选择日期" ></p>
+            <p><textarea name="diary_content" class="diary_content" v-model="caseLog.log_detail" rows="5" placeholder="填写日志内容"></textarea></p>
             <p class="diary_tijiao" @click="addDiary">提交</p>
         </div>
     </div>
@@ -59,7 +59,7 @@
                 case_id:'',
                 diaryList:{},
                 showModal:false,
-                CaseLog:{
+                caseLog:{
                     'log_date':'',
                     'log_detail':''
                 }
@@ -88,15 +88,16 @@
                     this.showModal = true;
                 },
                 addDiary:function () {
-                    this.CaseLog.case_id = this.case_id;
+                    this.caseLog.log_case_id = this.case_id;
                     var _that = this;
-                    if(this.CaseLog.log_date != '' &&  this.CaseLog.log_detail != ''){
+                    if(this.caseLog.log_date != '' &&  this.caseLog.log_detail != ''){
                         $.ajax({
                             url:'/mediator/addDiary',
                             type:'get',
-                            data:_that.CaseLog,
+                            data:_that.caseLog,
                             success:function (result) {
                                 console.log(result);
+                                console.log(_that.caseLog);
                                 _that.showModal = false;
                             },
                             error:function (err) {
