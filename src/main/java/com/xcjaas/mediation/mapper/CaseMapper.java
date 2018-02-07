@@ -38,4 +38,7 @@ public interface CaseMapper {
 
     //根据caseId查找日志
     CaseLog selectLogById(int logId);
+
+    //调解员填写调解结果
+
 }
